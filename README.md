@@ -29,6 +29,6 @@ Recommended solutions for typical tasks in PHP projects
 * [HTML5](https://smarly.net/html5)
 
 ## Tutorials
-## EN
+### EN
 * [Learn Vue2 Step-by-Step](https://laracasts.com/series/learn-vue-2-step-by-step/)
 * [Let's build a forum with Laravel & TDD](https://laracasts.com/series/lets-build-a-forum-with-laravel)
