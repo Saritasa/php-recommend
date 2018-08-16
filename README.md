@@ -17,6 +17,7 @@ Recommended solutions for typical tasks in PHP projects
 ## Frontend
 * [VueJS](https://vuejs.org/) - Easy to learn JS framework for SPA applications. Plays well with Laravel.
 * [Vuetify](https://vuetifyjs.com) - Material design components for VueJS
+* [VueWordCloud](https://github.com/SeregPie/VueWordCloud) - Display interactive tags cloud ([demo](https://seregpie.github.io/VueWordCloud/))
 
 ## Web Sites
 ### EN
