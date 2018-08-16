@@ -14,6 +14,9 @@ Recommended solutions for typical tasks in PHP projects
 * [saritasa/eloquent-custom](https://github.com/Saritasa/php-eloquent-custom) - Power-ups for Eloquent
 * [saritasa/dingo-api-custom](https://github.com/Saritasa/php-dingo-api-custom) - helper to use [Dingo/API](https://github.com/dingo/api) library
 
+## Frontend
+* [VueJS](https://vuejs.org/) - Easy to learn JS framework for SPA applications. Plays well with Laravel.
+* [Vuetify](https://vuetifyjs.com) - Material design components for VueJS
 
 ## Web Sites
 ### EN
