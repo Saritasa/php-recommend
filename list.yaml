@@ -39,7 +39,7 @@ JavaScript:
       url: 'https://vuetifyjs.com'
       tags: ['VueJS', 'Material Design', 'Components']
     VueWorldCloud:
-      description: 'Display interactive tags cloud ([demo](https://seregpie.github.io/VueWordCloud/))
+      description: 'Display interactive tags cloud ([demo](https://seregpie.github.io/VueWordCloud/))'
       url: 'https://github.com/SeregPie/VueWordCloud'
       tags: ['VueJS', 'Components']
   tutorials:
