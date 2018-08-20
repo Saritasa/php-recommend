@@ -1,4 +1,4 @@
-php:
+PHP:
   packages:
     dingo/api:
       description: Smarter way to build APIs
@@ -28,7 +28,7 @@ php:
     'Lets build a forum with Laravel & TDD':
       url: 'https://laracasts.com/series/lets-build-a-forum-with-laravel'
       language: English
-javascript:
+JavaScript:
   packages:
     VueJS:
       description: Easy to learn JS framework for SPA applications. Plays well with Laravel.
