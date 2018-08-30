@@ -1,61 +1,35 @@
 <template>
-  <div id="app">
-    <wordcloud
-      :data="defaultWords"
-      nameKey="name"
-      valueKey="value">
-    </wordcloud>
+  <div class="page">
+    <div class="section title">
+      <h1>Saritasa recommended packages for PHP</h1>
+    </div>
+
+    <div class="section tag-cloud">
+      <tag-cloud></tag-cloud>
+    </div>
+
+    <div class="section search-form">
+      <input type="text" id="keyword" placeholder="Search keyword" vmodel="keyword">
+      <span class="label label-success selected-tag hidden">Tag 1<a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a></span>
+      <p></p>
+    </div>
+
+    <div class="section search-result">
+
+    </div>
   </div>
 </template>
 
 <script>
-import wordcloud from 'vue-wordcloud'
+import TagCloud from '@/components/tag-cloud/TagCloud.vue'
 
 export default {
-  name: 'app',
-  components: {
-    wordcloud
-  },
-  data() {
+  data () {
     return {
-      defaultWords: [{
-        "name": "Cat",
-        "value": 26
-      },
-        {
-          "name": "fish",
-          "value": 19
-        },
-        {
-          "name": "things",
-          "value": 18
-        },
-        {
-          "name": "look",
-          "value": 16
-        },
-        {
-          "name": "two",
-          "value": 15
-        },
-        {
-          "name": "fun",
-          "value": 9
-        },
-        {
-          "name": "know",
-          "value": 9
-        },
-        {
-          "name": "good",
-          "value": 9
-        },
-        {
-          "name": "play",
-          "value": 6
-        }
-      ]
     }
+  },
+  components: {
+    TagCloud
   }
 }
 </script>
