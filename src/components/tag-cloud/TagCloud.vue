@@ -2,9 +2,8 @@
   <div class='tag-cloud-wrapper'>
     <word-cloud
         :data='words()'
-        nameKey='name'
         :wordClick='wordClick'
-        valueKey='value'>
+        :rotate='rotation'>
     </word-cloud>
   </div>
 </template>
@@ -20,6 +19,7 @@ export default {
   },
   data () {
     return {
+      rotation: {from: 0, to: 0, numOfOrientation: 1},
       countedWords: this.getCountedWords()
     }
   },

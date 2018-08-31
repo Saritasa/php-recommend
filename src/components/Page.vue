@@ -14,14 +14,15 @@
       <p></p>
     </div>
 
-    <div class="section search-result">
-
+    <div class="section resource">
+      <resource-sections></resource-sections>
     </div>
   </div>
 </template>
 
 <script>
 import TagCloud from '@/components/tag-cloud/TagCloud.vue'
+import ResourceSections from '@/components/ResourceSections.vue'
 
 export default {
   data () {
@@ -29,7 +30,8 @@ export default {
     }
   },
   components: {
-    TagCloud
+    TagCloud,
+    ResourceSections
   }
 }
 </script>
