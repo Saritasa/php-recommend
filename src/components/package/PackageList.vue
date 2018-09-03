@@ -1,9 +1,9 @@
 <template>
   <div class="package-list">
     <package-item
-        v-bind:data="packages"
         v-for="(packageItem, index) in packages"
         :key="index"
+        :itemName="index"
         :item="packageItem"
     ></package-item>
   </div>
@@ -19,7 +19,7 @@ export default {
   props: ['packages'],
   data () {
     return {
-      packageItem: {link: '', text: '', description: '', explain: ''}
+      packageItem: {}
     }
   }
 }

@@ -1,5 +1,6 @@
 <template>
-  <div class='tag-cloud-wrapper'>
+  <div class='tag-cloud-wrapper' @mousemove="showTooltip">
+    <span id="tooltip-man"></span>
     <word-cloud
         :data='words()'
         :wordClick='wordClick'
@@ -44,7 +45,36 @@ export default {
         result.push({'name': key, 'value': parsedWords[key]})
       })
       return result
+    },
+    showTooltip (evt) {
+      let tooltipMan = document.getElementById('tooltip-man')
+      let child = evt.srcElement
+      if (evt.srcElement.tagName === 'text') {
+        let info = child.textContent
+        info = info + ': ' + this.countedWords[info]
+        tooltipMan.style.display = 'block'
+        tooltipMan.style.top = (evt.clientY + 5) + 'px'
+        tooltipMan.style.left = (evt.clientX + 1) + 'px'
+        tooltipMan.innerText = info
+      } else {
+        tooltipMan.style.display = 'none'
+      }
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#tooltip-man {
+  position: absolute;
+  border-radius: 4px;
+  padding: 2px 10px;
+  background-color: #3e3d3d;
+  color: #fff;
+  z-index: 10;
+  display: none;
+}
+.tag-cloud-wrapper {
+  cursor: default !important;
+}
+</style>
