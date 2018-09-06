@@ -5,18 +5,16 @@
     </div>
 
     <div class="section tag-cloud">
-      <tag-cloud></tag-cloud>
+      <tag-cloud ref="tagCloud"></tag-cloud>
     </div>
 
-    <div class="section search-form">
-      <input type="text" id="keyword" placeholder="Search keyword" vmodel="keyword">
-      <span class="label label-success selected-tag hidden">Tag 1<a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a></span>
-      <p></p>
+    <div class="section search-box">
+      <search-box ref="searchBox" :keywordChange="keywordChange"></search-box>
     </div>
 
     <div class="section resource">
       <resource-sections
-        v-for="(item, name) in this.yamlData"
+        v-for="(item, name) in this.filterResource"
         v-bind:key="name"
         :name="name"
         :resource="item"
@@ -28,18 +26,100 @@
 
 <script>
 import TagCloud from '@/components/tag-cloud/TagCloud.vue'
+import SearchBox from '@/components/search/SearchBox.vue'
 import ResourceSections from '@/components/ResourceSections.vue'
 import Yaml from 'yamljs'
+import _ from 'lodash'
 
 export default {
   components: {
     TagCloud,
+    SearchBox,
     ResourceSections
   },
   data () {
     return {
-      yamlData: Yaml.load('/static/list.yaml')
+      yamlData: Yaml.load('/static/list.yaml'),
+      filterResource: Yaml.load('/static/list.yaml')
     }
+  },
+  methods: {
+    keywordChange () {
+      console.log('dasda')
+    }
+  },
+  mounted () {
+    this.$watch(
+      '$refs.searchBox.skeyword',
+      (val) => {
+        // let result = _.clone(this.yamlData)
+        let result = Yaml.load('/static/list.yaml')
+        console.log(result)
+        let words = _.words([_.lowerCase(val)], /[-\w]+/g)
+        let cloudWords = this.$refs.tagCloud.countedWords
+        console.log(words)
+
+        // Filter words not in tag cloud
+        words = _.intersection(words, _.keys(cloudWords))
+        // console.log(words)
+        // console.log(result)
+
+        _.forEach(result, (sub, resourceKey) => {
+          console.log(resourceKey)
+          _.forEach(sub, (items, subKey) => {
+            console.log(subKey)
+            let matches = []
+            _.filter(items, (item, key) => {
+              if (_.intersection(words, _.words([_.lowerCase(key)], /[-\w]+/g)).length > 0) {
+                matches[key] = item
+                return true
+              }
+              _.forEach(item, (text, label) => {
+                console.log(label)
+                console.log(_.intersection(words, _.words([_.lowerCase(text)], /[-\w]+/g)).length)
+                if (_.intersection(words, _.words([_.lowerCase(text)], /[-\w]+/g)).length > 0) {
+                  matches[key] = item
+                  return true
+                }
+              })
+              return false
+              /**/
+            })
+            console.log('matches:\r\n')
+            console.log(matches)
+            sub[subKey] = matches
+            /*
+            for (let i = _.size(items) - 1; i >= 0; i--) {
+              console.log('aasdasd')
+              console.log(_.slice(items, i, 1))
+              let matched = false
+              let key = _.keys(_.nth(items, i))[0]
+              let item = items[i][key]
+              if (_.intersection(words, _.words([key.toLowerCase()], /[-\w]+/g)).length > 0) {
+                matched = true
+              }
+              _.forEach(item, (text, label) => {
+                if (_.intersection(words, _.words([text.toLowerCase()], /[-\w]+/g)).length > 0) {
+                  matched = true
+                }
+              })
+
+              if (!matched) {
+                items = _.slice(items, i, 1)
+              }
+              // return true
+              // console.log(item)
+              // console.log(_.intersection(words, _.split(item.toLowerCase(), ' ')).length)
+              // return _.intersection(words, _.split(item.toLowerCase(), ' ')).length === 0
+            }
+            */
+          })
+        })
+
+        this.filterResource = _.clone(result)
+        result = null
+      }
+    )
   }
 }
 </script>
