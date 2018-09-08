@@ -13,6 +13,7 @@
 import WordCloud from 'vue-wordcloud'
 import countWords from 'count-words'
 import Yaml from 'yamljs'
+import _ from 'lodash'
 
 export default {
   components: {
@@ -28,15 +29,21 @@ export default {
     wordClick (d, vm) {
       alert(this.countedWords[d] + ' data')
     },
+    getTags (obj) {
+      let tags = ''
+      _.forEach(obj, (val, key) => {
+        if (key === 'tags') {
+          tags += ' ' + _.join(val)
+        } else if (_.isObject(val)) {
+          tags += this.getTags(val)
+        }
+      })
+      return tags
+    },
     getCountedWords () {
       let yamlData = Yaml.load('/static/list.yaml')
-      let reservedWords = '"packages":|"websites":|"tutorials":|"description":|"explain":|"url":|"tags":' +
-        '|"language":|https:|http:'
-      reservedWords = new RegExp(reservedWords, 'gi')
-      let flatString = JSON.stringify(yamlData).toLowerCase()
-      flatString = flatString.replace(reservedWords, ' ')
-      flatString = flatString.replace(/[[\]}{)(/.:,"'0-9]/gi, ' ')
-      return countWords(flatString)
+
+      return countWords(this.getTags(yamlData))
     },
     words () {
       let parsedWords = this.getCountedWords()
