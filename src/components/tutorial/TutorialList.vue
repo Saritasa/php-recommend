@@ -23,8 +23,12 @@ export default {
   props: ['tutorials'],
   data () {
     return {
-      tutorialData: {},
       tutorialItem: {}
+    }
+  },
+  watch: {
+    tutorialData: function (val) {
+      return val
     }
   },
   computed: {
@@ -40,10 +44,10 @@ export default {
       })
 
       return _.groupBy(formatData, 'language')
+    },
+    tutorialData () {
+      return this.tutorials
     }
-  },
-  created () {
-    this.tutorialData = this.tutorials
   }
 }
 </script>

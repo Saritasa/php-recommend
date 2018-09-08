@@ -23,8 +23,12 @@ export default {
   props: ['websites'],
   data () {
     return {
-      websiteData: {},
       websiteItem: {}
+    }
+  },
+  watch: {
+    websiteData: function (val) {
+      return val
     }
   },
   computed: {
@@ -40,10 +44,10 @@ export default {
       })
 
       return _.groupBy(formatData, 'language')
+    },
+    websiteData () {
+      return this.websites
     }
-  },
-  created () {
-    this.websiteData = this.websites
   }
 }
 </script>
