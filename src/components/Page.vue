@@ -9,12 +9,12 @@
     </div>
 
     <div class="section search-box">
-      <search-box ref="searchBox" :keywordChange="keywordChange"></search-box>
+      <search-box ref="searchBox"></search-box>
     </div>
 
     <div class="section resource">
       <resource-sections
-        v-for="(item, name) in this.filterResource"
+        v-for="(item, name) in this.resources"
         v-bind:key="name"
         :name="name"
         :resource="item"
@@ -40,84 +40,110 @@ export default {
   data () {
     return {
       yamlData: Yaml.load('/static/list.yaml'),
-      filterResource: Yaml.load('/static/list.yaml')
+      resources: {}
     }
   },
   methods: {
-    keywordChange () {
-      console.log('dasda')
+    pureWords (phrase) {
+      if (_.isArray(phrase)) {
+        phrase = _.join(_.flattenDeep(phrase), ' ')
+      }
+      return _.words(phrase.toLowerCase(), /[-\w]+/g)
+    },
+    /**
+     * Split text to array of words and marks (, . @ / so on).
+     * E.x: The text "quick, brown @fox" will be split to ['quick', ',', ' ', 'brown', ' ', '@', 'fox']
+     *
+     * @param text
+     */
+    defragString (text) {
+      return text.split(/([^a-zA-Z])/g)
+    },
+    highlight (keywords, sentence) {
+      keywords = this.pureWords(keywords)
+
+      let sentenceWords = this.defragString(sentence)
+      _.forEach(sentenceWords, (val, key) => {
+        if (_.indexOf(keywords, val.toLowerCase()) !== -1) {
+          sentenceWords[key] = '<span class="highlighted-word">' + val + '</span>'
+        }
+      })
+
+      return _.join(sentenceWords, '')
     }
+  },
+  created () {
+    // Add 'url' to website item if it hasn't
+    _.forEach(this.yamlData, (val) => {
+      _.forEach(val['websites'], (item, key) => {
+        val['websites'][key]['url'] = item.url || key
+        if (!_.startsWith(val['websites'][key]['url'], 'http')) {
+          val['websites'][key]['url'] = 'http://' + val['websites'][key]['url']
+        }
+      })
+    })
+
+    this.resources = this.yamlData
   },
   mounted () {
     this.$watch(
-      '$refs.searchBox.skeyword',
+      '$refs.searchBox.keyword',
       (val) => {
-        // let result = _.clone(this.yamlData)
-        let result = Yaml.load('/static/list.yaml')
-        console.log(result)
-        let words = _.words([_.lowerCase(val)], /[-\w]+/g)
-        let cloudWords = this.$refs.tagCloud.countedWords
-        console.log(words)
+        val = _.trim(val)
+        let words = this.pureWords(val)
 
-        // Filter words not in tag cloud
-        words = _.intersection(words, _.keys(cloudWords))
-        // console.log(words)
-        // console.log(result)
+        if (val === '') {
+          this.resources = this.yamlData
+          return
+        }
 
-        _.forEach(result, (sub, resourceKey) => {
-          console.log(resourceKey)
-          _.forEach(sub, (items, subKey) => {
-            console.log(subKey)
-            let matches = []
-            _.filter(items, (item, key) => {
-              if (_.intersection(words, _.words([_.lowerCase(key)], /[-\w]+/g)).length > 0) {
-                matches[key] = item
-                return true
-              }
-              _.forEach(item, (text, label) => {
-                console.log(label)
-                console.log(_.intersection(words, _.words([_.lowerCase(text)], /[-\w]+/g)).length)
-                if (_.intersection(words, _.words([_.lowerCase(text)], /[-\w]+/g)).length > 0) {
-                  matches[key] = item
-                  return true
-                }
-              })
-              return false
-              /**/
-            })
-            console.log('matches:\r\n')
-            console.log(matches)
-            sub[subKey] = matches
-            /*
-            for (let i = _.size(items) - 1; i >= 0; i--) {
-              console.log('aasdasd')
-              console.log(_.slice(items, i, 1))
+        let filteredResources = {}
+        _.forEach(this.yamlData, (resource, resourceKey) => {
+          //
+          let filteredLists = {}
+          _.forEach(resource, (list, listKey) => {
+            // listKey = 'packages', 'websites'...
+            let filteredItems = {}
+            _.forEach(list, (item, itemKey) => {
+              //
               let matched = false
-              let key = _.keys(_.nth(items, i))[0]
-              let item = items[i][key]
-              if (_.intersection(words, _.words([key.toLowerCase()], /[-\w]+/g)).length > 0) {
+              let matchedItem = _.clone(item)
+              if (_.intersection(words, this.pureWords(itemKey)).length > 0) {
+                itemKey = this.highlight(words, itemKey)
                 matched = true
               }
               _.forEach(item, (text, label) => {
-                if (_.intersection(words, _.words([text.toLowerCase()], /[-\w]+/g)).length > 0) {
+                if (_.intersection(words, this.pureWords(text)).length > 0) {
+                  // Except 'explain' and 'url' because they aren't shown as text
+                  if (label !== 'explain' && label !== 'url' && label !== 'tags') {
+                    matchedItem[label] = this.highlight(words, text)
+                  } else {
+                    matchedItem[label] = text
+                  }
                   matched = true
                 }
               })
-
-              if (!matched) {
-                items = _.slice(items, i, 1)
+              if (matched === true) {
+                filteredItems[itemKey] = matchedItem
               }
-              // return true
-              // console.log(item)
-              // console.log(_.intersection(words, _.split(item.toLowerCase(), ' ')).length)
-              // return _.intersection(words, _.split(item.toLowerCase(), ' ')).length === 0
+            })
+            if (_.size(filteredItems) > 0) {
+              filteredLists[listKey] = filteredItems
             }
-            */
           })
+          if (_.size(filteredLists) > 0) {
+            filteredResources[resourceKey] = filteredLists
+          }
         })
 
-        this.filterResource = _.clone(result)
-        result = null
+        this.resources = ''
+        Object.keys(this.resources).forEach(function (prop) {
+          delete this.resources[prop]
+          this.resources[prop] = undefined
+        })
+
+        this.resources = filteredResources
+        return false
       }
     )
   }
@@ -166,6 +192,10 @@ export default {
       i {
         font-size: 20px !important;
       }
+    }
+    .highlighted-word {
+      color: #d87b25;
+      font-weight: bold;
     }
   }
 </style>
