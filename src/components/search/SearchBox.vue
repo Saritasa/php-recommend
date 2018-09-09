@@ -1,6 +1,6 @@
 <template>
   <div class="search-form-wrapper">
-    <input type="text" id="keyword" placeholder="Search keyword" v-model="keyword">
+    <input type="text" id="keyword" placeholder="Search keyword" @change="handleSearch" v-model="keyword">
     <span class="label label-success selected-tag hidden">Tag 1<a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a></span>
     <p></p>
   </div>
@@ -9,14 +9,22 @@
 <script>
 export default {
   props: {
-    keywordChange: {
+    keywordData: {
+      type: String
+    },
+    searchChange: {
       type: Function,
-      default: null
+      required: true
     }
   },
   data () {
     return {
-      keyword: ''
+      keyword: this.keywordData
+    }
+  },
+  methods: {
+    handleSearch (event) {
+      this.searchChange(event, this.keyword)
     }
   }
 }

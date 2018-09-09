@@ -9,7 +9,7 @@
     </div>
 
     <div class="section search-box">
-      <search-box ref="searchBox"></search-box>
+      <search-box ref="searchBox" :searchChange="searchChange"></search-box>
     </div>
 
     <div class="section resource">
@@ -70,6 +70,63 @@ export default {
       })
 
       return _.join(sentenceWords, '')
+    },
+    searchChange (event, keyword) {
+      let val = _.trim(keyword)
+      let words = this.pureWords(val)
+
+      if (val === '') {
+        this.resources = this.yamlData
+        return
+      }
+
+      let filteredResources = {}
+      _.forEach(this.yamlData, (resource, resourceKey) => {
+        //
+        let filteredLists = {}
+        _.forEach(resource, (list, listKey) => {
+          // listKey = 'packages', 'websites'...
+          let filteredItems = {}
+          _.forEach(list, (item, itemKey) => {
+            //
+            let matched = false
+            let matchedItem = _.clone(item)
+            if (_.intersection(words, this.pureWords(itemKey)).length > 0) {
+              itemKey = this.highlight(words, itemKey)
+              matched = true
+            }
+            _.forEach(item, (text, label) => {
+              if (_.intersection(words, this.pureWords(text)).length > 0) {
+                // Except 'explain' and 'url' because they aren't shown as text
+                if (label !== 'explain' && label !== 'url' && label !== 'tags') {
+                  matchedItem[label] = this.highlight(words, text)
+                } else {
+                  matchedItem[label] = text
+                }
+                matched = true
+              }
+            })
+            if (matched === true) {
+              filteredItems[itemKey] = matchedItem
+            }
+          })
+          if (_.size(filteredItems) > 0) {
+            filteredLists[listKey] = filteredItems
+          }
+        })
+        if (_.size(filteredLists) > 0) {
+          filteredResources[resourceKey] = filteredLists
+        }
+      })
+
+      this.resources = ''
+      Object.keys(this.resources).forEach(function (prop) {
+        delete this.resources[prop]
+        this.resources[prop] = undefined
+      })
+
+      this.resources = filteredResources
+      return false
     }
   },
   created () {
@@ -84,68 +141,6 @@ export default {
     })
 
     this.resources = this.yamlData
-  },
-  mounted () {
-    this.$watch(
-      '$refs.searchBox.keyword',
-      (val) => {
-        val = _.trim(val)
-        let words = this.pureWords(val)
-
-        if (val === '') {
-          this.resources = this.yamlData
-          return
-        }
-
-        let filteredResources = {}
-        _.forEach(this.yamlData, (resource, resourceKey) => {
-          //
-          let filteredLists = {}
-          _.forEach(resource, (list, listKey) => {
-            // listKey = 'packages', 'websites'...
-            let filteredItems = {}
-            _.forEach(list, (item, itemKey) => {
-              //
-              let matched = false
-              let matchedItem = _.clone(item)
-              if (_.intersection(words, this.pureWords(itemKey)).length > 0) {
-                itemKey = this.highlight(words, itemKey)
-                matched = true
-              }
-              _.forEach(item, (text, label) => {
-                if (_.intersection(words, this.pureWords(text)).length > 0) {
-                  // Except 'explain' and 'url' because they aren't shown as text
-                  if (label !== 'explain' && label !== 'url' && label !== 'tags') {
-                    matchedItem[label] = this.highlight(words, text)
-                  } else {
-                    matchedItem[label] = text
-                  }
-                  matched = true
-                }
-              })
-              if (matched === true) {
-                filteredItems[itemKey] = matchedItem
-              }
-            })
-            if (_.size(filteredItems) > 0) {
-              filteredLists[listKey] = filteredItems
-            }
-          })
-          if (_.size(filteredLists) > 0) {
-            filteredResources[resourceKey] = filteredLists
-          }
-        })
-
-        this.resources = ''
-        Object.keys(this.resources).forEach(function (prop) {
-          delete this.resources[prop]
-          this.resources[prop] = undefined
-        })
-
-        this.resources = filteredResources
-        return false
-      }
-    )
   }
 }
 </script>
