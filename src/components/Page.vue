@@ -8,7 +8,7 @@
       <tag-cloud ref="tagCloud" :onWordClick="onWordClick"></tag-cloud>
     </div>
     <div class="tag-breadcrumb">
-      <span class="label label-success selected-tag" v-bind:key="key" v-for="(selectedTag, key) in selectedTags">
+      <span class="selected-tag" v-bind:key="key" v-for="(selectedTag, key) in selectedTags">
         {{ selectedTag }}
       </span>
     </div>
@@ -53,11 +53,22 @@ export default {
       if (_.indexOf(this.selectedTags, clickedWord) === -1) {
         this.selectedTags.push(clickedWord)
       }
+      // this.$refs.tagCloud.wordClick(this.selectedTags)
     },
+    /**
+     * Get array of words in a phrase. Not include special chars.
+     * A word can be group of alphabets or group of digits.
+     *
+     * @param phrase A string
+     */
     pureWords (phrase) {
+      if (phrase === undefined) {
+        return phrase
+      }
       if (_.isArray(phrase)) {
         phrase = _.join(_.flattenDeep(phrase), ' ')
       }
+
       return _.words(phrase.toLowerCase(), /[-\w]+/g)
     },
     /**
@@ -86,8 +97,8 @@ export default {
       let words = this.pureWords(val)
 
       if (val === '') {
-        this.resources = this.yamlData
-        return
+        // this.resources = this.yamlData
+        // return
       }
 
       let filteredResources = {}
@@ -101,10 +112,28 @@ export default {
             //
             let matched = false
             let matchedItem = _.clone(item)
+
+            // 1. Filter by selected tags in cloud
+            let noTag = false
+            if (this.selectedTags.length > 0) {
+              _.forEach(this.selectedTags, (selectedTag) => {
+                if (_.indexOf(this.pureWords(item['tags']), selectedTag) === -1) {
+                  noTag = true
+                }
+              })
+            }
+            if (noTag === true) {
+              return
+            }
+
+            // 2. Filter by keywords
+            // 2.1 Check with article key. E.x: 'saritasa/common', 'dingo/api'
             if (_.intersection(words, this.pureWords(itemKey)).length > 0) {
               itemKey = this.highlight(words, itemKey)
               matched = true
             }
+
+            // 2.2 Check with article content
             _.forEach(item, (text, label) => {
               if (_.intersection(words, this.pureWords(text)).length > 0) {
                 // Except 'explain' and 'url' because they aren't shown as text
@@ -116,7 +145,7 @@ export default {
                 matched = true
               }
             })
-            if (matched === true) {
+            if (matched === true || words.length === 0) {
               filteredItems[itemKey] = matchedItem
             }
           })
