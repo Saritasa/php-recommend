@@ -1,13 +1,11 @@
 <template>
   <div class='tag-cloud-wrapper' @mousemove="showTooltip">
     <span id="tooltip-man"></span>
-    <div style="height: 400px">
-      <word-cloud
-        :data='words()'
-        :wordClick='onWordClick'
-        :rotate='rotation'>
-      </word-cloud>
-    </div>
+    <word-cloud
+      :data='words()'
+      :wordClick='onWordClick'
+      :rotate='rotation'>
+    </word-cloud>
   </div>
 </template>
 

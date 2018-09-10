@@ -7,11 +7,13 @@
     <div class="section tag-cloud">
       <tag-cloud ref="tagCloud" :onWordClick="onWordClick"></tag-cloud>
     </div>
-    <div class="tag-breadcrumb">
-      <span class="selected-tag" v-bind:key="key" v-for="(selectedTag, key) in selectedTags">
-        {{ selectedTag }}
+
+    <div class="section breadcrumb">
+      <span class="selected-tag" v-bind:key="index" v-for="(selectedTag, index) in selectedTags">
+        {{ selectedTag }}<span class="icon" @click="clearTag(index)"><v-icon small>close</v-icon></span>
       </span>
     </div>
+
     <div class="section search-box">
       <search-box ref="searchBox" :searchChange="searchChange"></search-box>
     </div>
@@ -166,6 +168,9 @@ export default {
 
       this.resources = filteredResources
       return false
+    },
+    clearTag (tagIndex) {
+      this.$delete(this.selectedTags, tagIndex)
     }
   },
   created () {
@@ -187,6 +192,38 @@ export default {
 <style lang="scss">
   .section.title {
     text-align: center;
+  }
+  .section.breadcrumb {
+    width: 50%;
+    margin: 0 auto;
+    padding: 10px;
+    .selected-tag {
+      position: relative;
+      margin-right: 12px;
+      padding: 4px 20px 4px 10px;
+      background-color: #27a927;
+      color: #fff;
+      line-height: 26px;
+      &:before {
+        content:"";
+        position: absolute;
+        top: 0;
+        left: 100%;
+        width: 0;
+        height: 0;
+        border-top: 13px solid transparent;
+        border-bottom: 13px solid transparent;
+        border-left: 10px solid #27a927;
+      }
+      .icon {
+        position: absolute;
+        top: 3px;
+        right: -5px;
+        color: #000;
+        line-height: 26px;
+        cursor: pointer;
+      }
+    }
   }
   .section.resource {
     .resource-wrapper {
