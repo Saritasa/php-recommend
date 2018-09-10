@@ -54,6 +54,7 @@ export default {
     onWordClick (clickedWord, vm) {
       if (_.indexOf(this.selectedTags, clickedWord) === -1) {
         this.selectedTags.push(clickedWord)
+        this.searchChange(window.event, this.$refs.searchBox.keyword)
       }
       // this.$refs.tagCloud.wordClick(this.selectedTags)
     },
@@ -171,6 +172,7 @@ export default {
     },
     clearTag (tagIndex) {
       this.$delete(this.selectedTags, tagIndex)
+      this.searchChange(window.event, this.$refs.searchBox.keyword)
     }
   },
   created () {

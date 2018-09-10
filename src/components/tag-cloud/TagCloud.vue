@@ -62,11 +62,15 @@ export default {
       let tooltipMan = document.getElementById('tooltip-man')
       let child = evt.srcElement
       if (evt.srcElement.tagName === 'text') {
+        let appDom = document.getElementById('app')
+        let appRelativeTop = (appDom.getBoundingClientRect()).top
+        let appRelativeLeft = (appDom.getBoundingClientRect()).left
+
         let info = child.textContent
         info = info + ': ' + this.countedWords[info]
         tooltipMan.style.display = 'block'
-        tooltipMan.style.top = (evt.clientY + 5) + 'px'
-        tooltipMan.style.left = (evt.clientX + 1) + 'px'
+        tooltipMan.style.top = (evt.clientY - appRelativeTop + 8) + 'px'
+        tooltipMan.style.left = (evt.clientX - appRelativeLeft) + 'px'
         tooltipMan.innerText = info
       } else {
         tooltipMan.style.display = 'none'
@@ -76,17 +80,19 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-#tooltip-man {
-  position: absolute;
-  border-radius: 4px;
-  padding: 2px 10px;
-  background-color: #3e3d3d;
-  color: #fff;
-  z-index: 10;
-  display: none;
-}
+<style lang="scss">
 .tag-cloud-wrapper {
-  cursor: default !important;
+  #tooltip-man {
+    position: absolute;
+    border-radius: 4px;
+    padding: 2px 10px;
+    background-color: #3e3d3d;
+    color: #fff;
+    z-index: 10;
+    display: none;
+  }
+  text {
+    cursor: pointer!important;
+  }
 }
 </style>
