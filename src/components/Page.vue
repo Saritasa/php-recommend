@@ -5,9 +5,13 @@
     </div>
 
     <div class="section tag-cloud">
-      <tag-cloud ref="tagCloud"></tag-cloud>
+      <tag-cloud ref="tagCloud" :onWordClick="onWordClick"></tag-cloud>
     </div>
-
+    <div class="tag-breadcrumb">
+      <span class="label label-success selected-tag" v-bind:key="key" v-for="(selectedTag, key) in selectedTags">
+        {{ selectedTag }}
+      </span>
+    </div>
     <div class="section search-box">
       <search-box ref="searchBox" :searchChange="searchChange"></search-box>
     </div>
@@ -40,10 +44,16 @@ export default {
   data () {
     return {
       yamlData: Yaml.load('/static/list.yaml'),
-      resources: {}
+      resources: {},
+      selectedTags: []
     }
   },
   methods: {
+    onWordClick (clickedWord, vm) {
+      if (_.indexOf(this.selectedTags, clickedWord) === -1) {
+        this.selectedTags.push(clickedWord)
+      }
+    },
     pureWords (phrase) {
       if (_.isArray(phrase)) {
         phrase = _.join(_.flattenDeep(phrase), ' ')

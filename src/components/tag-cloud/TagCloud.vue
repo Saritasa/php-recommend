@@ -1,11 +1,13 @@
 <template>
   <div class='tag-cloud-wrapper' @mousemove="showTooltip">
     <span id="tooltip-man"></span>
-    <word-cloud
+    <div style="height: 400px">
+      <word-cloud
         :data='words()'
-        :wordClick='wordClick'
+        :wordClick='onWordClick'
         :rotate='rotation'>
-    </word-cloud>
+      </word-cloud>
+    </div>
   </div>
 </template>
 
@@ -13,9 +15,13 @@
 import WordCloud from 'vue-wordcloud'
 import countWords from 'count-words'
 import Yaml from 'yamljs'
-import _ from 'lodash'
 
 export default {
+  props: {
+    onWordClick: {
+      type: Function
+    }
+  },
   components: {
     WordCloud
   },
@@ -26,24 +32,25 @@ export default {
     }
   },
   methods: {
-    wordClick (d, vm) {
-      alert(this.countedWords[d] + ' data')
-    },
-    getTags (obj) {
-      let tags = ''
-      _.forEach(obj, (val, key) => {
-        if (key === 'tags') {
-          tags += ' ' + _.join(val)
-        } else if (_.isObject(val)) {
-          tags += this.getTags(val)
-        }
-      })
-      return tags
+    wordClick (clickedWord, vm) {
+      // if (_.indexOf(this.selectedTags, clickedWord) === -1) {
+      //   this.selectedTags.push(clickedWord)
+      // }
+      //
+      // return false
+      // alert(this.selectedTags)
+      // alert(this.countedWords[clickedWord] + ' data')
     },
     getCountedWords () {
       let yamlData = Yaml.load('/static/list.yaml')
 
-      return countWords(this.getTags(yamlData))
+      let reservedWords = '"packages":|"websites":|"tutorials":|"description":|"explain":|"url":|"tags":' +
+        '|"language":|https:|http:'
+      reservedWords = new RegExp(reservedWords, 'gi')
+      let flatString = JSON.stringify(yamlData).toLowerCase()
+      flatString = flatString.replace(reservedWords, ' ')
+      flatString = flatString.replace(/[[\]}{)(/.:,"'0-9]/gi, ' ')
+      return countWords(flatString)
     },
     words () {
       let parsedWords = this.getCountedWords()
