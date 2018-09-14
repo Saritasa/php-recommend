@@ -205,7 +205,7 @@ export default {
       padding: 4px 20px 4px 10px;
       background-color: #27a927;
       color: #fff;
-      line-height: 26px;
+      line-height: 30px;
       &:before {
         content:"";
         position: absolute;
@@ -213,8 +213,8 @@ export default {
         left: 100%;
         width: 0;
         height: 0;
-        border-top: 13px solid transparent;
-        border-bottom: 13px solid transparent;
+        border-top: 15px solid transparent;
+        border-bottom: 15px solid transparent;
         border-left: 10px solid #27a927;
       }
       .icon {
@@ -222,7 +222,7 @@ export default {
         top: 3px;
         right: -5px;
         color: #000;
-        line-height: 26px;
+        line-height: 30px;
         cursor: pointer;
       }
     }
