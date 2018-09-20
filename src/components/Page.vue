@@ -18,6 +18,9 @@
       <search-box ref="searchBox" :searchChange="searchChange"></search-box>
     </div>
 
+    <div>
+      <span>{{ resultCount }} results found.</span>
+    </div>
     <div class="section resource">
       <resource-sections
         v-for="(item, name) in this.resources"
@@ -47,6 +50,7 @@ export default {
     return {
       yamlData: Yaml.load('/static/list.yaml'),
       resources: {},
+      resultCount: 0,
       selectedTags: []
     }
   },
@@ -62,6 +66,7 @@ export default {
     /**
      * Get array of words in a phrase. Not include special chars.
      * A word can be group of alphabets or group of digits.
+     * Each words will became lowercase word.
      *
      * @param phrase A string
      */
@@ -101,6 +106,8 @@ export default {
       let val = _.trim(keyword)
       let words = this.pureWords(val)
 
+      this.resultCount = 0
+
       let filteredResources = {}
       _.forEach(this.yamlData, (resource, resourceKey) => {
         //
@@ -117,7 +124,7 @@ export default {
             let noTag = false
             if (this.selectedTags.length > 0) {
               _.forEach(this.selectedTags, (selectedTag) => {
-                if (_.indexOf(this.pureWords(item['tags']), selectedTag) === -1) {
+                if (_.indexOf(this.pureWords(item['tags']), selectedTag.toLowerCase()) === -1) {
                   noTag = true
                 }
               })
@@ -147,6 +154,7 @@ export default {
             })
             if (matched === true || words.length === 0) {
               filteredItems[itemKey] = matchedItem
+              this.resultCount++
             }
           })
           if (_.size(filteredItems) > 0) {
@@ -210,8 +218,8 @@ export default {
         left: 100%;
         width: 0;
         height: 0;
-        border-top: 13px solid transparent;
-        border-bottom: 13px solid transparent;
+        border-top: 15px solid transparent;
+        border-bottom: 15px solid transparent;
         border-left: 10px solid #27a927;
       }
       .icon {
@@ -219,7 +227,7 @@ export default {
         top: 3px;
         right: -5px;
         color: #000;
-        line-height: 26px;
+        line-height: 30px;
         cursor: pointer;
       }
     }

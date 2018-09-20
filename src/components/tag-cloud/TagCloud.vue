@@ -49,12 +49,9 @@ export default {
       return tags
     },
     getCountedTags () {
-      if (this.searchResult === undefined) {
+      if (_.size(this.searchResult) === 0) {
         this.searchResult = Yaml.load('/static/list.yaml')
       }
-      // console.log('getCountedWords')
-      // console.log(this.selectedTags)
-      // console.log(this.searchResult)
       let tags = this.getTags(this.searchResult)
       console.log('tags')
       console.log(tags)
@@ -74,7 +71,7 @@ export default {
       // return countWords(this.getTags(this.searchResult))
     },
     words (data) {
-      let parsedWords = this.getCountedTags(data)
+      let parsedWords = this.getCountedTags()
       let result = []
       Object.keys(parsedWords).forEach(function (key) {
         result.push({'name': key, 'value': parsedWords[key]})
