@@ -11,8 +11,8 @@
 
 <script>
 import WordCloud from 'vue-wordcloud'
-import countWords from 'count-words'
 import Yaml from 'yamljs'
+import _ from 'lodash'
 
 export default {
   props: {
@@ -26,36 +26,60 @@ export default {
   data () {
     return {
       rotation: {from: 0, to: 0, numOfOrientation: 1},
-      countedWords: this.getCountedWords()
+      selectedTags: [],
+      searchResult: {},
+      countedWords: this.getCountedTags()
     }
   },
-  methods: {
-    wordClick (clickedWord, vm) {
-      // if (_.indexOf(this.selectedTags, clickedWord) === -1) {
-      //   this.selectedTags.push(clickedWord)
-      // }
-      //
-      // return false
-      // alert(this.selectedTags)
-      // alert(this.countedWords[clickedWord] + ' data')
-    },
-    getCountedWords () {
-      let yamlData = Yaml.load('/static/list.yaml')
+  computed: {
 
-      let reservedWords = '"packages":|"websites":|"tutorials":|"description":|"explain":|"url":|"tags":' +
-        '|"language":|https:|http:'
-      reservedWords = new RegExp(reservedWords, 'gi')
-      let flatString = JSON.stringify(yamlData).toLowerCase()
-      flatString = flatString.replace(reservedWords, ' ')
-      flatString = flatString.replace(/[[\]}{)(/.:,"'0-9]/gi, ' ')
-      return countWords(flatString)
+  },
+  methods: {
+    getTags (obj) {
+      let tags = []
+      _.forEach(obj, (val, key) => {
+        if (key === 'tags') {
+          tags.push(val)
+        } else if (_.isObject(val)) {
+          tags.push(this.getTags(val))
+        }
+      })
+      tags = _.flattenDeep(tags)
+
+      return tags
     },
-    words () {
-      let parsedWords = this.getCountedWords()
+    getCountedTags () {
+      if (this.searchResult === undefined) {
+        this.searchResult = Yaml.load('/static/list.yaml')
+      }
+      // console.log('getCountedWords')
+      // console.log(this.selectedTags)
+      // console.log(this.searchResult)
+      let tags = this.getTags(this.searchResult)
+      console.log('tags')
+      console.log(tags)
+      let countedTags = {}
+      _.forEach(tags, (val) => {
+        val = _.capitalize(val)
+        if (!_.includes(Object.keys(countedTags), val)) {
+          countedTags[val] = 1
+        } else {
+          countedTags[val]++
+        }
+      })
+      console.log('countedTags')
+      console.log(countedTags)
+
+      return countedTags
+      // return countWords(this.getTags(this.searchResult))
+    },
+    words (data) {
+      let parsedWords = this.getCountedTags(data)
       let result = []
       Object.keys(parsedWords).forEach(function (key) {
         result.push({'name': key, 'value': parsedWords[key]})
       })
+
       return result
     },
     showTooltip (evt) {

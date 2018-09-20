@@ -54,6 +54,7 @@ export default {
     onWordClick (clickedWord, vm) {
       if (_.indexOf(this.selectedTags, clickedWord) === -1) {
         this.selectedTags.push(clickedWord)
+        this.$refs.tagCloud.selectedTags = this.selectedTags
         this.searchChange(window.event, this.$refs.searchBox.keyword)
       }
       // this.$refs.tagCloud.wordClick(this.selectedTags)
@@ -96,13 +97,9 @@ export default {
       return _.join(sentenceWords, '')
     },
     searchChange (event, keyword) {
+      keyword = keyword === undefined ? '' : keyword
       let val = _.trim(keyword)
       let words = this.pureWords(val)
-
-      if (val === '') {
-        // this.resources = this.yamlData
-        // return
-      }
 
       let filteredResources = {}
       _.forEach(this.yamlData, (resource, resourceKey) => {
