@@ -18,8 +18,8 @@
       <search-box ref="searchBox" :searchChange="searchChange"></search-box>
     </div>
 
-    <div>
-      <span>{{ resultCount }} results found.</span>
+    <div class="result-count">
+      <span>{{ this.resultCount }} results found.</span>
     </div>
     <div class="section resource">
       <resource-sections
@@ -61,7 +61,6 @@ export default {
         this.$refs.tagCloud.selectedTags = this.selectedTags
         this.searchChange(window.event, this.$refs.searchBox.keyword)
       }
-      // this.$refs.tagCloud.wordClick(this.selectedTags)
     },
     /**
      * Get array of words in a phrase. Not include special chars.
@@ -80,19 +79,26 @@ export default {
 
       return _.words(phrase.toLowerCase(), /[-\w]+/g)
     },
+    toLowerTags (tags) {
+      _.forEach(tags, (tag, key) => {
+        tags[key] = tag.toLowerCase()
+      })
+
+      return tags
+    },
     /**
      * Split text to array of words and marks (, . @ / so on).
      * E.x: The text "quick, brown @fox" will be split to ['quick', ',', ' ', 'brown', ' ', '@', 'fox']
      *
      * @param text
      */
-    defragString (text) {
+    fragString (text) {
       return text.split(/([^a-zA-Z])/g)
     },
     highlight (keywords, sentence) {
       keywords = this.pureWords(keywords)
 
-      let sentenceWords = this.defragString(sentence)
+      let sentenceWords = this.fragString(sentence)
       _.forEach(sentenceWords, (val, key) => {
         if (_.indexOf(keywords, val.toLowerCase()) !== -1) {
           sentenceWords[key] = '<span class="highlighted-word">' + val + '</span>'
@@ -124,7 +130,7 @@ export default {
             let noTag = false
             if (this.selectedTags.length > 0) {
               _.forEach(this.selectedTags, (selectedTag) => {
-                if (_.indexOf(this.pureWords(item['tags']), selectedTag.toLowerCase()) === -1) {
+                if (_.indexOf(this.toLowerTags(item['tags']), selectedTag.toLowerCase()) === -1) {
                   noTag = true
                 }
               })
@@ -134,25 +140,29 @@ export default {
             }
 
             // 2. Filter by keywords
-            // 2.1 Check with article key. E.x: 'saritasa/common', 'dingo/api'
-            if (_.intersection(words, this.pureWords(itemKey)).length > 0) {
-              itemKey = this.highlight(words, itemKey)
+            if (words.length === 0) {
               matched = true
-            }
-
-            // 2.2 Check with article content
-            _.forEach(item, (text, label) => {
-              if (_.intersection(words, this.pureWords(text)).length > 0) {
-                // Except 'explain' and 'url' because they aren't shown as text
-                if (label !== 'explain' && label !== 'url' && label !== 'tags') {
-                  matchedItem[label] = this.highlight(words, text)
-                } else {
-                  matchedItem[label] = text
-                }
+            } else {
+              // 2.1 Check with article key. E.x: 'saritasa/common', 'dingo/api'
+              if (_.intersection(words, this.pureWords(itemKey)).length > 0) {
+                itemKey = this.highlight(words, itemKey)
                 matched = true
               }
-            })
-            if (matched === true || words.length === 0) {
+
+              // 2.2 Check with article content
+              _.forEach(item, (text, label) => {
+                if (_.intersection(words, this.pureWords(text)).length > 0) {
+                  // Except 'explain' and 'url' because they aren't shown as text
+                  if (label !== 'explain' && label !== 'url' && label !== 'tags') {
+                    matchedItem[label] = this.highlight(words, text)
+                  } else {
+                    matchedItem[label] = text
+                  }
+                  matched = true
+                }
+              })
+            }
+            if (matched === true) {
               filteredItems[itemKey] = matchedItem
               this.resultCount++
             }
@@ -191,7 +201,7 @@ export default {
       })
     })
 
-    this.resources = this.yamlData
+    this.searchChange()
   }
 }
 </script>
@@ -275,5 +285,10 @@ export default {
       color: #d87b25;
       font-weight: bold;
     }
+  }
+  .result-count {
+    background-color: #efeded;
+    padding: 10px;
+    font-weight: bold;
   }
 </style>

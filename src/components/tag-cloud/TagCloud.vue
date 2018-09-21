@@ -53,8 +53,6 @@ export default {
         this.searchResult = Yaml.load('/static/list.yaml')
       }
       let tags = this.getTags(this.searchResult)
-      console.log('tags')
-      console.log(tags)
       let countedTags = {}
       _.forEach(tags, (val) => {
         val = _.capitalize(val)
@@ -64,8 +62,6 @@ export default {
           countedTags[val]++
         }
       })
-      console.log('countedTags')
-      console.log(countedTags)
 
       return countedTags
       // return countWords(this.getTags(this.searchResult))
