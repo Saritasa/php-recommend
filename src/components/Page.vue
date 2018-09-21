@@ -183,7 +183,10 @@ export default {
       })
 
       this.resources = filteredResources
-      this.$refs.tagCloud.searchResult = filteredResources
+      if (this.$refs.tagCloud !== undefined) {
+        // TagCloud was loaded
+        this.$refs.tagCloud.searchResult = filteredResources
+      }
       return false
     },
     clearTag (tagIndex) {
@@ -212,7 +215,7 @@ export default {
     text-align: center;
   }
   .section.breadcrumb {
-    width: 50%;
+    width: 90%;
     margin: 0 auto;
     padding: 10px;
     .selected-tag {

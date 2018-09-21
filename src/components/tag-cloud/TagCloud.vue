@@ -68,8 +68,11 @@ export default {
     words (data) {
       let parsedWords = this.getCountedTags()
       let result = []
+      let thisSelectedTags = this.selectedTags
       Object.keys(parsedWords).forEach(function (key) {
-        result.push({'name': key, 'value': parsedWords[key]})
+        if (_.indexOf(thisSelectedTags, key) === -1) {
+          result.push({'name': key, 'value': parsedWords[key]})
+        }
       })
 
       return result
