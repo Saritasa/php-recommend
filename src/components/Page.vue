@@ -18,6 +18,9 @@
       <search-box ref="searchBox" :searchChange="searchChange"></search-box>
     </div>
 
+    <div class="result-count">
+      <span>{{ this.resultCount }} results found.</span>
+    </div>
     <div class="section resource">
       <resource-sections
         v-for="(item, name) in this.resources"
@@ -47,6 +50,7 @@ export default {
     return {
       yamlData: Yaml.load('/static/list.yaml'),
       resources: {},
+      resultCount: 0,
       selectedTags: []
     }
   },
@@ -54,13 +58,14 @@ export default {
     onWordClick (clickedWord, vm) {
       if (_.indexOf(this.selectedTags, clickedWord) === -1) {
         this.selectedTags.push(clickedWord)
+        this.$refs.tagCloud.selectedTags = this.selectedTags
         this.searchChange(window.event, this.$refs.searchBox.keyword)
       }
-      // this.$refs.tagCloud.wordClick(this.selectedTags)
     },
     /**
      * Get array of words in a phrase. Not include special chars.
      * A word can be group of alphabets or group of digits.
+     * Each words will became lowercase word.
      *
      * @param phrase A string
      */
@@ -74,19 +79,26 @@ export default {
 
       return _.words(phrase.toLowerCase(), /[-\w]+/g)
     },
+    toLowerTags (tags) {
+      _.forEach(tags, (tag, key) => {
+        tags[key] = tag.toLowerCase()
+      })
+
+      return tags
+    },
     /**
      * Split text to array of words and marks (, . @ / so on).
      * E.x: The text "quick, brown @fox" will be split to ['quick', ',', ' ', 'brown', ' ', '@', 'fox']
      *
      * @param text
      */
-    defragString (text) {
+    fragString (text) {
       return text.split(/([^a-zA-Z])/g)
     },
     highlight (keywords, sentence) {
       keywords = this.pureWords(keywords)
 
-      let sentenceWords = this.defragString(sentence)
+      let sentenceWords = this.fragString(sentence)
       _.forEach(sentenceWords, (val, key) => {
         if (_.indexOf(keywords, val.toLowerCase()) !== -1) {
           sentenceWords[key] = '<span class="highlighted-word">' + val + '</span>'
@@ -96,13 +108,11 @@ export default {
       return _.join(sentenceWords, '')
     },
     searchChange (event, keyword) {
+      keyword = keyword === undefined ? '' : keyword
       let val = _.trim(keyword)
       let words = this.pureWords(val)
 
-      if (val === '') {
-        // this.resources = this.yamlData
-        // return
-      }
+      this.resultCount = 0
 
       let filteredResources = {}
       _.forEach(this.yamlData, (resource, resourceKey) => {
@@ -120,7 +130,7 @@ export default {
             let noTag = false
             if (this.selectedTags.length > 0) {
               _.forEach(this.selectedTags, (selectedTag) => {
-                if (_.indexOf(this.pureWords(item['tags']), selectedTag) === -1) {
+                if (_.indexOf(this.toLowerTags(item['tags']), selectedTag.toLowerCase()) === -1) {
                   noTag = true
                 }
               })
@@ -130,26 +140,31 @@ export default {
             }
 
             // 2. Filter by keywords
-            // 2.1 Check with article key. E.x: 'saritasa/common', 'dingo/api'
-            if (_.intersection(words, this.pureWords(itemKey)).length > 0) {
-              itemKey = this.highlight(words, itemKey)
+            if (words.length === 0) {
               matched = true
-            }
-
-            // 2.2 Check with article content
-            _.forEach(item, (text, label) => {
-              if (_.intersection(words, this.pureWords(text)).length > 0) {
-                // Except 'explain' and 'url' because they aren't shown as text
-                if (label !== 'explain' && label !== 'url' && label !== 'tags') {
-                  matchedItem[label] = this.highlight(words, text)
-                } else {
-                  matchedItem[label] = text
-                }
+            } else {
+              // 2.1 Check with article key. E.x: 'saritasa/common', 'dingo/api'
+              if (_.intersection(words, this.pureWords(itemKey)).length > 0) {
+                itemKey = this.highlight(words, itemKey)
                 matched = true
               }
-            })
-            if (matched === true || words.length === 0) {
+
+              // 2.2 Check with article content
+              _.forEach(item, (text, label) => {
+                if (_.intersection(words, this.pureWords(text)).length > 0) {
+                  // Except 'explain' and 'url' because they aren't shown as text
+                  if (label !== 'explain' && label !== 'url' && label !== 'tags') {
+                    matchedItem[label] = this.highlight(words, text)
+                  } else {
+                    matchedItem[label] = text
+                  }
+                  matched = true
+                }
+              })
+            }
+            if (matched === true) {
               filteredItems[itemKey] = matchedItem
+              this.resultCount++
             }
           })
           if (_.size(filteredItems) > 0) {
@@ -168,6 +183,10 @@ export default {
       })
 
       this.resources = filteredResources
+      if (this.$refs.tagCloud !== undefined) {
+        // TagCloud was loaded
+        this.$refs.tagCloud.searchResult = filteredResources
+      }
       return false
     },
     clearTag (tagIndex) {
@@ -186,7 +205,7 @@ export default {
       })
     })
 
-    this.resources = this.yamlData
+    this.searchChange()
   }
 }
 </script>
@@ -196,13 +215,14 @@ export default {
     text-align: center;
   }
   .section.breadcrumb {
-    width: 50%;
+    width: 90%;
     margin: 0 auto;
     padding: 10px;
     .selected-tag {
       position: relative;
       margin-right: 12px;
       padding: 4px 20px 4px 10px;
+      white-space: nowrap;
       background-color: #27a927;
       color: #fff;
       line-height: 30px;
@@ -270,5 +290,10 @@ export default {
       color: #d87b25;
       font-weight: bold;
     }
+  }
+  .result-count {
+    background-color: #efeded;
+    padding: 10px;
+    font-weight: bold;
   }
 </style>
