@@ -64,7 +64,6 @@ export default {
       })
 
       return countedTags
-      // return countWords(this.getTags(this.searchResult))
     },
     words (data) {
       let parsedWords = this.getCountedTags()

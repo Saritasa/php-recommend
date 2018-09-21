@@ -183,6 +183,7 @@ export default {
       })
 
       this.resources = filteredResources
+      this.$refs.tagCloud.searchResult = filteredResources
       return false
     },
     clearTag (tagIndex) {
@@ -218,6 +219,7 @@ export default {
       position: relative;
       margin-right: 12px;
       padding: 4px 20px 4px 10px;
+      white-space: nowrap;
       background-color: #27a927;
       color: #fff;
       line-height: 26px;
