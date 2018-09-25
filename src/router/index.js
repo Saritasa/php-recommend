@@ -1,16 +1,16 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Page from '@/components/Page'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Page from '@/components/Page';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
+  mode:   'history',
   routes: [
     {
-      path: '/',
-      name: 'Page',
-      component: Page
-    }
-  ]
-})
+      path:      '/',
+      name:      'Page',
+      component: Page,
+    },
+  ],
+});

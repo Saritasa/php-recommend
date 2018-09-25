@@ -1,26 +1,31 @@
 <template>
   <div class="package-list">
     <package-item
-        v-for="(packageItem, index) in packages"
-        :key="index"
-        :itemName="index"
-        :item="packageItem"
-    ></package-item>
+      v-for="(packageItem, index) in packages"
+      :key="index"
+      :item-name="index"
+      :item="packageItem"
+    />
   </div>
 </template>
 
 <script>
-import PackageItem from './PackageItem.vue'
+import PackageItem from './PackageItem';
 
 export default {
   components: {
-    PackageItem
+    PackageItem,
   },
-  props: ['packages'],
-  data () {
+  props: {
+    packages: {
+      type:     Object,
+      required: true,
+    },
+  },
+  data() {
     return {
-      packageItem: {}
-    }
-  }
-}
+      packageItem: {},
+    };
+  },
+};
 </script>

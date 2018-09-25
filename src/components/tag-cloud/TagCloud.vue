@@ -1,102 +1,108 @@
 <template>
-  <div class='tag-cloud-wrapper' @mousemove="showTooltip">
-    <span id="tooltip-man"></span>
+  <div class="tag-cloud-wrapper"
+       @mousemove="showTooltip">
+    <span id="tooltip-man"/>
     <word-cloud
-      :data='words()'
-      :wordClick='onWordClick'
-      :rotate='rotation'>
-    </word-cloud>
+      :data="words()"
+      :word-click="onWordClick"
+      :rotate="rotation"/>
   </div>
 </template>
 
 <script>
-import WordCloud from 'vue-wordcloud'
-import Yaml from 'yamljs'
-import _ from 'lodash'
+import WordCloud from 'vue-wordcloud';
+import Yaml from 'yamljs';
+import _ from 'lodash';
 
 export default {
+  components: {
+    WordCloud,
+  },
   props: {
     onWordClick: {
-      type: Function
-    }
+      type: Function,
+    },
   },
-  components: {
-    WordCloud
-  },
-  data () {
+  data() {
     return {
-      rotation: {from: 0, to: 0, numOfOrientation: 1},
+      rotation:     { from: 0, to: 0, numOfOrientation: 1 },
       selectedTags: [],
       searchResult: {},
-      countedWords: this.getCountedTags()
-    }
+      countedWords: this.getCountedTags(),
+    };
   },
   computed: {
 
   },
   methods: {
-    getTags (obj) {
-      let tags = []
+    getTags(obj) {
+      let tags = [];
+
       _.forEach(obj, (val, key) => {
         if (key === 'tags') {
-          tags.push(val)
+          tags.push(val);
         } else if (_.isObject(val)) {
-          tags.push(this.getTags(val))
+          tags.push(this.getTags(val));
         }
-      })
-      tags = _.flattenDeep(tags)
+      });
+      tags = _.flattenDeep(tags);
 
-      return tags
+      return tags;
     },
-    getCountedTags () {
+    getCountedTags() {
       if (_.size(this.searchResult) === 0) {
-        this.searchResult = Yaml.load('/static/list.yaml')
+        this.searchResult = Yaml.load('/static/list.yaml');
       }
-      let tags = this.getTags(this.searchResult)
-      let countedTags = {}
-      _.forEach(tags, (val) => {
-        val = _.capitalize(val)
+
+      const tags = this.getTags(this.searchResult);
+      const countedTags = {};
+
+      _.forEach(tags, val => {
+        val = _.capitalize(val);
         if (!_.includes(Object.keys(countedTags), val)) {
-          countedTags[val] = 1
+          countedTags[val] = 1;
         } else {
-          countedTags[val]++
+          countedTags[val]++;
         }
-      })
+      });
 
-      return countedTags
+      return countedTags;
     },
-    words (data) {
-      let parsedWords = this.getCountedTags()
-      let result = []
-      let thisSelectedTags = this.selectedTags
-      Object.keys(parsedWords).forEach(function (key) {
+    words(data) {
+      const parsedWords = this.getCountedTags();
+      const result = [];
+      const thisSelectedTags = this.selectedTags;
+
+      Object.keys(parsedWords).forEach(key => {
         if (_.indexOf(thisSelectedTags, key) === -1) {
-          result.push({'name': key, 'value': parsedWords[key]})
+          result.push({ name: key, value: parsedWords[key] });
         }
-      })
+      });
 
-      return result
+      return result;
     },
-    showTooltip (evt) {
-      let tooltipMan = document.getElementById('tooltip-man')
-      let child = evt.srcElement
-      if (evt.srcElement.tagName === 'text') {
-        let appDom = document.getElementById('app')
-        let appRelativeTop = (appDom.getBoundingClientRect()).top
-        let appRelativeLeft = (appDom.getBoundingClientRect()).left
+    showTooltip(evt) {
+      const tooltipMan = document.getElementById('tooltip-man');
+      const child = evt.srcElement;
 
-        let info = child.textContent
-        info = info + ': ' + this.countedWords[info]
-        tooltipMan.style.display = 'block'
-        tooltipMan.style.top = (evt.clientY - appRelativeTop + 8) + 'px'
-        tooltipMan.style.left = (evt.clientX - appRelativeLeft) + 'px'
-        tooltipMan.innerText = info
+      if (evt.srcElement.tagName === 'text') {
+        const appDom = document.getElementById('app');
+        const appRelativeTop = (appDom.getBoundingClientRect()).top;
+        const appRelativeLeft = (appDom.getBoundingClientRect()).left;
+
+        let info = child.textContent;
+
+        info = `${info}: ${this.countedWords[info]}`;
+        tooltipMan.style.display = 'block';
+        tooltipMan.style.top = `${evt.clientY - appRelativeTop + 8}px`;
+        tooltipMan.style.left = `${evt.clientX - appRelativeLeft}px`;
+        tooltipMan.innerText = info;
       } else {
-        tooltipMan.style.display = 'none'
+        tooltipMan.style.display = 'none';
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss">

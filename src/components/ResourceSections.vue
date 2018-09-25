@@ -1,47 +1,56 @@
 <template>
   <div class="resource-wrapper">
-    <h2>{{ this.name }}</h2>
-    <h3 v-if="this.getSize(this.resource.packages) > 0">Packages</h3>
-    <package-list :packages="this.resource.packages"></package-list>
-    <h3 v-if="this.getSize(this.resource.websites) > 0">Websites</h3>
-    <website-list :websites="this.resource.websites"></website-list>
-    <h3 v-if="this.getSize(this.resource.tutorials) > 0">Tutorials</h3>
-    <tutorial-list :tutorials="this.resource.tutorials"></tutorial-list>
+    <h2>{{ name }}</h2>
+    <h3 v-if="getSize(resource.packages) > 0">Packages</h3>
+    <package-list :packages="resource.packages"/>
+    <h3 v-if="getSize(resource.websites) > 0">Websites</h3>
+    <website-list :websites="resource.websites"/>
+    <h3 v-if="getSize(resource.tutorials) > 0">Tutorials</h3>
+    <tutorial-list :tutorials="resource.tutorials"/>
   </div>
 </template>
 
 <script>
-import PackageList from './package/PackageList.vue'
-import WebsiteList from './website/WebsiteList.vue'
-import TutorialList from './tutorial/TutorialList.vue'
-import _ from 'lodash'
+import _ from 'lodash';
+import PackageList from './package/PackageList';
+import WebsiteList from './website/WebsiteList';
+import TutorialList from './tutorial/TutorialList';
 
 export default {
   components: {
     PackageList,
     WebsiteList,
-    TutorialList
+    TutorialList,
   },
-  props: ['name', 'resource'],
-  data () {
+  props: {
+    name: {
+      type:    String,
+      default: '',
+    },
+    resource: {
+      type:    Object,
+      default: null,
+    },
+  },
+  data() {
     return {
-      title: 'Search Resource'
-    }
-  },
-  watch: {
-    resourcesData: function (val) {
-      return val
-    }
+      title: 'Search Resource',
+    };
   },
   computed: {
-    resourcesData () {
-      return this.resource
-    }
+    resourcesData() {
+      return this.resource;
+    },
+  },
+  watch: {
+    resourcesData(val) {
+      return val;
+    },
   },
   methods: {
-    getSize (obj) {
-      return _.size(obj)
-    }
-  }
-}
+    getSize(obj) {
+      return _.size(obj);
+    },
+  },
+};
 </script>
