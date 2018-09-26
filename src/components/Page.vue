@@ -102,7 +102,7 @@ export default {
       return _.words(result.toLowerCase(), /[-\w]+/g);
     },
     toLowerTags(tags) {
-      let result = tags;
+      const result = [];
 
       _.forEach(tags, (tag, key) => {
         result[key] = tag.toLowerCase();
@@ -120,7 +120,7 @@ export default {
       return text.split(/([^a-zA-Z])/g);
     },
     highlight(keywords, sentence) {
-      let pureKeywords = this.pureWords(keywords);
+      const pureKeywords = this.pureWords(keywords);
 
       const sentenceWords = this.fragString(sentence);
 
@@ -132,8 +132,8 @@ export default {
 
       return _.join(sentenceWords, '');
     },
-    searchChange(keyword) {
-      keyword = keyword === undefined ? '' : keyword;
+    searchChange(kw) {
+      const keyword = kw === undefined ? '' : kw;
 
       const val = _.trim(keyword);
       const words = this.pureWords(val);
@@ -151,6 +151,7 @@ export default {
           const filteredItems = {};
 
           _.forEach(list, (item, itemKey) => {
+            let highlightKey = itemKey;
             //
             let matched = false;
             const matchedItem = _.clone(item);
@@ -176,7 +177,7 @@ export default {
             } else {
               // 2.1 Check with article key. E.x: 'saritasa/common', 'dingo/api'
               if (_.intersection(words, this.pureWords(itemKey)).length > 0) {
-                itemKey = this.highlight(words, itemKey);
+                highlightKey = this.highlight(words, itemKey);
                 matched = true;
               }
 
@@ -195,7 +196,7 @@ export default {
             }
 
             if (matched === true) {
-              filteredItems[itemKey] = matchedItem;
+              filteredItems[highlightKey] = matchedItem;
               this.resultCount++;
             }
           });
@@ -209,7 +210,7 @@ export default {
       });
 
       this.resources = '';
-      Object.keys(this.resources).forEach(function (prop) {
+      Object.keys(this.resources).forEach(prop => {
         delete this.resources[prop];
         this.resources[prop] = undefined;
       });
