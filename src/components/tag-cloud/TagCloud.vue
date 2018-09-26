@@ -20,7 +20,8 @@ export default {
   },
   props: {
     onWordClick: {
-      type: Function,
+      type:    Function,
+      default: () => {},
     },
   },
   data() {
@@ -58,17 +59,18 @@ export default {
       const countedTags = {};
 
       _.forEach(tags, val => {
-        val = _.capitalize(val);
-        if (!_.includes(Object.keys(countedTags), val)) {
-          countedTags[val] = 1;
+        const capVal = _.capitalize(val);
+
+        if (!_.includes(Object.keys(countedTags), capVal)) {
+          countedTags[capVal] = 1;
         } else {
-          countedTags[val]++;
+          countedTags[capVal]++;
         }
       });
 
       return countedTags;
     },
-    words(data) {
+    words() {
       const parsedWords = this.getCountedTags();
       const result = [];
       const thisSelectedTags = this.selectedTags;
@@ -94,7 +96,7 @@ export default {
 
         info = `${info}: ${this.countedWords[info]}`;
         tooltipMan.style.display = 'block';
-        tooltipMan.style.top = `${evt.clientY - appRelativeTop + 8}px`;
+        tooltipMan.style.top = `${(evt.clientY - appRelativeTop) + 8}px`;
         tooltipMan.style.left = `${evt.clientX - appRelativeLeft}px`;
         tooltipMan.innerText = info;
       } else {

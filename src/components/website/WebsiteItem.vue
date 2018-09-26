@@ -13,10 +13,12 @@
 export default {
   props: {
     item: {
-      type: Object,
+      type:    Object,
+      default: null,
     },
     itemName: {
-      type: String,
+      type:    String,
+      default: '',
     },
   },
 };

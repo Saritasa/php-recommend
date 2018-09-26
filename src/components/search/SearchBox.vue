@@ -13,7 +13,8 @@
 export default {
   props: {
     keywordData: {
-      type: String,
+      type:    String,
+      default: () => {},
     },
     searchChange: {
       type:     Function,

@@ -14,14 +14,19 @@
 </template>
 
 <script>
-import WebsiteItem from './WebsiteItem.vue';
 import _ from 'lodash';
+import WebsiteItem from './WebsiteItem';
 
 export default {
   components: {
     WebsiteItem,
   },
-  props: ['websites'],
+  props: {
+    websites: {
+      type:    Object,
+      default: null,
+    },
+  },
   data() {
     return {
       websiteItem: {},
@@ -32,11 +37,11 @@ export default {
       const formatData = this.websiteData;
 
       _.forEach(formatData, (value, key) => {
-        value.text = key;
-        value.language = value.language || 'Other';
-        value.url = value.url || key;
+        formatData[key].text = key;
+        formatData[key].language = value.language || 'Other';
+        formatData[key].url = value.url || key;
         if (!_.startsWith(value.url, 'http')) {
-          value.url = `http://${value.url}`;
+          formatData[key].url = `http://${value.url}`;
         }
       });
 

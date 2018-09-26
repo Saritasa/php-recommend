@@ -102,11 +102,13 @@ export default {
       return _.words(result.toLowerCase(), /[-\w]+/g);
     },
     toLowerTags(tags) {
+      let result = tags;
+
       _.forEach(tags, (tag, key) => {
-        tags[key] = tag.toLowerCase();
+        result[key] = tag.toLowerCase();
       });
 
-      return tags;
+      return result;
     },
     /**
      * Split text to array of words and marks (, . @ / so on).
@@ -118,19 +120,19 @@ export default {
       return text.split(/([^a-zA-Z])/g);
     },
     highlight(keywords, sentence) {
-      keywords = this.pureWords(keywords);
+      let pureKeywords = this.pureWords(keywords);
 
       const sentenceWords = this.fragString(sentence);
 
       _.forEach(sentenceWords, (val, key) => {
-        if (_.indexOf(keywords, val.toLowerCase()) !== -1) {
+        if (_.indexOf(pureKeywords, val.toLowerCase()) !== -1) {
           sentenceWords[key] = `<span class="highlighted-word">${val}</span>`;
         }
       });
 
       return _.join(sentenceWords, '');
     },
-    searchChange(event, keyword) {
+    searchChange(keyword) {
       keyword = keyword === undefined ? '' : keyword;
 
       const val = _.trim(keyword);
