@@ -93,7 +93,7 @@ export default {
         return phrase;
       }
 
-      let result = '';
+      let result = phrase;
 
       if (_.isArray(phrase)) {
         result = _.join(_.flattenDeep(phrase), ' ');
@@ -132,7 +132,7 @@ export default {
 
       return _.join(sentenceWords, '');
     },
-    searchChange(kw) {
+    searchChange(event, kw) {
       const keyword = kw === undefined ? '' : kw;
 
       const val = _.trim(keyword);
@@ -246,7 +246,9 @@ export default {
       white-space: nowrap;
       background-color: #27a927;
       color: #fff;
-      line-height: 30px;
+      line-height: 22px;
+      height: 22px;
+      display: inline-block;
       &:before {
         content:"";
         position: absolute;
