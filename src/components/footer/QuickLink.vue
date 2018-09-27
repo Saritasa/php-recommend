@@ -1,7 +1,6 @@
 <template>
   <div class="quick-link-wrapper">
-    <span>©Since 09-2018</span>
-    <p></p>
+    <span>© Since 09-2018</span>
   </div>
 </template>
 

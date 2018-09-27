@@ -1,7 +1,6 @@
 <template>
   <div class="search-form-wrapper">
     <input type="text" id="keyword" placeholder="Search keyword" @change="handleSearch" v-model="keyword">
-    <p></p>
   </div>
 </template>
 
@@ -32,5 +31,14 @@ export default {
 <style lang="scss" scoped>
 .hidden {
   display: none;
+}
+.search-form-wrapper {
+  display: inline-block;
+  #keyword {
+    width: 300px;
+    height: 26px;
+    font-size: 14px;
+    padding: 2px;
+  }
 }
 </style>

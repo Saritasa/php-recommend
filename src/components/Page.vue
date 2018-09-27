@@ -9,18 +9,17 @@
                  :on-word-click="onWordClick"/>
     </div>
 
-    <div class="section breadcrumb">
-      <span v-for="(selectedTag, index) in selectedTags"
-            :key="index"
-            class="selected-tag">
-        {{ selectedTag }}<span class="icon"
-                               @click="clearTag(index)"><v-icon small>close</v-icon></span>
-      </span>
-    </div>
-
     <div class="section search-box">
       <search-box ref="searchBox"
                   :search-change="searchChange"/>
+      <div class="section breadcrumb">
+        <span v-for="(selectedTag, index) in selectedTags"
+              :key="index"
+              class="selected-tag">
+          {{ selectedTag }}
+          <span class="icon" @click="clearTag(index)"><v-icon small>close</v-icon></span>
+        </span>
+      </div>
     </div>
 
     <div class="result-count">
@@ -247,10 +246,12 @@
   .section.title {
     text-align: center;
   }
+  .section.search-box {
+    margin-bottom: 10px;
+  }
   .section.breadcrumb {
-    width: 90%;
-    margin: 0 auto;
-    padding: 10px;
+    padding: 0 10px 0 0;
+    display: inline-block;
     .selected-tag {
       position: relative;
       margin-right: 12px;
@@ -330,5 +331,10 @@
     background-color: #efeded;
     padding: 10px;
     font-weight: bold;
+  }
+  .section.footer {
+    border-top: 1px solid #cacaca;
+    border-bottom: 1px solid #cacaca;
+    margin-top: 20px;
   }
 </style>
