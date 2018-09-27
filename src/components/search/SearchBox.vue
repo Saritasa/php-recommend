@@ -1,11 +1,6 @@
 <template>
   <div class="search-form-wrapper">
-    <input id="keyword"
-           v-model="keyword"
-           type="text"
-           placeholder="Search keyword"
-           @change="handleSearch">
-    <p/>
+    <input type="text" id="keyword" placeholder="Search keyword" @change="handleSearch" v-model="keyword">
   </div>
 </template>
 
@@ -13,29 +8,37 @@
 export default {
   props: {
     keywordData: {
-      type:    String,
-      default: '',
+      type: String
     },
     searchChange: {
-      type:     Function,
-      required: true,
-    },
+      type: Function,
+      required: true
+    }
   },
-  data() {
+  data () {
     return {
-      keyword: this.keywordData,
-    };
+      keyword: this.keywordData
+    }
   },
   methods: {
-    handleSearch(event) {
-      this.searchChange(event, this.keyword);
-    },
-  },
-};
+    handleSearch (event) {
+      this.searchChange(event, this.keyword)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 .hidden {
   display: none;
+}
+.search-form-wrapper {
+  display: inline-block;
+  #keyword {
+    width: 300px;
+    height: 26px;
+    font-size: 14px;
+    padding: 2px;
+  }
 }
 </style>
