@@ -52,7 +52,7 @@ export default {
     },
     getCountedTags() {
       if (_.size(this.searchResult) === 0) {
-        this.searchResult = Yaml.load('/static/list.yaml');
+        this.searchResult = Yaml.load('/list.yaml');
       }
 
       const tags = this.getTags(this.searchResult);

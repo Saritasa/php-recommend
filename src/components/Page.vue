@@ -59,7 +59,7 @@ export default {
   },
   data() {
     return {
-      yamlData:     Yaml.load('/static/list.yaml'),
+      yamlData:     Yaml.load('/list.yaml'),
       resources:    {},
       resultCount:  0,
       explainCount: 0,
