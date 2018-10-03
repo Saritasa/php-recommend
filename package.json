@@ -2,7 +2,7 @@
   "name": "php-recommend",
   "version": "1.0.0",
   "description": "Saritasa recommended stuff for PHP",
-  "author": "LuongDang <luong.dang@saritasa.com>",
+  "author": "Luong Dang <luong.dang@saritasa.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

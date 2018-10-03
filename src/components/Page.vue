@@ -43,12 +43,12 @@
 </template>
 
 <script>
-import TagCloud from '@/components/tag-cloud/TagCloud';
-import SearchBox from '@/components/search/SearchBox';
-import ResourceSections from '@/components/ResourceSections';
-import QuickLink from '@/components/footer/QuickLink';
 import Yaml from 'yamljs';
 import _ from 'lodash';
+import TagCloud from './tag-cloud/TagCloud';
+import SearchBox from './search/SearchBox';
+import ResourceSections from './ResourceSections';
+import QuickLink from './footer/QuickLink';
 
 export default {
   components: {

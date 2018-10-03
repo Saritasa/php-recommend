@@ -4,11 +4,6 @@
   </div>
 </template>
 
-<script>
-export default {
-};
-</script>
-
 <style lang="scss" scoped>
   .quick-link-wrapper {
     margin: 0 auto;
