@@ -1,6 +1,10 @@
 <template>
   <div class="search-form-wrapper">
-    <input type="text" id="keyword" placeholder="Search keyword" @change="handleSearch" v-model="keyword">
+    <input id="keyword"
+           v-model="keyword"
+           type="text"
+           placeholder="Search keyword"
+           @change="handleSearch">
   </div>
 </template>
 
@@ -8,24 +12,25 @@
 export default {
   props: {
     keywordData: {
-      type: String
+      type:    String,
+      default: '',
     },
     searchChange: {
-      type: Function,
-      required: true
-    }
+      type:     Function,
+      required: true,
+    },
   },
-  data () {
+  data() {
     return {
-      keyword: this.keywordData
-    }
+      keyword: this.keywordData,
+    };
   },
   methods: {
-    handleSearch (event) {
-      this.searchChange(event, this.keyword)
-    }
-  }
-}
+    handleSearch(event) {
+      this.searchChange(event, this.keyword);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
