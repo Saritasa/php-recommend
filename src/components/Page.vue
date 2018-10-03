@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="section title">
-      <h1>Saritasa recommended packages for PHP</h1>
+      <h1>Saritasa recommended stuff for PHP</h1>
     </div>
 
     <div class="section tag-cloud">

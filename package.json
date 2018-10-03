@@ -1,7 +1,7 @@
 {
   "name": "php-recommend",
   "version": "1.0.0",
-  "description": "Saritasa recommended packages for PHP",
+  "description": "Saritasa recommended stuff for PHP",
   "author": "LuongDang <luong.dang@saritasa.com>",
   "private": true,
   "scripts": {
