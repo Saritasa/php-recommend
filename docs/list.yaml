@@ -3,16 +3,16 @@ PHP:
     dingo/api:
       description: Smarter way to build APIs
       explain: Allows to build RESTful API in a more comfortable way, than [Laravel API Resources](https://laravel.com/docs/5.6/eloquent-resources)
-      url: 'https://github.com/dingo/api'
+      url: https://github.com/dingo/api
       tags: ['API', 'Laravel']
     saritasa/common:
       description: Framework-agnostic helpers and utilities
-      url: 'https://github.com/Saritasa/php-common'
+      url: https://github.com/Saritasa/php-common
       tags: ['Helper', 'Utility']
     saritasa/laravel-tools:
       description: Scaffolding (Code generation) tools
       explain: More versatile way to generate models, than built-in Laravel command. Also allows to generate transformers, reporitories, etc.
-      url: 'https://github.com/Saritasa/php-laravel-tools'
+      url: https://github.com/Saritasa/php-laravel-tools
       tags: ['Laravel', 'Scaffolding', 'Code generation']
     PHP_CodeSniffer:
       description: Linter for PHP code - check, if code style matches desired rules
@@ -27,7 +27,7 @@ PHP:
     refactoring.guru:
       description: Code Design patterns, antipatterns
       tags: ['Code Design', 'Patterns']
-      url: 'https://refactoring.guru/ru'
+      url: https://refactoring.guru/ru
       language: Russian
     restapitutorial.ru:
       description: RESTful API tutorial
@@ -47,7 +47,7 @@ PHP:
 
   tutorials:
     'Lets build a forum with Laravel & TDD 🎞':
-      url: 'https://laracasts.com/series/lets-build-a-forum-with-laravel'
+      url: https://laracasts.com/series/lets-build-a-forum-with-laravel
       language: English
       tags: ['Laravel', 'TDD']
 
@@ -55,7 +55,7 @@ JavaScript:
   packages:
     VueJS:
       description: Easy to learn JS framework for SPA applications. Plays well with Laravel.
-      url: 'https://vuejs.org'
+      url: https://vuejs.org
       tags: ['VueJS']
     Vuetify:
       description: Material design components for VueJS
@@ -63,17 +63,37 @@ JavaScript:
       tags: ['VueJS', 'Material Design', 'Components']
     VueWorldCloud:
       description: 'Display interactive tags cloud ([demo](https://seregpie.github.io/VueWordCloud/))'
-      url: 'https://github.com/SeregPie/VueWordCloud'
+      url: https://github.com/SeregPie/VueWordCloud
+      tags: ['VueJS', 'Components']
+    element-ui:
+      description: Vue.js 2.0 UI Toolkit for Web
+      url: https://element.eleme.io
+      tags: ['VueJS', 'Components']
+    'Bootstrap Vue':
+      description: Bootstrap 4 components for VueJS
+      url: https://bootstrap-vue.js.org
       tags: ['VueJS', 'Components']
 
   tutorials:
     'Learn Vue2 Step-by-Step 🎞':
-      url: 'https://laracasts.com/series/learn-vue-2-step-by-step'
+      url: https://laracasts.com/series/learn-vue-2-step-by-step
       language: English
     'Объясняем современный JavaScript динозавру':
-      url: 'https://habr.com/company/mailru/blog/340922/'
+      url: https://habr.com/company/mailru/blog/340922/
       tags: ['Basics']
       language: Russian
+    'Simple Rules for Designing Web & Mobile Forms':
+      url: https://subtract.design/entry/forms/
+      language: English
+      tags: ['Design', 'Usability']
+    'UX And HTML5: Let’s Help Users Fill In Your Mobile Form (Part 1)':
+      url: https://www.smashingmagazine.com/2018/08/ux-html5-mobile-form-part-1/
+      language: English
+      tags: ['Usability', 'HTML5', 'Basics']
+    'UX And HTML5: Let’s Help Users Fill In Your Mobile Form (Part 2)':
+      url: https://www.smashingmagazine.com/2018/08/ux-html5-mobile-form-part-2/
+      language: English
+      tags: ['Usability', 'HTML5', 'Basics']
   websites:
     usejsdoc.org:
       description: 'JavaScript code documentation'
@@ -89,9 +109,26 @@ SQL:
 Shared:
   tutorials:
     'GitFlow - A successful Git branching model':
-      url: 'https://nvie.com/posts/a-successful-git-branching-model/'
+      url: https://nvie.com/posts/a-successful-git-branching-model/
       language: English
       tags: ['Git', 'GitFlow']
+    'Accessibility Cheatsheet':
+      url: https://moritzgiessmann.de/accessibility-cheatsheet/
+      explain: Practical approaches to Universal Design for making your website/webapp accessible to everyone
+      language: English
+      tags: ['Design', 'Usability', 'Accessibility']
+    'Equality comparisons and sameness':
+      url: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness
+      language: English
+      tags: ['Basics']
+    'Pull Requests and Code Review':
+      url: https://medium.com/@pstepchenko/pull-requests-and-code-review-30abde0c98d3
+      language: Russian
+      tags: ['Code Review']
+    'Разделение функций на команды и запросы':
+      url: https://bespoyasov.ru/blog/commands-and-queries/
+      language: Russian
+      tags: ['Code Design', 'Patterns', 'CQS']
 
   websites:
     Postman:
@@ -99,3 +136,10 @@ Shared:
       url: https://www.getpostman.com/
       language: English
       tags: ['API']
+    semver.org:
+      description: Semantic Versioning
+      explain: When to increase MAJOR.MINOR.PATCH components of your product version
+    regex101.com:
+      description: Online Test tool for regular expressions
+      language: English
+      tags: ['Regular Expressions']
