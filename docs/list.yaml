@@ -81,7 +81,6 @@ JavaScript:
       description: Build cross-platform native mobile aplications with JavaScript
       url: https://vue-native.io
       tags: ['VueJS', 'Mobile', 'Cross-Platform']
-
   tutorials:
     'Learn Vue2 Step-by-Step 🎞':
       url: https://laracasts.com/series/learn-vue-2-step-by-step
@@ -118,6 +117,10 @@ JavaScript:
       url: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
       language: English
       tags: ['HTTP', 'CORS']
+    'Equality comparisons and sameness':
+      url: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness
+      language: English
+      tags: ['Basics']
   websites:
     usejsdoc.org:
       description: 'JavaScript code documentation'
@@ -145,10 +148,6 @@ Shared:
       explain: Practical approaches to Universal Design for making your website/webapp accessible to everyone
       language: English
       tags: ['Design', 'Usability', 'Accessibility']
-    'Equality comparisons and sameness':
-      url: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness
-      language: English
-      tags: ['Basics']
     'Pull Requests and Code Review':
       url: https://medium.com/@pstepchenko/pull-requests-and-code-review-30abde0c98d3
       language: Russian
