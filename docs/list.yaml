@@ -14,6 +14,11 @@ PHP:
       explain: More versatile way to generate models, than built-in Laravel command. Also allows to generate transformers, reporitories, etc.
       url: 'https://github.com/Saritasa/php-laravel-tools'
       tags: ['Laravel', 'Scaffolding', 'Code generation']
+    PHP_CodeSniffer:
+      description: Linter for PHP code - check, if code style matches desired rules
+      url: https://github.com/squizlabs/PHP_CodeSniffer
+      tags: ['Linter', 'Code Style']
+
   websites:
     sourcemaking.com:
       description: Code Design patterns, antipatterns
@@ -24,10 +29,28 @@ PHP:
       tags: ['Code Design', 'Patterns']
       url: 'https://refactoring.guru/ru'
       language: Russian
+    restapitutorial.ru:
+      description: RESTful API tutorial
+      tags: ['API', 'REST']
+      url: http://www.restapitutorial.ru
+      language: Russian
+    restapitutorial.com:
+      description: RESTful API tutorial
+      tags: ['API', 'REST']
+      language: English
+    phpdoc.org:
+      description: PHP Code documentation
+      url: https://www.phpdoc.org
+      tags: ['Documentation']
+      language: English
+
+
   tutorials:
-    'Lets build a forum with Laravel & TDD':
+    'Lets build a forum with Laravel & TDD 🎞':
       url: 'https://laracasts.com/series/lets-build-a-forum-with-laravel'
       language: English
+      tags: ['Laravel', 'TDD']
+
 JavaScript:
   packages:
     VueJS:
@@ -42,7 +65,37 @@ JavaScript:
       description: 'Display interactive tags cloud ([demo](https://seregpie.github.io/VueWordCloud/))'
       url: 'https://github.com/SeregPie/VueWordCloud'
       tags: ['VueJS', 'Components']
+
   tutorials:
-    'Learn Vue2 Step-by-Step':
+    'Learn Vue2 Step-by-Step 🎞':
       url: 'https://laracasts.com/series/learn-vue-2-step-by-step'
       language: English
+    'Объясняем современный JavaScript динозавру':
+      url: 'https://habr.com/company/mailru/blog/340922/'
+      tags: ['Basics']
+      language: Russian
+  websites:
+    usejsdoc.org:
+      description: 'JavaScript code documentation'
+      tags: ['Documentation']
+      language: English
+SQL:
+  tutorials:
+    '14 вопросов об индексах в SQL Server':
+      url: https://habr.com/post/247373/
+      language: Russian
+      tags: ['SQL', 'Basics']
+
+Shared:
+  tutorials:
+    'GitFlow - A successful Git branching model':
+      url: 'https://nvie.com/posts/a-successful-git-branching-model/'
+      language: English
+      tags: ['Git', 'GitFlow']
+
+  websites:
+    Postman:
+      description: A tool to test API
+      url: https://www.getpostman.com/
+      language: English
+      tags: ['API']
