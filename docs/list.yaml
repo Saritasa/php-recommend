@@ -18,6 +18,10 @@ PHP:
       description: Linter for PHP code - check, if code style matches desired rules
       url: https://github.com/squizlabs/PHP_CodeSniffer
       tags: ['Linter', 'Code Style']
+    barryvdh/laravel-cors:
+      description: Adds CORS headers support in your Laravel application
+      url: https://github.com/barryvdh/laravel-cors
+      tags: ['Laravel', 'CORS']
 
   websites:
     sourcemaking.com:
@@ -73,6 +77,10 @@ JavaScript:
       description: Bootstrap 4 components for VueJS
       url: https://bootstrap-vue.js.org
       tags: ['VueJS', 'Components']
+    'Vue Native':
+      description: Build cross-platform native mobile aplications with JavaScript
+      url: https://vue-native.io
+      tags: ['VueJS', 'Mobile', 'Cross-Platform']
 
   tutorials:
     'Learn Vue2 Step-by-Step 🎞':
@@ -94,11 +102,31 @@ JavaScript:
       url: https://www.smashingmagazine.com/2018/08/ux-html5-mobile-form-part-2/
       language: English
       tags: ['Usability', 'HTML5', 'Basics']
+    'Несколько полезностей по работе с NPM':
+      url: https://habr.com/post/206678/
+      language: Russian
+      tags: ['NPM', 'Basics']
+    'Working with package.json':
+      url: https://docs.npmjs.com/getting-started/using-a-package.json
+      language: English
+      tags: ['NPM']
+    'HTML Responsive images':
+      url: https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
+      language: English
+      tags: ['HTML5']
+    'Cross-Origin Resource Sharing (CORS)':
+      url: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+      language: English
+      tags: ['HTTP', 'CORS']
   websites:
     usejsdoc.org:
       description: 'JavaScript code documentation'
       tags: ['Documentation']
       language: English
+    es6-features.org:
+      description: New features in EcmaScript6 (aka ES2015) - newer JavaScript standard
+      language: English
+      tags: ['Basics']
 SQL:
   tutorials:
     '14 вопросов об индексах в SQL Server':
