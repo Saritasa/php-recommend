@@ -59,7 +59,7 @@ export default {
   },
   data() {
     return {
-      yamlData:     Yaml.load('/list.yaml'),
+      yamlData:     Yaml.load(`${process.env.BASE_URL}list.yaml`),
       resources:    {},
       resultCount:  0,
       explainCount: 0,
