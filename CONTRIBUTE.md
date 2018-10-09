@@ -5,7 +5,7 @@ Just edit **list.yaml** file and commit it to master branch. It will be publishe
 
 1. Edit **list.yaml** with your favorite editor to add/update knowledge base
 2. Run application in development mode locally, that you didn't break anything (ex. unexpected changes to application):
-   ```yarn install && yarn run dev```. 
+   ```yarn install && yarn run dev```.
 3. Open in browser at http://localhost:8080 and check, if your changes are visible as you expected.
 4. Commit and push your changes:
   ```bash
@@ -24,9 +24,15 @@ Just edit **list.yaml** file and commit it to master branch. It will be publishe
 1. ```yarn install``` - install all required dependencies
 2. ```yarn run dev``` - build application in development mode and run development HTTP server locally
 
+Before you make pull request, make sure, that linters pass without errors or warnings:
+```
+yarn run lint
+```
+
 ## Build for production
 ### (when applications sources were changed)
 To update SPA application, hosted on GitHub Pages:
+
 1. ```yarn install``` - install all required dependencies
 2. ```yarn run build``` - update files in 'docs' folder and commit them
 3. ```git add docs``` - add changed result files to commit
