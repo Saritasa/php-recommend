@@ -8,12 +8,40 @@ PHP:
     saritasa/common:
       description: Framework-agnostic helpers and utilities
       url: https://github.com/Saritasa/php-common
-      tags: ['Helper', 'Utility']
+      tags: ['Helper', 'Utility', 'Saritasa']
     saritasa/laravel-tools:
       description: Scaffolding (Code generation) tools
       explain: More versatile way to generate models, than built-in Laravel command. Also allows to generate transformers, reporitories, etc.
       url: https://github.com/Saritasa/php-laravel-tools
-      tags: ['Laravel', 'Scaffolding', 'Code generation']
+      tags: ['Laravel', 'Scaffolding', 'Code generation', 'Saritasa']
+    saritasa/laravel-repositories:
+      description: Repository pattern on top of Eloquent
+      url: https://github.com/Saritasa/php-laravel-repositories
+      tags: ['Laravel', 'Eloquent', 'Patterns', 'Saritasa']
+    saritasa/laravel-controllers:
+      description: Reusable UI and API endpoints in Laravel
+      url: https://github.com/Saritasa/php-laravel-controllers
+      tags: ['Laravel', 'Saritasa']
+    saritasa/laravel-chat-api:
+      description: Chat API implementation on top of Laravel
+      url: https://github.com/Saritasa/php-laravel-chat-api
+      tags: ['Laravel', 'API', 'Chat', 'Saritasa']
+    saritasa/laravel-entity-services:
+      description: Generic CRUD operations, override what you need
+      url: https://github.com/Saritasa/php-laravel-entity-services
+      tags: ['Laravel', 'Saritasa']
+    saritasa/blade-directives:
+      description: Additional Blade Directives
+      url: https://github.com/Saritasa/php-blade-directives
+      tags: ['Laravel', 'Blade', 'Saritasa']
+    saritasa/eloquent-custom:
+      description: Power-ups for Eloquent
+      url: https://github.com/Saritasa/php-eloquent-custom
+      tags: ['Laravel', 'Eloquent', 'Saritasa']
+    saritasa/dingo-api-custom:
+      description: helper to use Dingo/API library
+      url: https://github.com/Saritasa/php-dingo-api-custom
+      tags: ['Laravel', 'API', 'Saritasa']
     PHP_CodeSniffer:
       description: Linter for PHP code - check, if code style matches desired rules
       url: https://github.com/squizlabs/PHP_CodeSniffer
@@ -24,29 +52,13 @@ PHP:
       tags: ['Laravel', 'CORS']
 
   websites:
-    sourcemaking.com:
-      description: Code Design patterns, antipatterns
-      tags: ['Code design', 'patterns']
-      language: English
-    refactoring.guru:
-      description: Code Design patterns, antipatterns
-      tags: ['Code Design', 'Patterns']
-      url: https://refactoring.guru/ru
-      language: Russian
-    restapitutorial.ru:
-      description: RESTful API tutorial
-      tags: ['API', 'REST']
-      url: http://www.restapitutorial.ru
-      language: Russian
-    restapitutorial.com:
-      description: RESTful API tutorial
-      tags: ['API', 'REST']
-      language: English
     phpdoc.org:
       description: PHP Code documentation
       url: https://www.phpdoc.org
       tags: ['Documentation']
       language: English
+    phpprofi.ru:
+      description: Lots of useful articles. Mostly translations from English
 
 
   tutorials:
@@ -55,7 +67,7 @@ PHP:
       language: English
       tags: ['Laravel', 'TDD']
 
-JavaScript:
+Frontend:
   packages:
     VueJS:
       description: Easy to learn JS framework for SPA applications. Plays well with Laravel.
@@ -121,6 +133,10 @@ JavaScript:
       url: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness
       language: English
       tags: ['Basics']
+    'Руководство по HTML5':
+      url: https://smarly.net/html5
+      language: Russian
+      tags: ['HTML5', 'Basics']
   websites:
     usejsdoc.org:
       description: 'JavaScript code documentation'
@@ -145,19 +161,44 @@ Shared:
       tags: ['Git', 'GitFlow']
     'Accessibility Cheatsheet':
       url: https://moritzgiessmann.de/accessibility-cheatsheet/
+      description: Design for better UX
       explain: Practical approaches to Universal Design for making your website/webapp accessible to everyone
       language: English
       tags: ['Design', 'Usability', 'Accessibility']
+    Dependency Injection in .NET:
+      url: https://smarly.net/dependency-injection-in-net
+      description: Best DI book ever
+      explain: Despite code samples are in .NET, can be recommended to developers of any technology stack.
+      language: Russian
+      tags: ['Code Design', 'Patterns']
     'Pull Requests and Code Review':
       url: https://medium.com/@pstepchenko/pull-requests-and-code-review-30abde0c98d3
       language: Russian
       tags: ['Code Review']
-    'Разделение функций на команды и запросы':
+    'Разделение функций на команды и запросы (CQS)':
       url: https://bespoyasov.ru/blog/commands-and-queries/
       language: Russian
-      tags: ['Code Design', 'Patterns', 'CQS']
+      tags: ['Code Design', 'Patterns']
 
   websites:
+    sourcemaking.com:
+      description: Code Design patterns, antipatterns
+      tags: ['Code design', 'Patterns']
+      language: English
+    refactoring.guru:
+      description: Code Design patterns, antipatterns
+      tags: ['Code Design', 'Patterns']
+      url: https://refactoring.guru/ru
+      language: Russian
+    restapitutorial.ru:
+      description: RESTful API tutorial
+      tags: ['API', 'REST']
+      url: http://www.restapitutorial.ru
+      language: Russian
+    restapitutorial.com:
+      description: RESTful API tutorial
+      tags: ['API', 'REST']
+      language: English
     Postman:
       description: A tool to test API
       url: https://www.getpostman.com/
