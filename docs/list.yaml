@@ -59,7 +59,7 @@ PHP:
       language: English
     phpprofi.ru:
       description: Lots of useful articles. Mostly translations from English
-
+      language: Russian
 
   tutorials:
     'Lets build a forum with Laravel & TDD 🎞':
