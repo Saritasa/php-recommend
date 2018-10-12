@@ -18,10 +18,9 @@
     "font-face-observer": "^1.0.0",
     "lodash": "^4.17.10",
     "material-icons": "^0.2.3",
+    "v-tooltip": "^2.0.0-rc.33",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
-    "vue-tag-cloud": "0.0.1",
-    "vue-wordcloud": "^1.0.2",
     "vuetify": "^1.2.0",
     "vuewordcloud": "^18.7.11",
     "yamljs": "^0.3.0"
