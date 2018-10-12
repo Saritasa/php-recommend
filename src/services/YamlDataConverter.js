@@ -1,18 +1,18 @@
 import Yaml from 'yamljs';
 import _ from 'lodash';
-import Book from '../entities/Book';
+import TechnologyStack from '../entities/TechnologyStack';
 import Resource from '../entities/Resource';
 
 /**
- * Service to parse and convert yaml into appropriate books collection.
+ * Service to parse and convert yaml into appropriate collection.
  */
-export default class BooksYamlParser {
+export default class YamlDataConverter {
   /**
-   * Parse and convert yaml into appropriate books collection.
+   * Parse and convert yaml into appropriate collection.
    *
    * @param {string} filePath - Path to yaml file
    *
-   * @return {Array<Book>}
+   * @return {Array<TechnologyStack>}
    */
   parse(filePath) {
     const data = this.prepareData(Yaml.load(filePath));
@@ -45,17 +45,17 @@ export default class BooksYamlParser {
   }
 
   /**
-   * Convert yaml parsed object into books collection.
+   * Convert yaml parsed object into technology stacks collection.
    *
    * @param {Object} data - Data to convert
    *
-   * @return {Array<Book>}
+   * @return {Array<TechnologyStack>}
    */
   convertData(data) {
-    const books = [];
+    const technologyStacks = [];
 
-    _.forEach(data, (resourcesGroups, bookName) => {
-      const book = new Book(bookName);
+    _.forEach(data, (resourcesGroups, technologyStackName) => {
+      const technologyStack = new TechnologyStack(technologyStackName);
 
       _.forEach(resourcesGroups, (resourceGroup, type) => {
         _.forEach(resourceGroup, (resource, name) => {
@@ -75,12 +75,12 @@ export default class BooksYamlParser {
             resource.tags.forEach(tagWord => item.addTag(tagWord));
           }
 
-          book.addResource(type, item);
+          technologyStack.addResource(type, item);
         });
       });
-      books.push(book);
+      technologyStacks.push(technologyStack);
     });
 
-    return books;
+    return technologyStacks;
   }
 }

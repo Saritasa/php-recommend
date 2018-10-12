@@ -1,5 +1,5 @@
 /**
- * Types of books resources.
+ * Types of techmology stack resources.
  */
 export default {
   PACKAGE:  'packages',

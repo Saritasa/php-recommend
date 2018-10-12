@@ -35,9 +35,9 @@
          class="section resource"
     >
       <resource-sections
-        v-for="(book, index) in resources"
+        v-for="(stack, index) in resources"
         :key="index"
-        :book="book"
+        :item="stack"
       />
     </div>
     <div v-else>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import BooksYamlParser from '../services/BooksYamlParser';
+import YamlDataConverter from '../services/YamlDataConverter';
 import TagsService from '../services/TagsService';
 import TagCloud from './tag-cloud/TagCloud';
 import SearchBox from './search/SearchBox';
@@ -78,7 +78,7 @@ export default {
       return this.tagService.getTags();
     },
     resources() {
-      return this.tagService.getBooks();
+      return this.tagService.getTechnologyStacks();
     },
     resultsCount() {
       return this.tagService.getMatchedCount();
@@ -92,9 +92,9 @@ export default {
     },
   },
   created() {
-    const bookYamlParser = new BooksYamlParser();
+    const yamlConverter = new YamlDataConverter();
 
-    this.tagService = new TagsService(bookYamlParser.parse(`${process.env.BASE_URL}list.yaml`));
+    this.tagService = new TagsService(yamlConverter.parse(`${process.env.BASE_URL}list.yaml`));
     this.tagService.rescan();
   },
   methods: {
@@ -113,7 +113,7 @@ export default {
     },
 
     /**
-     * Rescan tags/books according which search string and selected tags.
+     * Rescan tags/technology stacks according which search string and selected tags.
      */
     rescan() {
       this.tagService.rescan();

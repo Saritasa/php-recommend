@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import Tag from '../entities/Tag';
-import Book from '../entities/Book';
+import TechnologyStack from '../entities/TechnologyStack';
 import resourceTypes from '../enums/resourceTypes';
 
 /**
@@ -10,14 +10,14 @@ export default class TagsService {
   /**
    * Service to find matches in tags.
    *
-   * @param {Array<Book>} books - Books in which we should find matches
+   * @param {Array<TechnologyStack>} technologyStacks - Technology stacks in which we should find matches
    */
-  constructor(books) {
+  constructor(technologyStacks) {
     this.tags = new Map();
     this.selectedTags = new Map();
     this.keyword = null;
-    this.originalBooks = books;
-    this.books = Object.assign({}, books);
+    this.originalTechnologyStacks = technologyStacks;
+    this.technologyStacks = Object.assign({}, technologyStacks);
     this.matchedCount = 0;
   }
 
@@ -40,12 +40,12 @@ export default class TagsService {
   }
 
   /**
-   * Gets filtered books.
+   * Gets filtered technology stacks.
    *
-   * @return {Array<Book>}
+   * @return {Array<TechnologyStack>}
    */
-  getBooks() {
-    return this.books;
+  getTechnologyStacks() {
+    return this.technologyStacks;
   }
 
   /**
@@ -88,18 +88,18 @@ export default class TagsService {
   }
 
   /**
-   * Rescan books to found comparision according with search keyword and selected tags.
+   * Rescan technology stacks to found comparision according with search keyword and selected tags.
    */
   rescan() {
-    this.books = [];
+    this.technologyStacks = [];
     this.tags.clear();
     this.matchedCount = 0;
 
-    this.originalBooks.forEach(book => {
-      const matchedBook = new Book(book.getName());
+    this.originalTechnologyStacks.forEach(technologyStack => {
+      const matchedStack = new TechnologyStack(technologyStack.getName());
 
       _.forEach(resourceTypes, type => {
-        book.getResources(type).forEach(packageItem => {
+        technologyStack.getResources(type).forEach(packageItem => {
           let matchedFound = true;
 
           if (this.selectedTags.size) {
@@ -126,13 +126,13 @@ export default class TagsService {
                 }
               }
             });
-            matchedBook.addResource(type, packageItem);
+            matchedStack.addResource(type, packageItem);
             this.matchedCount++;
           }
         });
       });
-      if (matchedBook.hasAnyItem()) {
-        this.books.push(matchedBook);
+      if (matchedStack.hasAnyItem()) {
+        this.technologyStacks.push(matchedStack);
       }
     });
   }

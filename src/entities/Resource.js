@@ -1,11 +1,11 @@
 import languages from '../enums/languages';
 
 /**
- * Representation of specific resource ib book.
+ * Representation of specific resource in technology stack.
  */
 export default class Resource {
   /**
-   * Representation of specific resource ib book.
+   * Representation of specific resource in technology stack.
    *
    * @param {string} name - Resource name
    */
@@ -27,7 +27,7 @@ export default class Resource {
   /**
    * Sets resource language.
    *
-   * @param {string}
+   * @param {string} language - Resource language
    */
   setLanguage(language) {
     this.language = language;

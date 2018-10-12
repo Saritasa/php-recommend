@@ -3,11 +3,11 @@ import resourceTypes from '../enums/resourceTypes';
 /**
  * Represents technology( like PHP/JS ) with related resources for learning/reading.
  */
-export default class Book {
+export default class TechnologyStack {
   /**
    * Represents technology( like PHP/JS ) with related resources for learning/reading.
    *
-   * @param {string} name - Name of the book
+   * @param {string} name - Name of the technology stack
    */
   constructor(name) {
     this.name = name;
@@ -17,7 +17,7 @@ export default class Book {
   }
 
   /**
-   * Returns book name.
+   * Returns name.
    *
    * @return {string}
    */
@@ -107,7 +107,7 @@ export default class Book {
   }
 
   /**
-   * Whether book have any items of any type.
+   * Whether technology stack have any items of any type.
    *
    * @return {boolean}
    */
