@@ -1,125 +1,100 @@
 <template>
-  <div class="tag-cloud-wrapper"
-       @mousemove="showTooltip">
-    <span id="tooltip-man"/>
-    <word-cloud
-      :data="words()"
-      :word-click="onWordClick"
-      :rotate="rotation"/>
+  <div class="tags-cloud-container">
+    <template v-if="preparedTags.length">
+      <vue-word-cloud
+        :words="preparedTags"
+        :color="getColor"
+        :animation-overlap="4"
+        :animation-duration="1500"
+        font-family="Indie Flower"
+      >
+        <template slot-scope="{text, weight}">
+          <div :title="text + ': ' + weight"
+               style="cursor: pointer;"
+               @click="$emit('wordClick', text)"
+          >
+            {{ text }}
+          </div>
+        </template>
+      </vue-word-cloud>
+    </template>
+    <template v-else>
+      <div class="empty-results">
+        No matched tags found
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
-import WordCloud from 'vue-wordcloud';
-import Yaml from 'yamljs';
-import _ from 'lodash';
+import VueWordCloud from 'vuewordcloud';
 
 export default {
   components: {
-    WordCloud,
+    VueWordCloud,
   },
   props: {
-    onWordClick: {
-      type:    Function,
-      default: () => {},
+    tags: {
+      type:     Map,
+      required: true,
     },
   },
   data() {
     return {
-      rotation:     { from: 0, to: 0, numOfOrientation: 1 },
-      selectedTags: [],
-      searchResult: {},
-      countedWords: this.getCountedTags(),
+      colors: [
+        '#d99cd1', '#c99cd1', '#b99cd1', '#a99cd1', '#403030',
+        '#f97a7a', '#31a50d', '#d1b022', '#74482a', '#ffd077',
+        '#3bc4c7', '#3a9eea', '#ff4e69', '#461e47',
+      ],
+      preparedTags: [],
     };
   },
-  computed: {
-
+  mounted() {
+    this.reInit();
   },
   methods: {
-    getTags(obj) {
-      let tags = [];
-
-      _.forEach(obj, (val, key) => {
-        if (key === 'tags') {
-          tags.push(val);
-        } else if (_.isObject(val)) {
-          tags.push(this.getTags(val));
-        }
-      });
-      tags = _.flattenDeep(tags);
-
-      return tags;
+    /**
+     * Returns random color from collection.
+     */
+    getColor() {
+      return this.colors[Math.floor(Math.random() * this.colors.length)];
     },
-    getCountedTags() {
-      if (_.size(this.searchResult) === 0) {
-        this.searchResult = Yaml.load(`${process.env.BASE_URL}list.yaml`);
-      }
 
-      const tags = this.getTags(this.searchResult);
-      const countedTags = {};
-
-      _.forEach(tags, val => {
-        const capVal = _.capitalize(val);
-
-        if (!_.includes(Object.keys(countedTags), capVal)) {
-          countedTags[capVal] = 1;
-        } else {
-          countedTags[capVal]++;
-        }
-      });
-
-      return countedTags;
+    /**
+     * ReInit component.
+     */
+    reInit() {
+      this.preparedTags = this.prepareTags(this.tags);
     },
-    words() {
-      const parsedWords = this.getCountedTags();
-      const result = [];
-      const thisSelectedTags = this.selectedTags;
 
-      Object.keys(parsedWords).forEach(key => {
-        if (_.indexOf(thisSelectedTags, key) === -1) {
-          result.push({ name: key, value: parsedWords[key] });
-        }
-      });
+    /**
+     * Convert given tags to needed form for `vue word cloud` component.
+     *
+     * @param { Map<string, Tag> } tags - Tags collection
+     *
+     * @return { Array }
+     */
+    prepareTags(tags) {
+      const preparedTags = [];
 
-      return result;
-    },
-    showTooltip(evt) {
-      const tooltipMan = document.getElementById('tooltip-man');
-      const child = evt.srcElement;
+      tags.forEach(tag => preparedTags.push([ tag.getName(), tag.getValue() ]));
 
-      if (evt.srcElement.tagName === 'text') {
-        const appDom = document.getElementById('app');
-        const appRelativeTop = (appDom.getBoundingClientRect()).top;
-        const appRelativeLeft = (appDom.getBoundingClientRect()).left;
-
-        let info = child.textContent;
-
-        info = `${info}: ${this.countedWords[info]}`;
-        tooltipMan.style.display = 'block';
-        tooltipMan.style.top = `${(evt.clientY - appRelativeTop) + 8}px`;
-        tooltipMan.style.left = `${evt.clientX - appRelativeLeft}px`;
-        tooltipMan.innerText = info;
-      } else {
-        tooltipMan.style.display = 'none';
-      }
+      return preparedTags;
     },
   },
 };
 </script>
 
-<style lang="scss">
-.tag-cloud-wrapper {
-  #tooltip-man {
-    position: absolute;
-    border-radius: 4px;
-    padding: 2px 10px;
-    background-color: #3e3d3d;
-    color: #fff;
-    z-index: 10;
-    display: none;
-  }
-  text {
-    cursor: pointer!important;
-  }
-}
+<style>
+    .tags-cloud-container {
+        width: 100%;
+        height: 500px;
+    }
+    .empty-results {
+        top: 40%;
+        position: relative;
+        left: 40%;
+        font-size: 40px;
+        color: #25bfbf;
+    }
 </style>

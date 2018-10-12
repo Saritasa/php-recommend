@@ -1,45 +1,38 @@
 <template>
   <div class="search-form-wrapper">
-    <input id="keyword"
-           v-model="keyword"
+    <input v-model="localKeyword"
            type="text"
            placeholder="Search keyword"
-           @change="handleSearch">
+           @input="$emit('input', localKeyword)"
+    >
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    keywordData: {
+    value: {
       type:    String,
-      default: '',
-    },
-    searchChange: {
-      type:     Function,
-      required: true,
+      default: null,
     },
   },
   data() {
     return {
-      keyword: this.keywordData,
+      localKeyword: null,
     };
   },
-  methods: {
-    handleSearch(event) {
-      this.searchChange(event, this.keyword);
+  watch: {
+    keyword(newVal) {
+      this.localKeyword = newVal;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.hidden {
-  display: none;
-}
 .search-form-wrapper {
   display: inline-block;
-  #keyword {
+  input {
     width: 300px;
     height: 26px;
     font-size: 14px;

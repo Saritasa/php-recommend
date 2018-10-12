@@ -5,35 +5,43 @@
     </div>
 
     <div class="section tag-cloud">
-      <tag-cloud ref="tagCloud"
-                 :on-word-click="onWordClick"/>
+      <tag-cloud ref="cloud"
+                 :tags="tags"
+                 @wordClick="onWordClick"
+      />
     </div>
 
     <div class="section search-box">
-      <search-box ref="searchBox"
-                  :search-change="searchChange"/>
+      <search-box v-model="keyword"/>
       <div class="section breadcrumb">
         <span v-for="(selectedTag, index) in selectedTags"
               :key="index"
-              class="selected-tag">
+              class="selected-tag"
+        >
           {{ selectedTag }}
           <span class="icon"
-                @click="clearTag(index)"><v-icon small>close</v-icon></span>
+                @click="removeTag(index)"
+          >
+            <v-icon small>close</v-icon>
+          </span>
         </span>
       </div>
     </div>
 
     <div class="result-count">
-      <span>{{ resultCount }} results found.</span>
-      <span v-if="explainCount > 0">({{ explainCount }} matched in 'explain' content)</span>
+      <span>{{ resultsCount }} results found.</span>
     </div>
-    <div class="section resource">
+    <div v-if="resources.length"
+         class="section resource"
+    >
       <resource-sections
-        v-for="(item, name) in resources"
-        :key="name"
-        :name="name"
-        :resource="item"
+        v-for="(stack, index) in resources"
+        :key="index"
+        :item="stack"
       />
+    </div>
+    <div v-else>
+      No matched results found
     </div>
 
     <div class="section footer">
@@ -43,12 +51,13 @@
 </template>
 
 <script>
-import Yaml from 'yamljs';
-import _ from 'lodash';
+import YamlDataConverter from '../services/YamlDataConverter';
+import TagsService from '../services/TagsService';
 import TagCloud from './tag-cloud/TagCloud';
 import SearchBox from './search/SearchBox';
 import ResourceSections from './ResourceSections';
 import QuickLink from './footer/QuickLink';
+import Tag from '../entities/Tag';
 
 export default {
   components: {
@@ -59,185 +68,67 @@ export default {
   },
   data() {
     return {
-      yamlData:     Yaml.load(`${process.env.BASE_URL}list.yaml`),
-      resources:    {},
-      resultCount:  0,
-      explainCount: 0,
+      tagService:   null,
+      keyword:      null,
       selectedTags: [],
     };
   },
+  computed: {
+    tags() {
+      return this.tagService.getTags();
+    },
+    resources() {
+      return this.tagService.getTechnologyStacks();
+    },
+    resultsCount() {
+      return this.tagService.getMatchedCount();
+    },
+  },
+  watch: {
+    keyword(keyword) {
+      this.keyword = keyword;
+      this.tagService.setKeyWord(keyword);
+      this.rescan();
+    },
+  },
   created() {
-    // Add 'url' to website item if it hasn't
-    _.forEach(this.yamlData, (val, k) => {
-      _.forEach(val.websites, (item, key) => {
-        let url = item.url || key;
+    const yamlConverter = new YamlDataConverter();
 
-        if (!_.startsWith(url, 'http')) {
-          url = `http://${url}`;
-        }
-        this.yamlData[k].websites[key].url = url;
-      });
-    });
-
-    this.searchChange();
+    this.tagService = new TagsService(yamlConverter.parse(`${process.env.BASE_URL}list.yaml`));
+    this.tagService.rescan();
   },
   methods: {
-    onWordClick(clickedWord) {
-      if (_.indexOf(this.selectedTags, clickedWord) === -1) {
-        this.selectedTags.push(clickedWord);
-        this.$refs.tagCloud.selectedTags = this.selectedTags;
-        this.searchChange(window.event, this.$refs.searchBox.keyword);
-      }
-    },
     /**
-       * Get array of words in a phrase. Not include special chars.
-       * A word can be group of alphabets or group of digits.
-       * Each words will became lowercase word.
-       *
-       * @param phrase A string
-       */
-    pureWords(phrase) {
-      if (phrase === undefined) {
-        return phrase;
+     * Action after click on lick in some tag.
+     *
+     * @param {string} tagName - Tag on which was click
+     */
+    onWordClick(tagName) {
+      if (this.selectedTags.indexOf(tagName) !== -1) {
+        return;
       }
-
-      let result = phrase;
-
-      if (_.isArray(phrase)) {
-        result = _.join(_.flattenDeep(phrase), ' ');
-      }
-
-      return _.words(result.toLowerCase(), /[-\w]+/g);
+      this.tagService.addTag(new Tag(tagName));
+      this.selectedTags.push(tagName);
+      this.rescan();
     },
-    toLowerTags(tags) {
-      const result = [];
 
-      _.forEach(tags, (tag, key) => {
-        result[key] = tag.toLowerCase();
-      });
-
-      return result;
-    },
     /**
-       * Split text to array of words and marks (, . @ / so on).
-       * E.x: The text "quick, brown @fox" will be split to ['quick', ',', ' ', 'brown', ' ', '@', 'fox']
-       *
-       * @param text
-       */
-    fragString(text) {
-      return text.split(/([^a-zA-Z])/g);
+     * Rescan tags/technology stacks according which search string and selected tags.
+     */
+    rescan() {
+      this.tagService.rescan();
+      this.$refs.cloud.reInit();
     },
-    highlight(keywords, sentence) {
-      const pureKeywords = this.pureWords(keywords);
 
-      const sentenceWords = this.fragString(sentence);
-
-      _.forEach(sentenceWords, (val, key) => {
-        if (_.indexOf(pureKeywords, val.toLowerCase()) !== -1) {
-          sentenceWords[key] = `<span class="highlighted-word">${val}</span>`;
-        }
-      });
-
-      return _.join(sentenceWords, '');
-    },
-    searchChange(event, kw) {
-      const keyword = kw === undefined ? '' : kw;
-
-      const val = _.trim(keyword);
-      const words = this.pureWords(val);
-
-      this.resultCount = 0;
-      this.explainCount = 0;
-
-      const filteredResources = {};
-
-      _.forEach(this.yamlData, (resource, resourceKey) => {
-        //
-        const filteredLists = {};
-
-        _.forEach(resource, (list, listKey) => {
-          // listKey = 'packages', 'websites'...
-          const filteredItems = {};
-
-          _.forEach(list, (item, itemKey) => {
-            let highlightKey = itemKey;
-            //
-            let matched = false;
-            const matchedItem = _.clone(item);
-
-            // 1. Filter by selected tags in cloud
-            let noTag = false;
-
-            if (this.selectedTags.length > 0) {
-              _.forEach(this.selectedTags, selectedTag => {
-                if (_.indexOf(this.toLowerTags(item.tags), selectedTag.toLowerCase()) === -1) {
-                  noTag = true;
-                }
-              });
-            }
-
-            if (noTag === true) {
-              return;
-            }
-
-            // 2. Filter by keywords
-            if (words.length === 0) {
-              matched = true;
-            } else {
-              // 2.1 Check with article key. E.x: 'saritasa/common', 'dingo/api'
-              if (_.intersection(words, this.pureWords(itemKey)).length > 0) {
-                highlightKey = this.highlight(words, itemKey);
-                matched = true;
-              }
-
-              // 2.2 Check with article content
-              _.forEach(item, (text, label) => {
-                if (_.intersection(words, this.pureWords(text)).length > 0) {
-                  // Except 'explain' and 'url' because they aren't shown as text
-                  if (label !== 'explain' && label !== 'url' && label !== 'tags') {
-                    matchedItem[label] = this.highlight(words, text);
-                  } else {
-                    matchedItem[label] = text;
-                    if (label === 'explain') {
-                      this.explainCount++;
-                    }
-                  }
-                  matched = true;
-                }
-              });
-            }
-
-            if (matched === true) {
-              filteredItems[highlightKey] = matchedItem;
-              this.resultCount++;
-            }
-          });
-          if (_.size(filteredItems) > 0) {
-            filteredLists[listKey] = filteredItems;
-          }
-        });
-        if (_.size(filteredLists) > 0) {
-          filteredResources[resourceKey] = filteredLists;
-        }
-      });
-
-      this.resources = '';
-      Object.keys(this.resources).forEach(prop => {
-        delete this.resources[prop];
-        this.resources[prop] = undefined;
-      });
-
-      this.resources = filteredResources;
-      if (this.$refs.tagCloud !== undefined) {
-        // TagCloud was loaded
-        this.$refs.tagCloud.searchResult = filteredResources;
-      }
-
-      return false;
-    },
-    clearTag(tagIndex) {
-      this.$delete(this.selectedTags, tagIndex);
-      this.searchChange(window.event, this.$refs.searchBox.keyword);
+    /**
+     * Remove early selected tag and rescan.
+     *
+     * @param {number} index - Tag index in component tags collection.
+     */
+    removeTag(index) {
+      this.tagService.removeTag(this.selectedTags[index]);
+      this.selectedTags.splice(index, 1);
+      this.rescan();
     },
   },
 };
@@ -295,7 +186,7 @@ export default {
         background-color: #eaeaea;
       }
     }
-    .package-list, .website-list, .tutorial-list {
+    .resources-list {
       padding-bottom: 15px;
     }
     h1, h2, h3, h4 {

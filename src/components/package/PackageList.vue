@@ -3,7 +3,6 @@
     <package-item
       v-for="(packageItem, index) in packages"
       :key="index"
-      :item-name="index"
       :item="packageItem"
     />
   </div>
@@ -18,14 +17,9 @@ export default {
   },
   props: {
     packages: {
-      type:     Object,
-      required: true,
+      type:    Array,
+      default: () => [],
     },
-  },
-  data() {
-    return {
-      packageItem: {},
-    };
   },
 };
 </script>

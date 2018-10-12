@@ -1,17 +1,28 @@
 <template>
   <div class="resource-wrapper">
-    <h2>{{ name }}</h2>
-    <h3 v-if="getSize(resource.packages) > 0">Packages</h3>
-    <package-list :packages="resource.packages"/>
-    <h3 v-if="getSize(resource.websites) > 0">Websites</h3>
-    <website-list :websites="resource.websites"/>
-    <h3 v-if="getSize(resource.tutorials) > 0">Tutorials</h3>
-    <tutorial-list :tutorials="resource.tutorials"/>
+    <template v-if="item.getPackages().length">
+      <h2>{{ item.name }}</h2>
+      <h3>
+        Packages
+      </h3>
+      <package-list :packages="item.getPackages()"/>
+    </template>
+    <template v-if="item.getWebsites().length">
+      <h3>
+        Websites
+      </h3>
+      <website-list :items="item.getWebsites()"/>
+    </template>
+    <template v-if="item.getTutorials().length">
+      <h3>
+        Tutorials
+      </h3>
+      <tutorial-list :items="item.getTutorials()"/>
+    </template>
   </div>
 </template>
 
 <script>
-import _ from 'lodash';
 import PackageList from './package/PackageList';
 import WebsiteList from './website/WebsiteList';
 import TutorialList from './tutorial/TutorialList';
@@ -23,33 +34,9 @@ export default {
     TutorialList,
   },
   props: {
-    name: {
-      type:    String,
-      default: '',
-    },
-    resource: {
-      type:    Object,
-      default: null,
-    },
-  },
-  data() {
-    return {
-      title: 'Search Resource',
-    };
-  },
-  computed: {
-    resourcesData() {
-      return this.resource;
-    },
-  },
-  watch: {
-    resourcesData(val) {
-      return val;
-    },
-  },
-  methods: {
-    getSize(obj) {
-      return _.size(obj);
+    item: {
+      type:     Object,
+      required: true,
     },
   },
 };
