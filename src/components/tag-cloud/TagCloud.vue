@@ -3,7 +3,7 @@
     <template v-if="preparedTags.length">
       <vue-word-cloud
         :words="preparedTags"
-        :color="([, weight]) => weight > 1 ? 'DeepPink' : weight > 3 ? 'RoyalBlue' : 'Indigo'"
+        :color="getColor"
         :animation-overlap="4"
         :animation-duration="1500"
         font-family="Indie Flower"
@@ -41,6 +41,11 @@ export default {
   },
   data() {
     return {
+      colors: [
+        '#d99cd1', '#c99cd1', '#b99cd1', '#a99cd1', '#403030',
+        '#f97a7a', '#31a50d', '#d1b022', '#74482a', '#ffd077',
+        '#3bc4c7', '#3a9eea', '#ff4e69', '#461e47',
+      ],
       preparedTags: [],
     };
   },
@@ -48,6 +53,13 @@ export default {
     this.reInit();
   },
   methods: {
+    /**
+     * Returns random color from collection.
+     */
+    getColor() {
+      return this.colors[Math.floor(Math.random() * this.colors.length)];
+    },
+
     /**
      * ReInit component.
      */
