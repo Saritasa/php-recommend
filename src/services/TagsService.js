@@ -56,7 +56,7 @@ export default class TagsService {
    * @return TagsService
    */
   addTag(tag) {
-    this.selectedTags.set(tag.getName(), tag);
+    this.selectedTags.set(tag.getName().toLowerCase(), tag);
 
     return this;
   }
@@ -64,12 +64,12 @@ export default class TagsService {
   /**
    * Remove added tag.
    *
-   * @param {Tag} tag - Tag to remove
+   * @param {string} tagName - Tag to remove
    *
    * @return TagsService
    */
-  removeTag(tag) {
-    this.selectedTags.delete(tag);
+  removeTag(tagName) {
+    this.selectedTags.delete(tagName.toLowerCase());
 
     return this;
   }
@@ -82,7 +82,7 @@ export default class TagsService {
    * @return {TagsService}
    */
   setKeyWord(keyword) {
-    this.keyword = keyword;
+    this.keyword = keyword.toLowerCase();
 
     return this;
   }
@@ -104,25 +104,29 @@ export default class TagsService {
 
           if (this.selectedTags.size) {
             this.selectedTags.forEach(tag => {
-              matchedFound = matchedFound && (packageItem.getTags().indexOf(tag.getName()) !== -1);
+              matchedFound = matchedFound && (packageItem.getTags()
+                .map(tagName => tagName.toLowerCase())
+                .indexOf(tag.getName().toLowerCase()) !== -1);
             });
           }
 
           if (this.keyword) {
             matchedFound = matchedFound && (
-              (packageItem.getName() ? packageItem.getName().includes(this.keyword) : false) ||
-              (packageItem.getDesc() ? packageItem.getDesc().includes(this.keyword) : false) ||
-              (packageItem.getUrl() ? packageItem.getUrl().includes(this.keyword) : false)
+              (packageItem.getName() ? this.isContainsKeyword(packageItem.getName()) : false) ||
+              (packageItem.getUrl() ? this.isContainsKeyword(packageItem.getUrl()) : false) ||
+              (packageItem.getDesc() ? this.isContainsKeyword(packageItem.getDesc()) : false)
             );
           }
 
           if (matchedFound) {
             packageItem.getTags().forEach(tag => {
-              if (!this.selectedTags.has(tag)) {
-                if (this.tags.has(tag)) {
-                  this.tags.get(tag).increaseValue();
+              const localTag = tag.toLocaleLowerCase();
+
+              if (!this.selectedTags.has(localTag)) {
+                if (this.tags.has(localTag)) {
+                  this.tags.get(localTag).increaseValue();
                 } else {
-                  this.tags.set(tag, new Tag(tag));
+                  this.tags.set(localTag, new Tag(tag));
                 }
               }
             });
@@ -135,6 +139,17 @@ export default class TagsService {
         this.technologyStacks.push(matchedStack);
       }
     });
+  }
+
+  /**
+   * Whether give string compare keyword.
+   *
+   * @param {string} str - String to compare with keyword
+   *
+   * @return {boolean}
+   */
+  isContainsKeyword(str) {
+    return str.toLowerCase().includes(this.keyword);
   }
 }
 
