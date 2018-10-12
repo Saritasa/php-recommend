@@ -1,20 +1,6 @@
 webpackJsonp([1],{
 
-/***/ "2HoA":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "7MG2":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "A8iw":
+/***/ "I2f+":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -33,6 +19,9 @@ var vue_esm = __webpack_require__("7+uW");
 // EXTERNAL MODULE: ./node_modules/vuetify/dist/vuetify.js
 var vuetify = __webpack_require__("3EgV");
 var vuetify_default = /*#__PURE__*/__webpack_require__.n(vuetify);
+
+// EXTERNAL MODULE: ./node_modules/v-tooltip/dist/v-tooltip.esm.js
+var v_tooltip_esm = __webpack_require__("VN6J");
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./src/App.vue
 //
@@ -82,9 +71,13 @@ var Component = normalizeComponent(
 // EXTERNAL MODULE: ./node_modules/vue-router/dist/vue-router.esm.js
 var vue_router_esm = __webpack_require__("/ocq");
 
-// EXTERNAL MODULE: ./node_modules/babel-runtime/core-js/object/keys.js
-var keys = __webpack_require__("fZjL");
-var keys_default = /*#__PURE__*/__webpack_require__.n(keys);
+// EXTERNAL MODULE: ./node_modules/babel-runtime/helpers/classCallCheck.js
+var classCallCheck = __webpack_require__("Zrlr");
+var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck);
+
+// EXTERNAL MODULE: ./node_modules/babel-runtime/helpers/createClass.js
+var createClass = __webpack_require__("wxAW");
+var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass);
 
 // EXTERNAL MODULE: ./node_modules/yamljs/lib/Yaml.js
 var Yaml = __webpack_require__("BxPQ");
@@ -94,9 +87,698 @@ var Yaml_default = /*#__PURE__*/__webpack_require__.n(Yaml);
 var lodash = __webpack_require__("M4fF");
 var lodash_default = /*#__PURE__*/__webpack_require__.n(lodash);
 
-// EXTERNAL MODULE: ./node_modules/vue-wordcloud/dist/word-cloud.js
-var word_cloud = __webpack_require__("6zY2");
-var word_cloud_default = /*#__PURE__*/__webpack_require__.n(word_cloud);
+// CONCATENATED MODULE: ./src/enums/resourceTypes.js
+/**
+ * Types of techmology stack resources.
+ */
+/* harmony default export */ var resourceTypes = ({
+  PACKAGE: 'packages',
+  WEBSITE: 'websites',
+  TUTORIAL: 'tutorials'
+});
+// CONCATENATED MODULE: ./src/entities/TechnologyStack.js
+
+
+
+
+/**
+ * Represents technology( like PHP/JS ) with related resources for learning/reading.
+ */
+
+var TechnologyStack_TechnologyStack = function () {
+  /**
+   * Represents technology( like PHP/JS ) with related resources for learning/reading.
+   *
+   * @param {string} name - Name of the technology stack
+   */
+  function TechnologyStack(name) {
+    classCallCheck_default()(this, TechnologyStack);
+
+    this.name = name;
+    this.websites = [];
+    this.tutorials = [];
+    this.packages = [];
+  }
+
+  /**
+   * Returns name.
+   *
+   * @return {string}
+   */
+
+
+  createClass_default()(TechnologyStack, [{
+    key: 'getName',
+    value: function getName() {
+      return this.name;
+    }
+
+    /**
+     * Gets packages.
+     *
+     * @return { Resource[] }
+     */
+
+  }, {
+    key: 'getPackages',
+    value: function getPackages() {
+      return this.packages;
+    }
+
+    /**
+     * Gets packages.
+     *
+     * @return { Resource[] }
+     */
+
+  }, {
+    key: 'getTutorials',
+    value: function getTutorials() {
+      return this.tutorials;
+    }
+
+    /**
+     * Gets packages.
+     *
+     * @return { Resource[] }
+     */
+
+  }, {
+    key: 'getWebsites',
+    value: function getWebsites() {
+      return this.websites;
+    }
+
+    /**
+     * Gets packages.
+     *
+     * @return { Array<Resource> }
+     *
+     * @throws Error When given type is unknown
+     */
+
+  }, {
+    key: 'getResources',
+    value: function getResources(type) {
+      var results = void 0;
+
+      switch (type) {
+        case resourceTypes.PACKAGE:
+          results = this.packages;
+          break;
+
+        case resourceTypes.WEBSITE:
+          results = this.websites;
+          break;
+
+        case resourceTypes.TUTORIAL:
+          results = this.tutorials;
+          break;
+
+        default:
+          throw new Error('Unknown package type.');
+      }
+
+      return results;
+    }
+
+    /**
+     * Add resource by type.
+     *
+     * @throws Error When given type is unknown
+     */
+
+  }, {
+    key: 'addResource',
+    value: function addResource(type, resource) {
+      switch (type) {
+        case resourceTypes.PACKAGE:
+          this.packages.push(resource);
+          break;
+
+        case resourceTypes.WEBSITE:
+          this.websites.push(resource);
+          break;
+
+        case resourceTypes.TUTORIAL:
+          this.tutorials.push(resource);
+          break;
+
+        default:
+          throw new Error('Unknown package type.');
+      }
+    }
+
+    /**
+     * Whether technology stack have any items of any type.
+     *
+     * @return {boolean}
+     */
+
+  }, {
+    key: 'hasAnyItem',
+    value: function hasAnyItem() {
+      return this.getWebsites().length > 0 || this.getPackages().length > 0 || this.getTutorials().length > 0;
+    }
+  }]);
+
+  return TechnologyStack;
+}();
+
+/* harmony default export */ var entities_TechnologyStack = (TechnologyStack_TechnologyStack);
+// CONCATENATED MODULE: ./src/enums/languages.js
+/* harmony default export */ var languages = ({
+  ENGLISH: 'English',
+  RUSSIAN: 'Russian'
+});
+// CONCATENATED MODULE: ./src/entities/Resource.js
+
+
+
+
+/**
+ * Representation of specific resource in technology stack.
+ */
+
+var Resource_Resource = function () {
+  /**
+   * Representation of specific resource in technology stack.
+   *
+   * @param {string} name - Resource name
+   */
+  function Resource(name) {
+    classCallCheck_default()(this, Resource);
+
+    this.name = name;
+    this.tags = [];
+    this.language = languages.ENGLISH;
+  }
+
+  /**
+   * Gets resource language.
+   *
+   * @return {string}
+   */
+
+
+  createClass_default()(Resource, [{
+    key: 'getLanguage',
+    value: function getLanguage() {
+      return this.language;
+    }
+
+    /**
+     * Sets resource language.
+     *
+     * @param {string} language - Resource language
+     */
+
+  }, {
+    key: 'setLanguage',
+    value: function setLanguage(language) {
+      this.language = language;
+    }
+
+    /**
+     * Sets resource description.
+     *
+     * @param {string} value - Resource description
+     */
+
+  }, {
+    key: 'setDesc',
+    value: function setDesc(value) {
+      this.desc = value;
+    }
+
+    /**
+     * Sets resource url.
+     *
+     * @param {string} value - Resource description
+     */
+
+  }, {
+    key: 'setUrl',
+    value: function setUrl(value) {
+      this.url = value;
+    }
+
+    /**
+     * Sets resource explanation.
+     *
+     * @param {string} explanation - Resource explanation
+     */
+
+  }, {
+    key: 'setExplanation',
+    value: function setExplanation(explanation) {
+      this.explanation = explanation;
+    }
+
+    /**
+     * Gets resource name.
+     *
+     * @return {string}
+     */
+
+  }, {
+    key: 'getName',
+    value: function getName() {
+      return this.name;
+    }
+
+    /**
+     * Gets resource description.
+     *
+     * @return {string}
+     */
+
+  }, {
+    key: 'getDesc',
+    value: function getDesc() {
+      return this.desc;
+    }
+
+    /**
+     * Gets resource explanation.
+     *
+     * @return {string}
+     */
+
+  }, {
+    key: 'getExplanation',
+    value: function getExplanation() {
+      return this.explanation;
+    }
+
+    /**
+     * Gets resource url.
+     *
+     * @return {string}
+     */
+
+  }, {
+    key: 'getUrl',
+    value: function getUrl() {
+      return this.url;
+    }
+
+    /**
+     * Adds tag to resource.
+     *
+     * @param {string} tagWord - Tag to add
+     */
+
+  }, {
+    key: 'addTag',
+    value: function addTag(tagWord) {
+      this.tags.push(tagWord);
+    }
+
+    /**
+     * Gets resource tags.
+     *
+     * @return {Array<string>}
+     */
+
+  }, {
+    key: 'getTags',
+    value: function getTags() {
+      return this.tags;
+    }
+  }]);
+
+  return Resource;
+}();
+
+/* harmony default export */ var entities_Resource = (Resource_Resource);
+// CONCATENATED MODULE: ./src/services/YamlDataConverter.js
+
+
+
+
+
+
+
+/**
+ * Service to parse and convert yaml into appropriate collection.
+ */
+
+var YamlDataConverter_YamlDataConverter = function () {
+  function YamlDataConverter() {
+    classCallCheck_default()(this, YamlDataConverter);
+  }
+
+  createClass_default()(YamlDataConverter, [{
+    key: 'parse',
+
+    /**
+     * Parse and convert yaml into appropriate collection.
+     *
+     * @param {string} filePath - Path to yaml file
+     *
+     * @return {Array<TechnologyStack>}
+     */
+    value: function parse(filePath) {
+      var data = this.prepareData(Yaml_default.a.load(filePath));
+
+      return this.convertData(data);
+    }
+
+    /**
+     * Add url to websites if it absent.
+     *
+     * @param {Object} data - Data to prepare
+     *
+     * @return {Object}
+     */
+
+  }, {
+    key: 'prepareData',
+    value: function prepareData(data) {
+      var localData = data;
+
+      lodash_default.a.forEach(localData, function (val, k) {
+        lodash_default.a.forEach(val.websites, function (item, key) {
+          var url = item.url || key;
+
+          if (!lodash_default.a.startsWith(url, 'http')) {
+            url = 'http://' + url;
+          }
+          localData[k].websites[key].url = url;
+        });
+      });
+
+      return localData;
+    }
+
+    /**
+     * Convert yaml parsed object into technology stacks collection.
+     *
+     * @param {Object} data - Data to convert
+     *
+     * @return {Array<TechnologyStack>}
+     */
+
+  }, {
+    key: 'convertData',
+    value: function convertData(data) {
+      var technologyStacks = [];
+
+      lodash_default.a.forEach(data, function (resourcesGroups, technologyStackName) {
+        var technologyStack = new entities_TechnologyStack(technologyStackName);
+
+        lodash_default.a.forEach(resourcesGroups, function (resourceGroup, type) {
+          lodash_default.a.forEach(resourceGroup, function (resource, name) {
+            var item = new entities_Resource(name);
+
+            item.setDesc(resource.description);
+            item.setUrl(resource.url);
+            if (resource.language) {
+              item.setLanguage(resource.language);
+            }
+
+            if (resource.explain) {
+              item.setExplanation(resource.explain);
+            }
+
+            if (resource.tags) {
+              resource.tags.forEach(function (tagWord) {
+                return item.addTag(tagWord);
+              });
+            }
+
+            technologyStack.addResource(type, item);
+          });
+        });
+        technologyStacks.push(technologyStack);
+      });
+
+      return technologyStacks;
+    }
+  }]);
+
+  return YamlDataConverter;
+}();
+
+/* harmony default export */ var services_YamlDataConverter = (YamlDataConverter_YamlDataConverter);
+// EXTERNAL MODULE: ./node_modules/babel-runtime/core-js/object/assign.js
+var object_assign = __webpack_require__("woOf");
+var assign_default = /*#__PURE__*/__webpack_require__.n(object_assign);
+
+// EXTERNAL MODULE: ./node_modules/babel-runtime/core-js/map.js
+var map = __webpack_require__("ifoU");
+var map_default = /*#__PURE__*/__webpack_require__.n(map);
+
+// CONCATENATED MODULE: ./src/entities/Tag.js
+
+
+
+/**
+ * Tag to filtering package.
+ */
+var Tag_Tag = function () {
+  /**
+   * Tag to filtering package.
+   *
+   * @param {string} name - Tag name
+   */
+  function Tag(name) {
+    classCallCheck_default()(this, Tag);
+
+    this.name = name;
+    this.value = 1;
+  }
+
+  /**
+   * Increase weight of tag.
+   */
+
+
+  createClass_default()(Tag, [{
+    key: "increaseValue",
+    value: function increaseValue() {
+      this.value++;
+    }
+
+    /**
+     * Gets tag name.
+     */
+
+  }, {
+    key: "getName",
+    value: function getName() {
+      return this.name;
+    }
+
+    /**
+     * Gets tag weight.
+     */
+
+  }, {
+    key: "getValue",
+    value: function getValue() {
+      return this.value;
+    }
+  }]);
+
+  return Tag;
+}();
+
+/* harmony default export */ var entities_Tag = (Tag_Tag);
+// CONCATENATED MODULE: ./src/services/TagsService.js
+
+
+
+
+
+
+
+
+
+/**
+ * Service to find matches in tags.
+ */
+
+var TagsService_TagsService = function () {
+  /**
+   * Service to find matches in tags.
+   *
+   * @param {Array<TechnologyStack>} technologyStacks - Technology stacks in which we should find matches
+   */
+  function TagsService(technologyStacks) {
+    classCallCheck_default()(this, TagsService);
+
+    this.tags = new map_default.a();
+    this.selectedTags = new map_default.a();
+    this.keyword = null;
+    this.originalTechnologyStacks = technologyStacks;
+    this.technologyStacks = assign_default()({}, technologyStacks);
+    this.matchedCount = 0;
+  }
+
+  /**
+   * Gets matches count.
+   *
+   * @return {number}
+   */
+
+
+  createClass_default()(TagsService, [{
+    key: 'getMatchedCount',
+    value: function getMatchedCount() {
+      return this.matchedCount;
+    }
+
+    /**
+     * Gets matched tags.
+     *
+     * @return {Map<string, Tag>}
+     */
+
+  }, {
+    key: 'getTags',
+    value: function getTags() {
+      return this.tags;
+    }
+
+    /**
+     * Gets filtered technology stacks.
+     *
+     * @return {Array<TechnologyStack>}
+     */
+
+  }, {
+    key: 'getTechnologyStacks',
+    value: function getTechnologyStacks() {
+      return this.technologyStacks;
+    }
+
+    /**
+     * Add tag to filter results.
+     *
+     * @param {Tag} tag
+     *
+     * @return TagsService
+     */
+
+  }, {
+    key: 'addTag',
+    value: function addTag(tag) {
+      this.selectedTags.set(tag.getName().toLowerCase(), tag);
+
+      return this;
+    }
+
+    /**
+     * Remove added tag.
+     *
+     * @param {string} tagName - Tag to remove
+     *
+     * @return TagsService
+     */
+
+  }, {
+    key: 'removeTag',
+    value: function removeTag(tagName) {
+      this.selectedTags.delete(tagName.toLowerCase());
+
+      return this;
+    }
+
+    /**
+     * Set key word.
+     *
+     * @param {string} keyword - Key word to filter data.
+     *
+     * @return {TagsService}
+     */
+
+  }, {
+    key: 'setKeyWord',
+    value: function setKeyWord(keyword) {
+      this.keyword = keyword.toLowerCase();
+
+      return this;
+    }
+
+    /**
+     * Rescan technology stacks to found comparision according with search keyword and selected tags.
+     */
+
+  }, {
+    key: 'rescan',
+    value: function rescan() {
+      var _this = this;
+
+      this.technologyStacks = [];
+      this.tags.clear();
+      this.matchedCount = 0;
+
+      this.originalTechnologyStacks.forEach(function (technologyStack) {
+        var matchedStack = new entities_TechnologyStack(technologyStack.getName());
+
+        lodash_default.a.forEach(resourceTypes, function (type) {
+          technologyStack.getResources(type).forEach(function (packageItem) {
+            var matchedFound = true;
+
+            if (_this.selectedTags.size) {
+              _this.selectedTags.forEach(function (tag) {
+                matchedFound = matchedFound && packageItem.getTags().map(function (tagName) {
+                  return tagName.toLowerCase();
+                }).indexOf(tag.getName().toLowerCase()) !== -1;
+              });
+            }
+
+            if (_this.keyword) {
+              matchedFound = matchedFound && ((packageItem.getName() ? _this.isContainsKeyword(packageItem.getName()) : false) || (packageItem.getUrl() ? _this.isContainsKeyword(packageItem.getUrl()) : false) || (packageItem.getDesc() ? _this.isContainsKeyword(packageItem.getDesc()) : false));
+            }
+
+            if (matchedFound) {
+              packageItem.getTags().forEach(function (tag) {
+                var localTag = tag.toLocaleLowerCase();
+
+                if (!_this.selectedTags.has(localTag)) {
+                  if (_this.tags.has(localTag)) {
+                    _this.tags.get(localTag).increaseValue();
+                  } else {
+                    _this.tags.set(localTag, new entities_Tag(tag));
+                  }
+                }
+              });
+              matchedStack.addResource(type, packageItem);
+              _this.matchedCount++;
+            }
+          });
+        });
+        if (matchedStack.hasAnyItem()) {
+          _this.technologyStacks.push(matchedStack);
+        }
+      });
+    }
+
+    /**
+     * Whether give string compare keyword.
+     *
+     * @param {string} str - String to compare with keyword
+     *
+     * @return {boolean}
+     */
+
+  }, {
+    key: 'isContainsKeyword',
+    value: function isContainsKeyword(str) {
+      return str.toLowerCase().includes(this.keyword);
+    }
+  }]);
+
+  return TagsService;
+}();
+
+/* harmony default export */ var services_TagsService = (TagsService_TagsService);
+// EXTERNAL MODULE: ./node_modules/vuewordcloud/VueWordCloud.js
+var VueWordCloud = __webpack_require__("/2Ab");
+var VueWordCloud_default = /*#__PURE__*/__webpack_require__.n(VueWordCloud);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./src/components/tag-cloud/TagCloud.vue
 
@@ -111,111 +793,92 @@ var word_cloud_default = /*#__PURE__*/__webpack_require__.n(word_cloud);
 //
 //
 //
-
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ var TagCloud = ({
   components: {
-    WordCloud: word_cloud_default.a
+    VueWordCloud: VueWordCloud_default.a
   },
   props: {
-    onWordClick: {
-      type: Function,
-      default: function _default() {}
+    tags: {
+      type: map_default.a,
+      required: true
     }
   },
   data: function data() {
     return {
-      rotation: { from: 0, to: 0, numOfOrientation: 1 },
-      selectedTags: [],
-      searchResult: {},
-      countedWords: this.getCountedTags()
+      colors: ['#d99cd1', '#c99cd1', '#b99cd1', '#a99cd1', '#403030', '#f97a7a', '#31a50d', '#d1b022', '#74482a', '#ffd077', '#3bc4c7', '#3a9eea', '#ff4e69', '#461e47'],
+      preparedTags: []
     };
   },
+  mounted: function mounted() {
+    this.reInit();
+  },
 
-  computed: {},
   methods: {
-    getTags: function getTags(obj) {
-      var _this = this;
-
-      var tags = [];
-
-      lodash_default.a.forEach(obj, function (val, key) {
-        if (key === 'tags') {
-          tags.push(val);
-        } else if (lodash_default.a.isObject(val)) {
-          tags.push(_this.getTags(val));
-        }
-      });
-      tags = lodash_default.a.flattenDeep(tags);
-
-      return tags;
+    /**
+     * Returns random color from collection.
+     */
+    getColor: function getColor() {
+      return this.colors[Math.floor(Math.random() * this.colors.length)];
     },
-    getCountedTags: function getCountedTags() {
-      if (lodash_default.a.size(this.searchResult) === 0) {
-        this.searchResult = Yaml_default.a.load("/php-recommend/" + 'list.yaml');
-      }
 
-      var tags = this.getTags(this.searchResult);
-      var countedTags = {};
 
-      lodash_default.a.forEach(tags, function (val) {
-        var capVal = lodash_default.a.capitalize(val);
+    /**
+     * ReInit component.
+     */
+    reInit: function reInit() {
+      this.preparedTags = this.prepareTags(this.tags);
+    },
 
-        if (!lodash_default.a.includes(keys_default()(countedTags), capVal)) {
-          countedTags[capVal] = 1;
-        } else {
-          countedTags[capVal]++;
-        }
+
+    /**
+     * Convert given tags to needed form for `vue word cloud` component.
+     *
+     * @param { Map<string, Tag> } tags - Tags collection
+     *
+     * @return { Array }
+     */
+    prepareTags: function prepareTags(tags) {
+      var preparedTags = [];
+
+      tags.forEach(function (tag) {
+        return preparedTags.push([tag.getName(), tag.getValue()]);
       });
 
-      return countedTags;
-    },
-    words: function words() {
-      var parsedWords = this.getCountedTags();
-      var result = [];
-      var thisSelectedTags = this.selectedTags;
-
-      keys_default()(parsedWords).forEach(function (key) {
-        if (lodash_default.a.indexOf(thisSelectedTags, key) === -1) {
-          result.push({ name: key, value: parsedWords[key] });
-        }
-      });
-
-      return result;
-    },
-    showTooltip: function showTooltip(evt) {
-      var tooltipMan = document.getElementById('tooltip-man');
-      var child = evt.srcElement;
-
-      if (evt.srcElement.tagName === 'text') {
-        var appDom = document.getElementById('app');
-        var appRelativeTop = appDom.getBoundingClientRect().top;
-        var appRelativeLeft = appDom.getBoundingClientRect().left;
-
-        var info = child.textContent;
-
-        info = info + ': ' + this.countedWords[info];
-        tooltipMan.style.display = 'block';
-        tooltipMan.style.top = evt.clientY - appRelativeTop + 8 + 'px';
-        tooltipMan.style.left = evt.clientX - appRelativeLeft + 'px';
-        tooltipMan.innerText = info;
-      } else {
-        tooltipMan.style.display = 'none';
-      }
+      return preparedTags;
     }
   }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-687e42f4","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/tag-cloud/TagCloud.vue
-var TagCloud_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tag-cloud-wrapper",on:{"mousemove":_vm.showTooltip}},[_c('span',{attrs:{"id":"tooltip-man"}}),_vm._v(" "),_c('word-cloud',{attrs:{"data":_vm.words(),"word-click":_vm.onWordClick,"rotate":_vm.rotation}})],1)}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-e2033210","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/tag-cloud/TagCloud.vue
+var TagCloud_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tags-cloud-container"},[(_vm.preparedTags.length)?[_c('vue-word-cloud',{attrs:{"words":_vm.preparedTags,"color":_vm.getColor,"animation-overlap":4,"animation-duration":1500,"font-family":"Indie Flower"},scopedSlots:_vm._u([{key:"default",fn:function(ref){
+var text = ref.text;
+var weight = ref.weight;
+return [_c('div',{staticStyle:{"cursor":"pointer"},attrs:{"title":text + ': ' + weight},on:{"click":function($event){_vm.$emit('wordClick', text)}}},[_vm._v("\n          "+_vm._s(text)+"\n        ")])]}}])})]:[_c('div',{staticClass:"empty-results"},[_vm._v("\n      No matched tags found\n    ")])]],2)}
 var TagCloud_staticRenderFns = []
 var TagCloud_esExports = { render: TagCloud_render, staticRenderFns: TagCloud_staticRenderFns }
 /* harmony default export */ var tag_cloud_TagCloud = (TagCloud_esExports);
 // CONCATENATED MODULE: ./src/components/tag-cloud/TagCloud.vue
 function TagCloud_injectStyle (ssrContext) {
-  __webpack_require__("2HoA")
+  __webpack_require__("rcWl")
 }
 var TagCloud_normalizeComponent = __webpack_require__("VU/8")
 /* script */
@@ -256,35 +919,31 @@ var TagCloud_Component = TagCloud_normalizeComponent(
 
 /* harmony default export */ var SearchBox = ({
   props: {
-    keywordData: {
+    value: {
       type: String,
-      default: ''
-    },
-    searchChange: {
-      type: Function,
-      required: true
+      default: null
     }
   },
   data: function data() {
     return {
-      keyword: this.keywordData
+      localKeyword: null
     };
   },
 
-  methods: {
-    handleSearch: function handleSearch(event) {
-      this.searchChange(event, this.keyword);
+  watch: {
+    keyword: function keyword(newVal) {
+      this.localKeyword = newVal;
     }
   }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-adb9407e","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/search/SearchBox.vue
-var SearchBox_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"search-form-wrapper"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.keyword),expression:"keyword"}],attrs:{"id":"keyword","type":"text","placeholder":"Search keyword"},domProps:{"value":(_vm.keyword)},on:{"change":_vm.handleSearch,"input":function($event){if($event.target.composing){ return; }_vm.keyword=$event.target.value}}})])}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-2a02125c","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/search/SearchBox.vue
+var SearchBox_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"search-form-wrapper"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.localKeyword),expression:"localKeyword"}],attrs:{"type":"text","placeholder":"Search keyword"},domProps:{"value":(_vm.localKeyword)},on:{"input":[function($event){if($event.target.composing){ return; }_vm.localKeyword=$event.target.value},function($event){_vm.$emit('input', _vm.localKeyword)}]}})])}
 var SearchBox_staticRenderFns = []
 var SearchBox_esExports = { render: SearchBox_render, staticRenderFns: SearchBox_staticRenderFns }
 /* harmony default export */ var search_SearchBox = (SearchBox_esExports);
 // CONCATENATED MODULE: ./src/components/search/SearchBox.vue
 function SearchBox_injectStyle (ssrContext) {
-  __webpack_require__("A8iw")
+  __webpack_require__("yU9E")
 }
 var SearchBox_normalizeComponent = __webpack_require__("VU/8")
 /* script */
@@ -297,7 +956,7 @@ var SearchBox___vue_template_functional__ = false
 /* styles */
 var SearchBox___vue_styles__ = SearchBox_injectStyle
 /* scopeId */
-var SearchBox___vue_scopeId__ = "data-v-adb9407e"
+var SearchBox___vue_scopeId__ = "data-v-2a02125c"
 /* moduleIdentifier (server only) */
 var SearchBox___vue_module_identifier__ = null
 var SearchBox_Component = SearchBox_normalizeComponent(
@@ -323,25 +982,27 @@ var SearchBox_Component = SearchBox_normalizeComponent(
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ var PackageItem = ({
   props: {
     item: {
       type: Object,
       default: null
-    },
-    itemName: {
-      type: String,
-      default: ''
     }
   }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-19808980","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/package/PackageItem.vue
-var PackageItem_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[_c('a',{attrs:{"href":_vm.item.url}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.itemName)}})]),_vm._v(" "),(_vm.item.description)?_c('span',[_vm._v("- "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.item.description)}})]):_vm._e(),_vm._v(" "),(_vm.item.explain)?_c('a',{attrs:{"href":"/#"}},[_c('v-icon',{attrs:{"title":_vm.item.explain,"medium":""}},[_vm._v("info")])],1):_vm._e(),_vm._v(" "),_c('br')])}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-6b733002","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/package/PackageItem.vue
+var PackageItem_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[_c('a',{attrs:{"href":_vm.item.getUrl()}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.item.getName())}})]),_vm._v(" "),(_vm.item.getDesc())?_c('span',[_vm._v("- "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.item.getDesc())}})]):_vm._e(),_vm._v(" "),(_vm.item.getExplanation())?_c('span',[_c('v-icon',{directives:[{name:"tooltip",rawName:"v-tooltip",value:(_vm.item.getExplanation()),expression:"item.getExplanation()"}],attrs:{"medium":""}},[_vm._v("info")])],1):_vm._e()])}
 var PackageItem_staticRenderFns = []
 var PackageItem_esExports = { render: PackageItem_render, staticRenderFns: PackageItem_staticRenderFns }
 /* harmony default export */ var package_PackageItem = (PackageItem_esExports);
 // CONCATENATED MODULE: ./src/components/package/PackageItem.vue
+function PackageItem_injectStyle (ssrContext) {
+  __webpack_require__("I2f+")
+}
 var PackageItem_normalizeComponent = __webpack_require__("VU/8")
 /* script */
 
@@ -351,7 +1012,7 @@ var PackageItem_normalizeComponent = __webpack_require__("VU/8")
 /* template functional */
 var PackageItem___vue_template_functional__ = false
 /* styles */
-var PackageItem___vue_styles__ = null
+var PackageItem___vue_styles__ = PackageItem_injectStyle
 /* scopeId */
 var PackageItem___vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -378,7 +1039,6 @@ var PackageItem_Component = PackageItem_normalizeComponent(
 //
 //
 //
-//
 
 
 
@@ -388,18 +1048,15 @@ var PackageItem_Component = PackageItem_normalizeComponent(
   },
   props: {
     packages: {
-      type: Object,
-      required: true
+      type: Array,
+      default: function _default() {
+        return [];
+      }
     }
-  },
-  data: function data() {
-    return {
-      packageItem: {}
-    };
   }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-76bca0e6","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/package/PackageList.vue
-var PackageList_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"package-list"},_vm._l((_vm.packages),function(packageItem,index){return _c('package-item',{key:index,attrs:{"item-name":index,"item":packageItem}})}))}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-4adf877c","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/package/PackageList.vue
+var PackageList_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"package-list"},_vm._l((_vm.packages),function(packageItem,index){return _c('package-item',{key:index,attrs:{"item":packageItem}})}))}
 var PackageList_staticRenderFns = []
 var PackageList_esExports = { render: PackageList_render, staticRenderFns: PackageList_staticRenderFns }
 /* harmony default export */ var package_PackageList = (PackageList_esExports);
@@ -441,25 +1098,27 @@ var PackageList_Component = PackageList_normalizeComponent(
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ var WebsiteItem = ({
   props: {
     item: {
       type: Object,
       default: null
-    },
-    itemName: {
-      type: String,
-      default: ''
     }
   }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-1a9ed656","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/website/WebsiteItem.vue
-var WebsiteItem_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[_c('a',{attrs:{"href":_vm.item.url}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.itemName)}})]),_vm._v(" "),(_vm.item.description)?_c('span',[_vm._v("- "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.item.description)}})]):_vm._e(),_vm._v(" "),(_vm.item.explain)?_c('a',{attrs:{"href":"/#"}},[_c('v-icon',{attrs:{"title":_vm.item.explain,"medium":""}},[_vm._v("info")])],1):_vm._e(),_vm._v(" "),_c('br')])}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-21dfe595","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/website/WebsiteItem.vue
+var WebsiteItem_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[_c('a',{attrs:{"href":_vm.item.getUrl()}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.item.getName())}})]),_vm._v(" "),(_vm.item.getDesc())?_c('span',[_vm._v("- "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.item.getDesc())}})]):_vm._e(),_vm._v(" "),(_vm.item.getExplanation())?_c('span',[_c('v-icon',{directives:[{name:"tooltip",rawName:"v-tooltip",value:(_vm.item.getExplanation()),expression:"item.getExplanation()"}],attrs:{"medium":""}},[_vm._v("info")])],1):_vm._e()])}
 var WebsiteItem_staticRenderFns = []
 var WebsiteItem_esExports = { render: WebsiteItem_render, staticRenderFns: WebsiteItem_staticRenderFns }
 /* harmony default export */ var website_WebsiteItem = (WebsiteItem_esExports);
 // CONCATENATED MODULE: ./src/components/website/WebsiteItem.vue
+function WebsiteItem_injectStyle (ssrContext) {
+  __webpack_require__("ezeL")
+}
 var WebsiteItem_normalizeComponent = __webpack_require__("VU/8")
 /* script */
 
@@ -469,7 +1128,7 @@ var WebsiteItem_normalizeComponent = __webpack_require__("VU/8")
 /* template functional */
 var WebsiteItem___vue_template_functional__ = false
 /* styles */
-var WebsiteItem___vue_styles__ = null
+var WebsiteItem___vue_styles__ = WebsiteItem_injectStyle
 /* scopeId */
 var WebsiteItem___vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -485,7 +1144,72 @@ var WebsiteItem_Component = WebsiteItem_normalizeComponent(
 
 /* harmony default export */ var components_website_WebsiteItem = (WebsiteItem_Component.exports);
 
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./src/mixins/LanguageFilteringMixin.vue
+
+
+
+/* harmony default export */ var LanguageFilteringMixin = ({
+  name: 'LanguageFilteringMixin',
+  props: {
+    items: {
+      type: Array,
+      default: function _default() {
+        return [];
+      }
+    }
+  },
+  data: function data() {
+    return {
+      languages: languages
+    };
+  },
+
+  methods: {
+    /**
+     * Filters items by given language.
+     *
+     * @param {string} language - Language to filter items.
+     *
+     * @return {Array<Resource>}
+     */
+    filterByLanguage: function filterByLanguage(language) {
+      return this.items.filter(function (item) {
+        return item.getLanguage() === language;
+      });
+    }
+  }
+});
+// CONCATENATED MODULE: ./src/mixins/LanguageFilteringMixin.vue
+var LanguageFilteringMixin_normalizeComponent = __webpack_require__("VU/8")
+/* script */
+
+
+/* template */
+var __vue_template__ = null
+/* template functional */
+var LanguageFilteringMixin___vue_template_functional__ = false
+/* styles */
+var LanguageFilteringMixin___vue_styles__ = null
+/* scopeId */
+var LanguageFilteringMixin___vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var LanguageFilteringMixin___vue_module_identifier__ = null
+var LanguageFilteringMixin_Component = LanguageFilteringMixin_normalizeComponent(
+  LanguageFilteringMixin,
+  __vue_template__,
+  LanguageFilteringMixin___vue_template_functional__,
+  LanguageFilteringMixin___vue_styles__,
+  LanguageFilteringMixin___vue_scopeId__,
+  LanguageFilteringMixin___vue_module_identifier__
+)
+
+/* harmony default export */ var mixins_LanguageFilteringMixin = (LanguageFilteringMixin_Component.exports);
+
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./src/components/website/WebsiteList.vue
+//
+//
+//
+//
 //
 //
 //
@@ -509,45 +1233,10 @@ var WebsiteItem_Component = WebsiteItem_normalizeComponent(
   components: {
     WebsiteItem: components_website_WebsiteItem
   },
-  props: {
-    websites: {
-      type: Object,
-      default: null
-    }
-  },
-  data: function data() {
-    return {
-      websiteItem: {}
-    };
-  },
-
-  computed: {
-    languageGroups: function languageGroups() {
-      var formatData = this.websiteData;
-
-      lodash_default.a.forEach(formatData, function (value, key) {
-        formatData[key].text = key;
-        formatData[key].language = value.language || 'Other';
-        formatData[key].url = value.url || key;
-        if (!lodash_default.a.startsWith(value.url, 'http')) {
-          formatData[key].url = 'http://' + value.url;
-        }
-      });
-
-      return lodash_default.a.groupBy(formatData, 'language');
-    },
-    websiteData: function websiteData() {
-      return this.websites;
-    }
-  },
-  watch: {
-    websiteData: function websiteData(val) {
-      return val;
-    }
-  }
+  mixins: [mixins_LanguageFilteringMixin]
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-3ef0268c","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/website/WebsiteList.vue
-var WebsiteList_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"website-list"},_vm._l((_vm.languageGroups),function(group,key){return _c('div',{key:key},[_c('h4',[_c('i',[_vm._v(_vm._s(key))])]),_vm._v(" "),_vm._l((group),function(websiteItem,key){return _c('website-item',{key:key,attrs:{"item-name":websiteItem.text,"item":websiteItem}})})],2)}))}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-5e321dd5","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/website/WebsiteList.vue
+var WebsiteList_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"resources-list"},_vm._l((_vm.languages),function(language){return _c('div',{key:language},[(_vm.filterByLanguage(language).length)?[_c('h4',[_c('i',[_vm._v(_vm._s(language))])]),_vm._v(" "),_vm._l((_vm.filterByLanguage(language)),function(website,key){return _c('website-item',{key:key,attrs:{"item":website}})})]:_vm._e()],2)}))}
 var WebsiteList_staticRenderFns = []
 var WebsiteList_esExports = { render: WebsiteList_render, staticRenderFns: WebsiteList_staticRenderFns }
 /* harmony default export */ var website_WebsiteList = (WebsiteList_esExports);
@@ -589,25 +1278,27 @@ var WebsiteList_Component = WebsiteList_normalizeComponent(
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ var TutorialItem = ({
   props: {
     item: {
       type: Object,
       default: null
-    },
-    itemName: {
-      type: String,
-      default: ''
     }
   }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-b35f7964","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/tutorial/TutorialItem.vue
-var TutorialItem_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[_c('a',{attrs:{"href":_vm.item.url}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.itemName)}})]),_vm._v(" "),(_vm.item.description)?_c('span',[_vm._v("- "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.item.description)}})]):_vm._e(),_vm._v(" "),(_vm.item.explain)?_c('a',{attrs:{"href":"/#"}},[_c('v-icon',{attrs:{"title":_vm.item.explain,"medium":""}},[_vm._v("info")])],1):_vm._e(),_vm._v(" "),_c('br')])}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-9db345c6","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/tutorial/TutorialItem.vue
+var TutorialItem_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('li',[_c('a',{attrs:{"href":_vm.item.getUrl()}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.item.getName())}})]),_vm._v(" "),(_vm.item.getDesc())?_c('span',[_vm._v("- "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.item.getDesc())}})]):_vm._e(),_vm._v(" "),(_vm.item.getExplanation())?_c('span',[_c('v-icon',{directives:[{name:"tooltip",rawName:"v-tooltip",value:(_vm.item.getExplanation()),expression:"item.getExplanation()"}],attrs:{"medium":""}},[_vm._v("info")])],1):_vm._e()])}
 var TutorialItem_staticRenderFns = []
 var TutorialItem_esExports = { render: TutorialItem_render, staticRenderFns: TutorialItem_staticRenderFns }
 /* harmony default export */ var tutorial_TutorialItem = (TutorialItem_esExports);
 // CONCATENATED MODULE: ./src/components/tutorial/TutorialItem.vue
+function TutorialItem_injectStyle (ssrContext) {
+  __webpack_require__("RX9e")
+}
 var TutorialItem_normalizeComponent = __webpack_require__("VU/8")
 /* script */
 
@@ -617,7 +1308,7 @@ var TutorialItem_normalizeComponent = __webpack_require__("VU/8")
 /* template functional */
 var TutorialItem___vue_template_functional__ = false
 /* styles */
-var TutorialItem___vue_styles__ = null
+var TutorialItem___vue_styles__ = TutorialItem_injectStyle
 /* scopeId */
 var TutorialItem___vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -649,6 +1340,10 @@ var TutorialItem_Component = TutorialItem_normalizeComponent(
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -657,45 +1352,10 @@ var TutorialItem_Component = TutorialItem_normalizeComponent(
   components: {
     TutorialItem: components_tutorial_TutorialItem
   },
-  props: {
-    tutorials: {
-      type: Object,
-      default: null
-    }
-  },
-  data: function data() {
-    return {
-      tutorialItem: {}
-    };
-  },
-
-  computed: {
-    languageGroups: function languageGroups() {
-      var formatData = this.tutorialData;
-
-      lodash_default.a.forEach(formatData, function (value, key) {
-        formatData[key].text = key;
-        formatData[key].language = value.language || 'Other';
-        formatData[key].url = value.url || key;
-        if (!lodash_default.a.startsWith(value.url, 'http')) {
-          formatData[key].url = 'http://' + value.url;
-        }
-      });
-
-      return lodash_default.a.groupBy(formatData, 'language');
-    },
-    tutorialData: function tutorialData() {
-      return this.tutorials;
-    }
-  },
-  watch: {
-    tutorialData: function tutorialData(val) {
-      return val;
-    }
-  }
+  mixins: [mixins_LanguageFilteringMixin]
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-54c7e338","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/tutorial/TutorialList.vue
-var TutorialList_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tutorial-list"},_vm._l((_vm.languageGroups),function(group,key){return _c('div',{key:key},[_c('h4',[_c('i',[_vm._v(_vm._s(key))])]),_vm._v(" "),_vm._l((group),function(tutorialItem,key){return _c('tutorial-item',{key:key,attrs:{"item-name":tutorialItem.text,"item":tutorialItem}})})],2)}))}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-1fdeabdd","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/tutorial/TutorialList.vue
+var TutorialList_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"resources-list"},_vm._l((_vm.languages),function(language){return _c('div',{key:language},[(_vm.filterByLanguage(language).length)?[_c('h4',[_c('i',[_vm._v(_vm._s(language))])]),_vm._v(" "),_vm._l((_vm.filterByLanguage(language)),function(tutorial,key){return _c('tutorial-item',{key:key,attrs:{"item":tutorial}})})]:_vm._e()],2)}))}
 var TutorialList_staticRenderFns = []
 var TutorialList_esExports = { render: TutorialList_render, staticRenderFns: TutorialList_staticRenderFns }
 /* harmony default export */ var tutorial_TutorialList = (TutorialList_esExports);
@@ -738,7 +1398,18 @@ var TutorialList_Component = TutorialList_normalizeComponent(
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -751,39 +1422,14 @@ var TutorialList_Component = TutorialList_normalizeComponent(
     TutorialList: components_tutorial_TutorialList
   },
   props: {
-    name: {
-      type: String,
-      default: ''
-    },
-    resource: {
+    item: {
       type: Object,
-      default: null
-    }
-  },
-  data: function data() {
-    return {
-      title: 'Search Resource'
-    };
-  },
-
-  computed: {
-    resourcesData: function resourcesData() {
-      return this.resource;
-    }
-  },
-  watch: {
-    resourcesData: function resourcesData(val) {
-      return val;
-    }
-  },
-  methods: {
-    getSize: function getSize(obj) {
-      return lodash_default.a.size(obj);
+      required: true
     }
   }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-d034d990","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/ResourceSections.vue
-var ResourceSections_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"resource-wrapper"},[_c('h2',[_vm._v(_vm._s(_vm.name))]),_vm._v(" "),(_vm.getSize(_vm.resource.packages) > 0)?_c('h3',[_vm._v("Packages")]):_vm._e(),_vm._v(" "),_c('package-list',{attrs:{"packages":_vm.resource.packages}}),_vm._v(" "),(_vm.getSize(_vm.resource.websites) > 0)?_c('h3',[_vm._v("Websites")]):_vm._e(),_vm._v(" "),_c('website-list',{attrs:{"websites":_vm.resource.websites}}),_vm._v(" "),(_vm.getSize(_vm.resource.tutorials) > 0)?_c('h3',[_vm._v("Tutorials")]):_vm._e(),_vm._v(" "),_c('tutorial-list',{attrs:{"tutorials":_vm.resource.tutorials}})],1)}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-697d5e80","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/ResourceSections.vue
+var ResourceSections_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"resource-wrapper"},[(_vm.item.getPackages().length)?[_c('h2',[_vm._v(_vm._s(_vm.item.name))]),_vm._v(" "),_c('h3',[_vm._v("\n      Packages\n    ")]),_vm._v(" "),_c('package-list',{attrs:{"packages":_vm.item.getPackages()}})]:_vm._e(),_vm._v(" "),(_vm.item.getWebsites().length)?[_c('h3',[_vm._v("\n      Websites\n    ")]),_vm._v(" "),_c('website-list',{attrs:{"items":_vm.item.getWebsites()}})]:_vm._e(),_vm._v(" "),(_vm.item.getTutorials().length)?[_c('h3',[_vm._v("\n      Tutorials\n    ")]),_vm._v(" "),_c('tutorial-list',{attrs:{"items":_vm.item.getTutorials()}})]:_vm._e()],2)}
 var ResourceSections_staticRenderFns = []
 var ResourceSections_esExports = { render: ResourceSections_render, staticRenderFns: ResourceSections_staticRenderFns }
 /* harmony default export */ var components_ResourceSections = (ResourceSections_esExports);
@@ -813,14 +1459,14 @@ var ResourceSections_Component = ResourceSections_normalizeComponent(
 
 /* harmony default export */ var src_components_ResourceSections = (ResourceSections_Component.exports);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-38b8cb3a","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/footer/QuickLink.vue
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-05531399","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/footer/QuickLink.vue
 var QuickLink_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _vm._m(0)}
-var QuickLink_staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"quick-link-wrapper"},[_c('span',[_vm._v("© Since 09-2018")])])}]
+var QuickLink_staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"quick-link-wrapper"},[_c('span',[_vm._v("© Since 09.2018")])])}]
 var QuickLink_esExports = { render: QuickLink_render, staticRenderFns: QuickLink_staticRenderFns }
 /* harmony default export */ var QuickLink = (QuickLink_esExports);
 // CONCATENATED MODULE: ./src/components/footer/QuickLink.vue
 function QuickLink_injectStyle (ssrContext) {
-  __webpack_require__("m/u+")
+  __webpack_require__("XnRc")
 }
 var QuickLink_normalizeComponent = __webpack_require__("VU/8")
 /* script */
@@ -832,7 +1478,7 @@ var QuickLink___vue_template_functional__ = false
 /* styles */
 var QuickLink___vue_styles__ = QuickLink_injectStyle
 /* scopeId */
-var QuickLink___vue_scopeId__ = "data-v-38b8cb3a"
+var QuickLink___vue_scopeId__ = "data-v-05531399"
 /* moduleIdentifier (server only) */
 var QuickLink___vue_module_identifier__ = null
 var QuickLink_Component = QuickLink_normalizeComponent(
@@ -847,51 +1493,59 @@ var QuickLink_Component = QuickLink_normalizeComponent(
 /* harmony default export */ var footer_QuickLink = (QuickLink_Component.exports);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./src/components/Page.vue
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -909,203 +1563,82 @@ var QuickLink_Component = QuickLink_normalizeComponent(
   },
   data: function data() {
     return {
-      yamlData: Yaml_default.a.load("/php-recommend/" + 'list.yaml'),
-      resources: {},
-      resultCount: 0,
-      explainCount: 0,
+      tagService: null,
+      keyword: null,
       selectedTags: []
     };
   },
+
+  computed: {
+    tags: function tags() {
+      return this.tagService.getTags();
+    },
+    resources: function resources() {
+      return this.tagService.getTechnologyStacks();
+    },
+    resultsCount: function resultsCount() {
+      return this.tagService.getMatchedCount();
+    }
+  },
+  watch: {
+    keyword: function keyword(_keyword) {
+      this.keyword = _keyword;
+      this.tagService.setKeyWord(_keyword);
+      this.rescan();
+    }
+  },
   created: function created() {
-    var _this = this;
+    var yamlConverter = new services_YamlDataConverter();
 
-    // Add 'url' to website item if it hasn't
-    lodash_default.a.forEach(this.yamlData, function (val, k) {
-      lodash_default.a.forEach(val.websites, function (item, key) {
-        var url = item.url || key;
-
-        if (!lodash_default.a.startsWith(url, 'http')) {
-          url = 'http://' + url;
-        }
-        _this.yamlData[k].websites[key].url = url;
-      });
-    });
-
-    this.searchChange();
+    this.tagService = new services_TagsService(yamlConverter.parse("/php-recommend/" + 'list.yaml'));
+    this.tagService.rescan();
   },
 
   methods: {
-    onWordClick: function onWordClick(clickedWord) {
-      if (lodash_default.a.indexOf(this.selectedTags, clickedWord) === -1) {
-        this.selectedTags.push(clickedWord);
-        this.$refs.tagCloud.selectedTags = this.selectedTags;
-        this.searchChange(window.event, this.$refs.searchBox.keyword);
+    /**
+     * Action after click on lick in some tag.
+     *
+     * @param {string} tagName - Tag on which was click
+     */
+    onWordClick: function onWordClick(tagName) {
+      if (this.selectedTags.indexOf(tagName) !== -1) {
+        return;
       }
+      this.tagService.addTag(new entities_Tag(tagName));
+      this.selectedTags.push(tagName);
+      this.rescan();
     },
+
 
     /**
-       * Get array of words in a phrase. Not include special chars.
-       * A word can be group of alphabets or group of digits.
-       * Each words will became lowercase word.
-       *
-       * @param phrase A string
-       */
-    pureWords: function pureWords(phrase) {
-      if (phrase === undefined) {
-        return phrase;
-      }
-
-      var result = phrase;
-
-      if (lodash_default.a.isArray(phrase)) {
-        result = lodash_default.a.join(lodash_default.a.flattenDeep(phrase), ' ');
-      }
-
-      return lodash_default.a.words(result.toLowerCase(), /[-\w]+/g);
+     * Rescan tags/technology stacks according which search string and selected tags.
+     */
+    rescan: function rescan() {
+      this.tagService.rescan();
+      this.$refs.cloud.reInit();
     },
-    toLowerTags: function toLowerTags(tags) {
-      var result = [];
 
-      lodash_default.a.forEach(tags, function (tag, key) {
-        result[key] = tag.toLowerCase();
-      });
-
-      return result;
-    },
 
     /**
-       * Split text to array of words and marks (, . @ / so on).
-       * E.x: The text "quick, brown @fox" will be split to ['quick', ',', ' ', 'brown', ' ', '@', 'fox']
-       *
-       * @param text
-       */
-    fragString: function fragString(text) {
-      return text.split(/([^a-zA-Z])/g);
-    },
-    highlight: function highlight(keywords, sentence) {
-      var pureKeywords = this.pureWords(keywords);
-
-      var sentenceWords = this.fragString(sentence);
-
-      lodash_default.a.forEach(sentenceWords, function (val, key) {
-        if (lodash_default.a.indexOf(pureKeywords, val.toLowerCase()) !== -1) {
-          sentenceWords[key] = '<span class="highlighted-word">' + val + '</span>';
-        }
-      });
-
-      return lodash_default.a.join(sentenceWords, '');
-    },
-    searchChange: function searchChange(event, kw) {
-      var _this2 = this;
-
-      var keyword = kw === undefined ? '' : kw;
-
-      var val = lodash_default.a.trim(keyword);
-      var words = this.pureWords(val);
-
-      this.resultCount = 0;
-      this.explainCount = 0;
-
-      var filteredResources = {};
-
-      lodash_default.a.forEach(this.yamlData, function (resource, resourceKey) {
-        //
-        var filteredLists = {};
-
-        lodash_default.a.forEach(resource, function (list, listKey) {
-          // listKey = 'packages', 'websites'...
-          var filteredItems = {};
-
-          lodash_default.a.forEach(list, function (item, itemKey) {
-            var highlightKey = itemKey;
-            //
-            var matched = false;
-            var matchedItem = lodash_default.a.clone(item);
-
-            // 1. Filter by selected tags in cloud
-            var noTag = false;
-
-            if (_this2.selectedTags.length > 0) {
-              lodash_default.a.forEach(_this2.selectedTags, function (selectedTag) {
-                if (lodash_default.a.indexOf(_this2.toLowerTags(item.tags), selectedTag.toLowerCase()) === -1) {
-                  noTag = true;
-                }
-              });
-            }
-
-            if (noTag === true) {
-              return;
-            }
-
-            // 2. Filter by keywords
-            if (words.length === 0) {
-              matched = true;
-            } else {
-              // 2.1 Check with article key. E.x: 'saritasa/common', 'dingo/api'
-              if (lodash_default.a.intersection(words, _this2.pureWords(itemKey)).length > 0) {
-                highlightKey = _this2.highlight(words, itemKey);
-                matched = true;
-              }
-
-              // 2.2 Check with article content
-              lodash_default.a.forEach(item, function (text, label) {
-                if (lodash_default.a.intersection(words, _this2.pureWords(text)).length > 0) {
-                  // Except 'explain' and 'url' because they aren't shown as text
-                  if (label !== 'explain' && label !== 'url' && label !== 'tags') {
-                    matchedItem[label] = _this2.highlight(words, text);
-                  } else {
-                    matchedItem[label] = text;
-                    if (label === 'explain') {
-                      _this2.explainCount++;
-                    }
-                  }
-                  matched = true;
-                }
-              });
-            }
-
-            if (matched === true) {
-              filteredItems[highlightKey] = matchedItem;
-              _this2.resultCount++;
-            }
-          });
-          if (lodash_default.a.size(filteredItems) > 0) {
-            filteredLists[listKey] = filteredItems;
-          }
-        });
-        if (lodash_default.a.size(filteredLists) > 0) {
-          filteredResources[resourceKey] = filteredLists;
-        }
-      });
-
-      this.resources = '';
-      keys_default()(this.resources).forEach(function (prop) {
-        delete _this2.resources[prop];
-        _this2.resources[prop] = undefined;
-      });
-
-      this.resources = filteredResources;
-      if (this.$refs.tagCloud !== undefined) {
-        // TagCloud was loaded
-        this.$refs.tagCloud.searchResult = filteredResources;
-      }
-
-      return false;
-    },
-    clearTag: function clearTag(tagIndex) {
-      this.$delete(this.selectedTags, tagIndex);
-      this.searchChange(window.event, this.$refs.searchBox.keyword);
+     * Remove early selected tag and rescan.
+     *
+     * @param {number} index - Tag index in component tags collection.
+     */
+    removeTag: function removeTag(index) {
+      this.tagService.removeTag(this.selectedTags[index]);
+      this.selectedTags.splice(index, 1);
+      this.rescan();
     }
   }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-4ddad21f","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/Page.vue
-var Page_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"page"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"section tag-cloud"},[_c('tag-cloud',{ref:"tagCloud",attrs:{"on-word-click":_vm.onWordClick}})],1),_vm._v(" "),_c('div',{staticClass:"section search-box"},[_c('search-box',{ref:"searchBox",attrs:{"search-change":_vm.searchChange}}),_vm._v(" "),_c('div',{staticClass:"section breadcrumb"},_vm._l((_vm.selectedTags),function(selectedTag,index){return _c('span',{key:index,staticClass:"selected-tag"},[_vm._v("\n        "+_vm._s(selectedTag)+"\n        "),_c('span',{staticClass:"icon",on:{"click":function($event){_vm.clearTag(index)}}},[_c('v-icon',{attrs:{"small":""}},[_vm._v("close")])],1)])}))],1),_vm._v(" "),_c('div',{staticClass:"result-count"},[_c('span',[_vm._v(_vm._s(_vm.resultCount)+" results found.")]),_vm._v(" "),(_vm.explainCount > 0)?_c('span',[_vm._v("("+_vm._s(_vm.explainCount)+" matched in 'explain' content)")]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"section resource"},_vm._l((_vm.resources),function(item,name){return _c('resource-sections',{key:name,attrs:{"name":name,"resource":item}})})),_vm._v(" "),_c('div',{staticClass:"section footer"},[_c('quick-link')],1)])}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-6f0e5be1","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/Page.vue
+var Page_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"page"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"section tag-cloud"},[_c('tag-cloud',{ref:"cloud",attrs:{"tags":_vm.tags},on:{"wordClick":_vm.onWordClick}})],1),_vm._v(" "),_c('div',{staticClass:"section search-box"},[_c('search-box',{model:{value:(_vm.keyword),callback:function ($$v) {_vm.keyword=$$v},expression:"keyword"}}),_vm._v(" "),_c('div',{staticClass:"section breadcrumb"},_vm._l((_vm.selectedTags),function(selectedTag,index){return _c('span',{key:index,staticClass:"selected-tag"},[_vm._v("\n        "+_vm._s(selectedTag)+"\n        "),_c('span',{staticClass:"icon",on:{"click":function($event){_vm.removeTag(index)}}},[_c('v-icon',{attrs:{"small":""}},[_vm._v("close")])],1)])}))],1),_vm._v(" "),_c('div',{staticClass:"result-count"},[_c('span',[_vm._v(_vm._s(_vm.resultsCount)+" results found.")])]),_vm._v(" "),(_vm.resources.length)?_c('div',{staticClass:"section resource"},_vm._l((_vm.resources),function(stack,index){return _c('resource-sections',{key:index,attrs:{"item":stack}})})):_c('div',[_vm._v("\n    No matched results found\n  ")]),_vm._v(" "),_c('div',{staticClass:"section footer"},[_c('quick-link')],1)])}
 var Page_staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"section title"},[_c('h1',[_vm._v("Saritasa recommended stuff for PHP")])])}]
 var Page_esExports = { render: Page_render, staticRenderFns: Page_staticRenderFns }
 /* harmony default export */ var components_Page = (Page_esExports);
 // CONCATENATED MODULE: ./src/components/Page.vue
 function Page_injectStyle (ssrContext) {
-  __webpack_require__("7MG2")
+  __webpack_require__("pI4L")
 }
 var Page_normalizeComponent = __webpack_require__("VU/8")
 /* script */
@@ -1156,6 +1689,9 @@ vue_esm["default"].use(vue_router_esm["a" /* default */]);
 
 
 
+
+vue_esm["default"].use(v_tooltip_esm["a" /* default */]);
+
 vue_esm["default"].config.productionTip = false;
 
 vue_esm["default"].use(vuetify_default.a, {
@@ -1172,7 +1708,35 @@ new vue_esm["default"]({
 
 /***/ }),
 
-/***/ "m/u+":
+/***/ "RX9e":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "XnRc":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "ezeL":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "pI4L":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "rcWl":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -1180,6 +1744,13 @@ new vue_esm["default"]({
 /***/ }),
 
 /***/ "vfCk":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "yU9E":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
