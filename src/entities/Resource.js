@@ -113,4 +113,13 @@ export default class Resource {
   getTags() {
     return this.tags;
   }
+
+  /**
+   * Highlight matched text in items.
+   *
+   * @param {Array} words - Resource description
+   */
+  setHighlight(words) {
+
+  }
 }
