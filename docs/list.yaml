@@ -137,6 +137,9 @@ Frontend:
       url: https://smarly.net/html5
       language: Russian
       tags: ['HTML5', 'Basics']
+    '33 Concepts Every JS Developer Should Know':
+      url: https://github.com/leonardomso/33-js-concepts
+      language: English
   websites:
     usejsdoc.org:
       description: 'JavaScript code documentation'
