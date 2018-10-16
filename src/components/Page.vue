@@ -12,7 +12,9 @@
     </div>
 
     <div class="section search-box">
-      <search-box v-model="keyword"/>
+      <search-box v-model="keyword"
+                  @clearSearch="onClearSearch"
+      />
       <div class="section breadcrumb">
         <span v-for="(selectedTag, index) in selectedTags"
               :key="index"
@@ -109,6 +111,15 @@ export default {
       }
       this.tagService.addTag(new Tag(tagName));
       this.selectedTags.push(tagName);
+      this.rescan();
+    },
+
+    /**
+     * Action after clicking on "Clear" button of search box.
+     */
+    onClearSearch() {
+      this.keyword = null;
+      this.tagService.setKeyWord(this.keyword);
       this.rescan();
     },
 

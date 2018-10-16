@@ -77,12 +77,12 @@ export default class TagsService {
   /**
    * Set key word.
    *
-   * @param {string} keyword - Key word to filter data.
+   * @param {string|null} keyword - Key word to filter data.
    *
    * @return {TagsService}
    */
   setKeyWord(keyword) {
-    this.keyword = keyword.toLowerCase();
+    this.keyword = keyword ? keyword.toLowerCase() : null;
 
     return this;
   }

@@ -5,6 +5,10 @@
            placeholder="Search keyword"
            @input="$emit('input', localKeyword)"
     >
+    <button class="clear-search"
+            @click="onClearSearch()">
+      Clear
+    </button>
   </div>
 </template>
 
@@ -24,6 +28,15 @@ export default {
   watch: {
     keyword(newVal) {
       this.localKeyword = newVal;
+    },
+  },
+  methods: {
+    /**
+     * Action after clicking on "Clear" button of search box.
+     */
+    onClearSearch() {
+      this.localKeyword = null;
+      this.$emit('clearSearch');
     },
   },
 };
