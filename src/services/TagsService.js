@@ -131,8 +131,7 @@ export default class TagsService {
               }
             });
 
-            matchedStack.addResource(type, packageItem.setHighlight(this.keyword));
-            // matchedStack.addResource(type, packageItem);
+            matchedStack.addResource(type, packageItem.addHighlight(this.keyword));
             this.matchedCount++;
           }
         });

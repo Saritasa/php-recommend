@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import languages from '../enums/languages';
 
 /**
@@ -70,6 +71,15 @@ export default class Resource {
   }
 
   /**
+   * Set resource name.
+   *
+   * @param {string} value - Resource name
+   */
+  setName(value) {
+    this.name = value;
+  }
+
+  /**
    * Gets resource description.
    *
    * @return {string}
@@ -119,24 +129,38 @@ export default class Resource {
    *
    * @param {string} keyword - Search keyword
    */
-  setHighlight(keyword) {
+  addHighlight(keyword) {
     if (!keyword) {
       return this;
     }
 
-    let highlightedRes = this;
-    const name = this.getName();
-    const index = name.toLowerCase().indexOf(keyword.toLowerCase());
+    const highlightedRes = _.clone(this);
+    const sentences = [ this.getName(), this.getDesc(), this.getExplanation() ];
 
-    if (index >= 0) {
-      let text = name.substring(0, index);
+    _.forEach(sentences, (sen, idx) => {
+      if (sen === undefined) {
+        return;
+      }
 
-      text += '<span class="highlighted-word">';
-      text += name.substring(index, index + keyword.length);
-      text += '</span>';
-      text += name.substring(index + keyword.length);
-      highlightedRes = new Resource(text);
-    }
+      let text = sen;
+      let offset = 0;
+      let index = text.toLowerCase().indexOf(keyword.toLowerCase(), offset);
+
+      while (index >= 0) {
+        sentences[idx] = text.substring(0, index);
+        sentences[idx] += '<span class="highlighted-word">';
+        sentences[idx] += text.substring(index, index + keyword.length);
+        sentences[idx] += '</span>';
+        offset = sentences[idx].length;
+        sentences[idx] += text.substring(index + keyword.length);
+
+        index = sentences[idx].toLowerCase().indexOf(keyword.toLowerCase(), offset);
+        text = sentences[idx];
+      }
+    });
+    highlightedRes.setName(sentences[0]);
+    highlightedRes.setDesc(sentences[1]);
+    highlightedRes.setExplanation(sentences[2]);
 
     return highlightedRes;
   }
