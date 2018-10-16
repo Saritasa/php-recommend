@@ -151,6 +151,8 @@ export default {
   }
   .section.search-box {
     margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
   }
   .section.breadcrumb {
     padding: 0 10px 0 0;
