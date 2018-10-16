@@ -114,7 +114,8 @@ export default class TagsService {
             matchedFound = matchedFound && (
               (packageItem.getName() ? this.isContainsKeyword(packageItem.getName()) : false) ||
               (packageItem.getUrl() ? this.isContainsKeyword(packageItem.getUrl()) : false) ||
-              (packageItem.getDesc() ? this.isContainsKeyword(packageItem.getDesc()) : false)
+              (packageItem.getDesc() ? this.isContainsKeyword(packageItem.getDesc()) : false) ||
+              (packageItem.getTags() ? this.isContainsKeyword(packageItem.getTags()) : false)
             );
           }
 
@@ -144,12 +145,23 @@ export default class TagsService {
   /**
    * Whether give string compare keyword.
    *
-   * @param {string} str - String to compare with keyword
+   * @param {Array | string} str - String or array of strings to compare with keyword
    *
    * @return {boolean}
    */
   isContainsKeyword(str) {
+    if (_.isArray(str)) {
+      let isInArray = false;
+
+      str.forEach(ele => {
+        if (this.isContainsKeyword(ele)) {
+          isInArray = true;
+        }
+      });
+
+      return isInArray;
+    }
+
     return str.toLowerCase().includes(this.keyword);
   }
 }
-
