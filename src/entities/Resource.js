@@ -125,7 +125,8 @@ export default class Resource {
   }
 
   /**
-   * Highlight matched text in items.
+   * Highlight all appearances of keyword in item.
+   * E.x: the keyword 'sa' will be highlighted 2 times in string 'saritasa/api'
    *
    * @param {string} keyword - Search keyword
    */
