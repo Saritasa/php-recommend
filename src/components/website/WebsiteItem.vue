@@ -3,7 +3,7 @@
     <a :href="item.getUrl()">
       <span v-html="item.getName()"/>
     </a>
-    <span v-if="item.getDesc()">- <span v-html="item.getDesc()"/></span>
+    <span v-if="item.getDesc()">- <span v-html="markdown(item.getDesc())"/></span>
     <span v-if="item.getExplanation()">
       <v-icon v-tooltip="item.getExplanation()"
               medium
@@ -13,8 +13,11 @@
 </template>
 
 <script>
+import TransformMixin from '../../mixins/TransformMixin';
+
 export default {
-  props: {
+  mixins: [TransformMixin],
+  props:  {
     item: {
       type:    Object,
       default: null,

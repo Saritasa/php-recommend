@@ -1,4 +1,3 @@
-import marked from 'marked';
 import languages from '../enums/languages';
 
 /**
@@ -41,9 +40,6 @@ export default class Resource {
    */
   setDesc(value) {
     this.desc = value;
-    if (value !== undefined) {
-      this.desc = marked(value).replace(/<p>|<\/p>/gi, '');
-    }
   }
 
   /**
