@@ -117,9 +117,27 @@ export default class Resource {
   /**
    * Highlight matched text in items.
    *
-   * @param {Array} words - Resource description
+   * @param {string} keyword - Search keyword
    */
-  setHighlight(words) {
+  setHighlight(keyword) {
+    if (!keyword) {
+      return this;
+    }
 
+    let highlightedRes = this;
+    const name = this.getName();
+    const index = name.toLowerCase().indexOf(keyword.toLowerCase());
+
+    if (index >= 0) {
+      let text = name.substring(0, index);
+
+      text += '<span class="highlighted-word">';
+      text += name.substring(index, index + keyword.length);
+      text += '</span>';
+      text += name.substring(index + keyword.length);
+      highlightedRes = new Resource(text);
+    }
+
+    return highlightedRes;
   }
 }

@@ -131,8 +131,8 @@ export default class TagsService {
               }
             });
 
-            packageItem.setHighlight(this.keyword);
-            matchedStack.addResource(type, packageItem);
+            matchedStack.addResource(type, packageItem.setHighlight(this.keyword));
+            // matchedStack.addResource(type, packageItem);
             this.matchedCount++;
           }
         });
@@ -154,4 +154,3 @@ export default class TagsService {
     return str.toLowerCase().includes(this.keyword);
   }
 }
-
