@@ -7,7 +7,7 @@ export default {
     /**
      * Parse text to markdown format.
      *
-     * @param {string} text - Text to parse.
+     * @param {string|null} text - Text to parse.
      *
      * @return {string}
      */
