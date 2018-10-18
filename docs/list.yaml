@@ -214,3 +214,7 @@ Shared:
       description: Online Test tool for regular expressions
       language: English
       tags: ['Regular Expressions']
+    hashids.org:
+      description: Convert numbers like 347 into strings like “yr8”, or array of numbers like [27, 986] into “3kTMd”
+      Language: English
+      tags: ['Cross-Platform']
