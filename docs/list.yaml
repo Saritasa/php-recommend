@@ -50,6 +50,39 @@ PHP:
       description: Adds CORS headers support in your Laravel application
       url: https://github.com/barryvdh/laravel-cors
       tags: ['Laravel', 'CORS']
+    barryvdh/laravel-debugbar:
+      description: Laravel Debugbar (Integrates PHP Debug Bar)
+      url: https://github.com/barryvdh/laravel-debugbar
+      tags: ['Laravel', 'Debugging']
+    jenssegers/mongodb:
+      description: A MongoDB based Eloquent model and Query builder for Laravel (Moloquent)
+      url: https://github.com/jenssegers/laravel-mongodb
+      tags: ['Database', 'Eloquent']
+    robmorgan/phinx:
+      description: Simple PHP Database Migrations
+      explain: For projects, that don't use any framework-provided migrations. Not needed for Laravel/Eloquent or Symfony/Doctrine, as they already have similar functionality.
+      url: https://github.com/cakephp/phinx
+      tags: ['Database', 'Migrations']
+    phpoffice/phpspreadsheet:
+      description: A pure PHP library for reading and writing spreadsheet files
+      url: https://github.com/phpoffice/phpspreadsheet
+      tags: ['Office']
+    spatie/laravel-activitylog:
+      description: Log activity inside your Laravel app (see [docs](https://docs.spatie.be/laravel-activitylog))
+      url: https://github.com/spatie/laravel-activitylog
+      tags: ['Laravel', 'Logging']
+    vinkla/laravel-hashids:
+      description: A Hashids bridge for Laravel (generate short unique ids from integers)
+      url: https://github.com/vinkla/laravel-hashids
+      tags: ['Laravel']
+    rap2hpoutre/laravel-log-viewer:
+      description: Log Viewer for Laravel 5 (compatible with 4.2 too) and Lumen
+      url: https://github.com/rap2hpoutre/laravel-log-viewer
+      tags: ['Laravel', 'Logging']
+    arcanedev/log-viewer:
+      description: Provides a log viewer for Laravel 5
+      url: https://github.com/ARCANEDEV/LogViewer
+      tags: ['Laravel', 'Logging']
 
   websites:
     phpdoc.org:
