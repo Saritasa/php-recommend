@@ -61,7 +61,6 @@ PHP:
     robmorgan/phinx:
       description: Simple PHP Database Migrations
       explain: For projects, that don't use any framework-provided migrations. Not needed for Laravel/Eloquent or Symfony/Doctrine, as they already have similar functionality.
-      explain: For projects, that don't use any framework-provided migrations. Not needed for Laravel/Eloquent or Symfony/Doctrine, as they already have similar functionality.
       url: https://github.com/cakephp/phinx
       tags: ['Database', 'Migrations']
     phpoffice/phpspreadsheet:
