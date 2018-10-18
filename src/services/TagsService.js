@@ -143,9 +143,10 @@ export default class TagsService {
   }
 
   /**
-   * Whether give string compare keyword.
+   * Check the given string contains any word in keyword.
    *
    * @param {Array | string} str - String or array of strings to compare with keyword
+   * If $str is an array, returns `true` if one of element contains any word in keyword.
    *
    * @return {boolean}
    */
