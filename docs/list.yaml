@@ -84,10 +84,6 @@ PHP:
       description: Provides a log viewer for Laravel 5
       url: https://github.com/ARCANEDEV/LogViewer
       tags: ['Laravel', 'Logging']
-    hidehalo/nanoid-php:
-      description: PHP implementation of Nanoid, secure URL-friendly unique ID generator
-      url: https://github.com/hidehalo/nanoid-php
-      tags: ['URL friendly']
 
   websites:
     phpdoc.org:
