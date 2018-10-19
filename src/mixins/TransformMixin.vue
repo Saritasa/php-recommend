@@ -9,7 +9,7 @@ export default {
      *
      * @param {string|null} text - Text to parse.
      *
-     * @return {string}
+     * @return {string|null}
      */
     markdown(text) {
       if (text) {
