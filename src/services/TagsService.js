@@ -112,10 +112,10 @@ export default class TagsService {
 
           if (this.keyword) {
             matchedFound = matchedFound && (
-              (packageItem.getName() ? this.containsKeyword(packageItem.getName()) : false) ||
-              (packageItem.getUrl() ? this.containsKeyword(packageItem.getUrl()) : false) ||
-              (packageItem.getDesc() ? this.containsKeyword(packageItem.getDesc()) : false) ||
-              (packageItem.getTags() ? this.containsKeyword(packageItem.getTags()) : false)
+              (packageItem.getName() ? this.containsAnyKeyword(packageItem.getName()) : false) ||
+              (packageItem.getUrl() ? this.containsAnyKeyword(packageItem.getUrl()) : false) ||
+              (packageItem.getDesc() ? this.containsAnyKeyword(packageItem.getDesc()) : false) ||
+              (packageItem.getTags() ? this.containsAnyKeyword(packageItem.getTags()) : false)
             );
           }
 
@@ -150,12 +150,12 @@ export default class TagsService {
    *
    * @return {boolean}
    */
-  containsKeyword(str) {
+  containsAnyKeyword(str) {
     if (_.isArray(str)) {
       let isInArray = false;
 
       str.forEach(ele => {
-        if (this.containsKeyword(ele)) {
+        if (this.containsAnyKeyword(ele)) {
           isInArray = true;
         }
       });
