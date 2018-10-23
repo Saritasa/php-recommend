@@ -13,7 +13,7 @@ export default {
      */
     markdown(text) {
       if (text) {
-        return marked(text).replace(/<p>|<\/p>/gi, '');
+        return marked(text);
       }
 
       return text;

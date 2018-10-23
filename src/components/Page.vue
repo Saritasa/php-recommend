@@ -213,6 +213,9 @@ export default {
       i {
         font-size: 20px !important;
       }
+      p {
+        display: inline;
+      }
     }
     .highlighted-word {
       color: #d87b25;
