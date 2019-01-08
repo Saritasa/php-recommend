@@ -1,5 +1,12 @@
 webpackJsonp([1],{
 
+/***/ "5xlr":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "I2f+":
 /***/ (function(module, exports) {
 
@@ -689,7 +696,7 @@ var TagsService_TagsService = function () {
     /**
      * Set key word.
      *
-     * @param {string} keyword - Key word to filter data.
+     * @param {string|null} keyword - Key word to filter data.
      *
      * @return {TagsService}
      */
@@ -697,7 +704,7 @@ var TagsService_TagsService = function () {
   }, {
     key: 'setKeyWord',
     value: function setKeyWord(keyword) {
-      this.keyword = keyword.toLowerCase();
+      this.keyword = keyword ? keyword.toLowerCase() : null;
 
       return this;
     }
@@ -916,6 +923,10 @@ var TagCloud_Component = TagCloud_normalizeComponent(
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ var SearchBox = ({
   props: {
@@ -934,16 +945,25 @@ var TagCloud_Component = TagCloud_normalizeComponent(
     keyword: function keyword(newVal) {
       this.localKeyword = newVal;
     }
+  },
+  methods: {
+    /**
+     * Action after clicking on "Clear" button of search box.
+     */
+    onClearSearch: function onClearSearch() {
+      this.localKeyword = null;
+      this.$emit('clearSearch');
+    }
   }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-2a02125c","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/search/SearchBox.vue
-var SearchBox_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"search-form-wrapper"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.localKeyword),expression:"localKeyword"}],attrs:{"type":"text","placeholder":"Search keyword"},domProps:{"value":(_vm.localKeyword)},on:{"input":[function($event){if($event.target.composing){ return; }_vm.localKeyword=$event.target.value},function($event){_vm.$emit('input', _vm.localKeyword)}]}})])}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-1e23fbce","hasScoped":true,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/search/SearchBox.vue
+var SearchBox_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"search-form-wrapper"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.localKeyword),expression:"localKeyword"}],attrs:{"type":"text","placeholder":"Search keyword"},domProps:{"value":(_vm.localKeyword)},on:{"input":[function($event){if($event.target.composing){ return; }_vm.localKeyword=$event.target.value},function($event){_vm.$emit('input', _vm.localKeyword)}]}}),_vm._v(" "),_c('button',{staticClass:"clear-search",on:{"click":function($event){_vm.onClearSearch()}}},[_vm._v("\n    Clear\n  ")])])}
 var SearchBox_staticRenderFns = []
 var SearchBox_esExports = { render: SearchBox_render, staticRenderFns: SearchBox_staticRenderFns }
 /* harmony default export */ var search_SearchBox = (SearchBox_esExports);
 // CONCATENATED MODULE: ./src/components/search/SearchBox.vue
 function SearchBox_injectStyle (ssrContext) {
-  __webpack_require__("yU9E")
+  __webpack_require__("p7fA")
 }
 var SearchBox_normalizeComponent = __webpack_require__("VU/8")
 /* script */
@@ -956,7 +976,7 @@ var SearchBox___vue_template_functional__ = false
 /* styles */
 var SearchBox___vue_styles__ = SearchBox_injectStyle
 /* scopeId */
-var SearchBox___vue_scopeId__ = "data-v-2a02125c"
+var SearchBox___vue_scopeId__ = "data-v-1e23fbce"
 /* moduleIdentifier (server only) */
 var SearchBox___vue_module_identifier__ = null
 var SearchBox_Component = SearchBox_normalizeComponent(
@@ -1545,6 +1565,8 @@ var QuickLink_Component = QuickLink_normalizeComponent(
 //
 //
 //
+//
+//
 
 
 
@@ -1611,6 +1633,16 @@ var QuickLink_Component = QuickLink_normalizeComponent(
 
 
     /**
+     * Action after clicking on "Clear" button of search box.
+     */
+    onClearSearch: function onClearSearch() {
+      this.keyword = null;
+      this.tagService.setKeyWord(this.keyword);
+      this.rescan();
+    },
+
+
+    /**
      * Rescan tags/technology stacks according which search string and selected tags.
      */
     rescan: function rescan() {
@@ -1631,14 +1663,14 @@ var QuickLink_Component = QuickLink_normalizeComponent(
     }
   }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-6f0e5be1","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/Page.vue
-var Page_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"page"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"section tag-cloud"},[_c('tag-cloud',{ref:"cloud",attrs:{"tags":_vm.tags},on:{"wordClick":_vm.onWordClick}})],1),_vm._v(" "),_c('div',{staticClass:"section search-box"},[_c('search-box',{model:{value:(_vm.keyword),callback:function ($$v) {_vm.keyword=$$v},expression:"keyword"}}),_vm._v(" "),_c('div',{staticClass:"section breadcrumb"},_vm._l((_vm.selectedTags),function(selectedTag,index){return _c('span',{key:index,staticClass:"selected-tag"},[_vm._v("\n        "+_vm._s(selectedTag)+"\n        "),_c('span',{staticClass:"icon",on:{"click":function($event){_vm.removeTag(index)}}},[_c('v-icon',{attrs:{"small":""}},[_vm._v("close")])],1)])}))],1),_vm._v(" "),_c('div',{staticClass:"result-count"},[_c('span',[_vm._v(_vm._s(_vm.resultsCount)+" results found.")])]),_vm._v(" "),(_vm.resources.length)?_c('div',{staticClass:"section resource"},_vm._l((_vm.resources),function(stack,index){return _c('resource-sections',{key:index,attrs:{"item":stack}})})):_c('div',[_vm._v("\n    No matched results found\n  ")]),_vm._v(" "),_c('div',{staticClass:"section footer"},[_c('quick-link')],1)])}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-abb8cb4c","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./src/components/Page.vue
+var Page_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"page"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"section tag-cloud"},[_c('tag-cloud',{ref:"cloud",attrs:{"tags":_vm.tags},on:{"wordClick":_vm.onWordClick}})],1),_vm._v(" "),_c('div',{staticClass:"section search-box"},[_c('search-box',{on:{"clearSearch":_vm.onClearSearch},model:{value:(_vm.keyword),callback:function ($$v) {_vm.keyword=$$v},expression:"keyword"}}),_vm._v(" "),_c('div',{staticClass:"section breadcrumb"},_vm._l((_vm.selectedTags),function(selectedTag,index){return _c('span',{key:index,staticClass:"selected-tag"},[_vm._v("\n        "+_vm._s(selectedTag)+"\n        "),_c('span',{staticClass:"icon",on:{"click":function($event){_vm.removeTag(index)}}},[_c('v-icon',{attrs:{"small":""}},[_vm._v("close")])],1)])}))],1),_vm._v(" "),_c('div',{staticClass:"result-count"},[_c('span',[_vm._v(_vm._s(_vm.resultsCount)+" results found.")])]),_vm._v(" "),(_vm.resources.length)?_c('div',{staticClass:"section resource"},_vm._l((_vm.resources),function(stack,index){return _c('resource-sections',{key:index,attrs:{"item":stack}})})):_c('div',[_vm._v("\n    No matched results found\n  ")]),_vm._v(" "),_c('div',{staticClass:"section footer"},[_c('quick-link')],1)])}
 var Page_staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"section title"},[_c('h1',[_vm._v("Saritasa recommended stuff for PHP")])])}]
 var Page_esExports = { render: Page_render, staticRenderFns: Page_staticRenderFns }
 /* harmony default export */ var components_Page = (Page_esExports);
 // CONCATENATED MODULE: ./src/components/Page.vue
 function Page_injectStyle (ssrContext) {
-  __webpack_require__("pI4L")
+  __webpack_require__("5xlr")
 }
 var Page_normalizeComponent = __webpack_require__("VU/8")
 /* script */
@@ -1729,7 +1761,7 @@ new vue_esm["default"]({
 
 /***/ }),
 
-/***/ "pI4L":
+/***/ "p7fA":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -1744,13 +1776,6 @@ new vue_esm["default"]({
 /***/ }),
 
 /***/ "vfCk":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "yU9E":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
