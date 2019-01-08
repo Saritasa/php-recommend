@@ -227,6 +227,11 @@ Shared:
       url: https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
       language: English
       tags: ['ElasticSearch']
+    'ElasticSearch - Search in Depth (The Definitive Guide, Official Docs)':
+      url: https://www.elastic.co/guide/en/elasticsearch/guide/current/search-in-depth.html
+      language: English
+      tags: ['ElasticSearch']
+      explain: If you want to understand, how ES works under the hood and how to make it fast
     'Уроки по ElasticSearch':
       url: https://codedzen.ru/category/uroki/elasticsearch/page/
       language: Russian
