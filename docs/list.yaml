@@ -99,6 +99,10 @@ PHP:
       url: https://laracasts.com/series/lets-build-a-forum-with-laravel
       language: English
       tags: ['Laravel', 'TDD']
+    'ElasticSearch PHP SDK':
+      url: https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/index.html
+      language: English
+      tags: ['ElasticSearch']
 
 Frontend:
   packages:
@@ -215,6 +219,15 @@ Shared:
       url: https://bespoyasov.ru/blog/commands-and-queries/
       language: Russian
       tags: ['Code Design', 'Patterns']
+    'ElasticSearch - Official Docs':
+      url: https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+      language: English
+      tags: ['ElasticSearch']
+    'Уроки по ElasticSearch':
+      url: https://codedzen.ru/category/uroki/elasticsearch/page/
+      language: Russian
+      tags: ['ElasticSearch']
+
 
   websites:
     sourcemaking.com:
