@@ -125,7 +125,11 @@ Frontend:
     'Bootstrap Vue':
       description: Bootstrap 4 components for VueJS
       url: https://bootstrap-vue.js.org
-      tags: ['VueJS', 'Components']
+      tags: ['VueJS', 'Components', 'Bootstrap']
+    'uiv':
+      description: Bootstrap 3 components implemented by Vue 2
+      url: https://uiv.wxsm.space
+      tags: ['VueJS', 'Components', 'Bootstrap']
     'Vue Native':
       description: Build cross-platform native mobile aplications with JavaScript
       url: https://vue-native.io
@@ -225,6 +229,14 @@ Shared:
       tags: ['ElasticSearch']
     'Уроки по ElasticSearch':
       url: https://codedzen.ru/category/uroki/elasticsearch/page/
+      language: Russian
+      tags: ['ElasticSearch']
+    'ElasticSearch — mapping и поиск без сюрпризов':
+      url: https://habr.com/company/smartprogress/blog/227531/
+      language: Russian
+      tags: ['ElasticSearch']
+    'ElasticSearch — агрегация данных':
+      url: https://habr.com/company/smartprogress/blog/227131/
       language: Russian
       tags: ['ElasticSearch']
 
