@@ -233,7 +233,7 @@ Shared:
       tags: ['ElasticSearch']
       explain: If you want to understand, how ES works under the hood and how to make it fast
     'Уроки по ElasticSearch':
-      url: https://codedzen.ru/category/uroki/elasticsearch/page/
+      url: https://codedzen.ru/category/uroki/elasticsearch/
       language: Russian
       tags: ['ElasticSearch']
     'ElasticSearch — mapping и поиск без сюрпризов':
