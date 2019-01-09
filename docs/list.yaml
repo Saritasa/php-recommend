@@ -83,6 +83,10 @@ PHP:
       description: Provides a log viewer for Laravel 5
       url: https://github.com/ARCANEDEV/LogViewer
       tags: ['Laravel', 'Logging']
+    elasticquent/elasticquent:
+      description: Eloquent + ElasticSearch = Elasticquent
+      url: https://github.com/elasticquent/Elasticquent
+      tags: ['Laravel', 'ElasticSearch']
 
   websites:
     phpdoc.org:
