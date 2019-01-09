@@ -139,7 +139,7 @@ Frontend:
       url: https://vue-native.io
       tags: ['VueJS', 'Mobile', 'Cross-Platform']
     'Vue ReactiveSearch':
-      description: Vue components to build search UI - pull data from ElasticSearch without custom backend
+      description: 'Vue components to build search UI - pull data from ElasticSearch without custom backend ([demo](https://reactivesearch-vue-playground.netlify.com))'
       url: https://opensource.appbase.io/reactivesearch/vue
       tags: ['VueJS', 'Components', 'ElasticSearch']
   tutorials:
