@@ -142,6 +142,10 @@ Frontend:
       description: 'Vue components to build search UI - pull data from ElasticSearch without custom backend ([demo](https://reactivesearch-vue-playground.netlify.com))'
       url: https://opensource.appbase.io/reactivesearch/vue
       tags: ['VueJS', 'Components', 'ElasticSearch']
+    'Searchkit':
+      description: 'React components to build UI for ElasticSearch backend ([demo](http://demo.searchkit.co))'
+      url: http://www.searchkit.co
+      tags: ['React', 'Components', 'ElasticSearch']
   tutorials:
     'Learn Vue2 Step-by-Step 🎞':
       url: https://laracasts.com/series/learn-vue-2-step-by-step
@@ -189,6 +193,10 @@ Frontend:
     '33 Concepts Every JS Developer Should Know':
       url: https://github.com/leonardomso/33-js-concepts
       language: English
+    'Integrating React and Vue Components in One Application':
+      url: https://x-team.com/blog/react-vue-component-integration/
+      language: English
+      tags: ['React', 'VueJS', 'Components']
   websites:
     usejsdoc.org:
       description: 'JavaScript code documentation'
