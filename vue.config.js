@@ -1,5 +1,5 @@
 module.exports = {
-  runtimeCompiler: false,
   outputDir: 'docs',
   filenameHashing: false,
+  publicPath: process.env.PUBLIC_PATH,
 };
