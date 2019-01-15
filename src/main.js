@@ -14,10 +14,7 @@ Vue.use(Vuetify, {
   iconfont: 'mdi', // 'md' || 'mdi' || 'fa' || 'fa4'
 });
 
-/* eslint-disable no-new */
 new Vue({
-  el:         '#app',
   router,
-  components: { App },
-  template:   '<App/>',
-});
+  render: h => h(App),
+}).$mount('#app');

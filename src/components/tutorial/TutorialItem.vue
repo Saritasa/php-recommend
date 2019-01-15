@@ -16,7 +16,7 @@
 export default {
   props: {
     item: {
-      type:    Object,
+      type: Object,
       default: null,
     },
   },
@@ -111,7 +111,6 @@ export default {
         color: black;
         padding: 24px;
         border-radius: 5px;
-        box-shadow: 0 5px 30px rgba(black, .1);
     }
 
     .tooltip.popover .popover-arrow {
@@ -130,4 +129,3 @@ export default {
         transition: opacity .15s;
     }
 </style>
-

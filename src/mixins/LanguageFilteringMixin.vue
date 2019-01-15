@@ -2,10 +2,10 @@
 import languages from '../enums/languages';
 
 export default {
-  name:  'LanguageFilteringMixin',
+  name: 'LanguageFilteringMixin',
   props: {
     items: {
-      type:    Array,
+      type: Array,
       default: () => [],
     },
   },

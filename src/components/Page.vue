@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="section title">
-      <h1>Saritasa recommended stuff for PHP</h1>
+      <h1>Recommended stuff for PHP team</h1>
     </div>
 
     <div class="section tag-cloud">
@@ -70,8 +70,8 @@ export default {
   },
   data() {
     return {
-      tagService:   null,
-      keyword:      null,
+      tagService: null,
+      keyword: null,
       selectedTags: [],
     };
   },
@@ -95,8 +95,14 @@ export default {
   },
   created() {
     const yamlConverter = new YamlDataConverter();
+    let recommendations = [];
+    try {
+      recommendations = yamlConverter.parse(`${process.env.BASE_URL}list.yaml`);
+    } catch (e) {
+      console.log('could not load recommendations');
+    }
 
-    this.tagService = new TagsService(yamlConverter.parse(`${process.env.BASE_URL}list.yaml`));
+    this.tagService = new TagsService(recommendations);
     this.tagService.rescan();
   },
   methods: {

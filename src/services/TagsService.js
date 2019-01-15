@@ -10,7 +10,7 @@ export default class TagsService {
   /**
    * Service to find matches in tags.
    *
-   * @param {Array<TechnologyStack>} technologyStacks - Technology stacks in which we should find matches
+   * @param {Array<TechnologyStack>} technologyStacks - Technology stacks to find matches
    */
   constructor(technologyStacks) {
     this.tags = new Map();
@@ -95,15 +95,15 @@ export default class TagsService {
     this.tags.clear();
     this.matchedCount = 0;
 
-    this.originalTechnologyStacks.forEach(technologyStack => {
+    this.originalTechnologyStacks.forEach((technologyStack) => {
       const matchedStack = new TechnologyStack(technologyStack.getName());
 
-      _.forEach(resourceTypes, type => {
-        technologyStack.getResources(type).forEach(packageItem => {
+      _.forEach(resourceTypes, (type) => {
+        technologyStack.getResources(type).forEach((packageItem) => {
           let matchedFound = true;
 
           if (this.selectedTags.size) {
-            this.selectedTags.forEach(tag => {
+            this.selectedTags.forEach((tag) => {
               matchedFound = matchedFound && (packageItem.getTags()
                 .map(tagName => tagName.toLowerCase())
                 .indexOf(tag.getName().toLowerCase()) !== -1);
@@ -112,14 +112,14 @@ export default class TagsService {
 
           if (this.keyword) {
             matchedFound = matchedFound && (
-              (packageItem.getName() ? this.isContainsKeyword(packageItem.getName()) : false) ||
-              (packageItem.getUrl() ? this.isContainsKeyword(packageItem.getUrl()) : false) ||
-              (packageItem.getDesc() ? this.isContainsKeyword(packageItem.getDesc()) : false)
+              (packageItem.getName() ? this.isContainsKeyword(packageItem.getName()) : false)
+              || (packageItem.getUrl() ? this.isContainsKeyword(packageItem.getUrl()) : false)
+              || (packageItem.getDesc() ? this.isContainsKeyword(packageItem.getDesc()) : false)
             );
           }
 
           if (matchedFound) {
-            packageItem.getTags().forEach(tag => {
+            packageItem.getTags().forEach((tag) => {
               const localTag = tag.toLocaleLowerCase();
 
               if (!this.selectedTags.has(localTag)) {
@@ -131,7 +131,7 @@ export default class TagsService {
               }
             });
             matchedStack.addResource(type, packageItem);
-            this.matchedCount++;
+            this.matchedCount += 1;
           }
         });
       });
@@ -152,4 +152,3 @@ export default class TagsService {
     return str.toLowerCase().includes(this.keyword);
   }
 }
-

@@ -1,7 +1,7 @@
 all: install static run
 
 install:
-	yarn install
+	npm install
 
 static:
 	npm run build

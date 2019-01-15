@@ -35,7 +35,7 @@ export default {
   },
   props: {
     tags: {
-      type:     Map,
+      type: Map,
       required: true,
     },
   },
@@ -77,7 +77,7 @@ export default {
     prepareTags(tags) {
       const preparedTags = [];
 
-      tags.forEach(tag => preparedTags.push([ tag.getName(), tag.getValue() ]));
+      tags.forEach(tag => preparedTags.push([tag.getName(), tag.getValue()]));
 
       return preparedTags;
     },

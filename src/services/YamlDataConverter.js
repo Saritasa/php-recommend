@@ -27,7 +27,7 @@ export default class YamlDataConverter {
    *
    * @return {Object}
    */
-  prepareData(data) {
+  static prepareData(data) {
     const localData = data;
 
     _.forEach(localData, (val, k) => {
@@ -51,7 +51,7 @@ export default class YamlDataConverter {
    *
    * @return {Array<TechnologyStack>}
    */
-  convertData(data) {
+  static convertData(data) {
     const technologyStacks = [];
 
     _.forEach(data, (resourcesGroups, technologyStackName) => {

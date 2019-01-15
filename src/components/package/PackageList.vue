@@ -17,7 +17,7 @@ export default {
   },
   props: {
     packages: {
-      type:    Array,
+      type: Array,
       default: () => [],
     },
   },

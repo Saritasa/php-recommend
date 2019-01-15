@@ -16,7 +16,7 @@ export default class Tag {
    * Increase weight of tag.
    */
   increaseValue() {
-    this.value++;
+    this.value += 1;
   }
 
   /**

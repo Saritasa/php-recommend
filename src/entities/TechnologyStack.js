@@ -112,8 +112,8 @@ export default class TechnologyStack {
    * @return {boolean}
    */
   hasAnyItem() {
-    return this.getWebsites().length > 0 ||
-      this.getPackages().length > 0 ||
-      this.getTutorials().length > 0;
+    return this.getWebsites().length > 0
+      || this.getPackages().length > 0
+      || this.getTutorials().length > 0;
   }
 }
