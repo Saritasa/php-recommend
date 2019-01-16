@@ -1,5 +1,5 @@
 /**
- * Types of techmology stack resources.
+ * Types of technology stack resources.
  */
 export default {
   PACKAGE: 'packages',
