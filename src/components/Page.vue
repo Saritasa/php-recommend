@@ -10,10 +10,7 @@
 
     <v-layout row align-center>
       <v-flex shrink xs3>
-        <v-text-field clearable clear-icon="clear" type="text" @input="setSearchText"
-                      label="Search text or tag" :value="initialSearch">
-          <v-icon slot="prepend" large>search</v-icon>
-        </v-text-field>
+        <search-box :value="initialSearch" @input="setSearchText" />
       </v-flex>
       <v-flex grow>
         <v-chip v-for="(selectedTag, index) in selectedTags" close :key="index"
@@ -50,14 +47,16 @@
 import { mapState, mapMutations } from 'vuex';
 import Utils from 'yamljs/lib/Utils';
 import YamlDataConverter from '../services/YamlDataConverter';
-import TagCloud from './tag-cloud/TagCloud';
+import TagCloud from './TagCloud';
+import SearchBox from './SearchBox';
 import ResourceSections from './ResourceSections';
-import QuickLink from './footer/QuickLink';
+import QuickLink from './QuickLink';
 import 'vuetify/dist/vuetify.min.css';
 
 export default {
   components: {
     TagCloud,
+    SearchBox,
     ResourceSections,
     QuickLink,
   },
