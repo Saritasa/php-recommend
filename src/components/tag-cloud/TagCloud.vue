@@ -33,12 +33,6 @@ export default {
   components: {
     VueWordCloud,
   },
-  props: {
-    tags: {
-      type: Map,
-      required: true,
-    },
-  },
   data() {
     return {
       colors: [
@@ -49,9 +43,6 @@ export default {
       preparedTags: [],
     };
   },
-  mounted() {
-    this.reInit();
-  },
   methods: {
     /**
      * Returns random color from collection.
@@ -61,25 +52,14 @@ export default {
     },
 
     /**
-     * ReInit component.
-     */
-    reInit() {
-      this.preparedTags = this.prepareTags(this.tags);
-    },
-
-    /**
      * Convert given tags to needed form for `vue word cloud` component.
      *
-     * @param { Map<string, Tag> } tags - Tags collection
-     *
-     * @return { Array }
+     * @param { Map<string, Tag> } tagsMap - Tags collection
      */
-    prepareTags(tags) {
+    setTags(tagsMap) {
       const preparedTags = [];
-
-      tags.forEach(tag => preparedTags.push([tag.getName(), tag.getValue()]));
-
-      return preparedTags;
+      tagsMap.forEach(tag => preparedTags.push([tag.getName(), tag.getValue()]));
+      this.preparedTags = preparedTags;
     },
   },
 };

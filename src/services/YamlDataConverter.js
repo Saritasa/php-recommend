@@ -10,14 +10,14 @@ export default class YamlDataConverter {
   /**
    * Parse and convert yaml into appropriate collection.
    *
-   * @param {string} filePath - Path to yaml file
+   * @param {string} dataString - Content of list.yaml file
    *
    * @return {Array<TechnologyStack>}
    */
-  parse(filePath) {
-    const data = this.prepareData(Yaml.load(filePath));
+  static parse(dataString) {
+    const data = YamlDataConverter.prepareData(Yaml.parse(dataString));
 
-    return this.convertData(data);
+    return YamlDataConverter.convertData(data);
   }
 
   /**

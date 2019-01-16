@@ -95,15 +95,15 @@ export default class TagsService {
     this.tags.clear();
     this.matchedCount = 0;
 
-    this.originalTechnologyStacks.forEach((technologyStack) => {
+    this.originalTechnologyStacks.forEach(technologyStack => {
       const matchedStack = new TechnologyStack(technologyStack.getName());
 
-      _.forEach(resourceTypes, (type) => {
-        technologyStack.getResources(type).forEach((packageItem) => {
+      _.forEach(resourceTypes, type => {
+        technologyStack.getResources(type).forEach(packageItem => {
           let matchedFound = true;
 
           if (this.selectedTags.size) {
-            this.selectedTags.forEach((tag) => {
+            this.selectedTags.forEach(tag => {
               matchedFound = matchedFound && (packageItem.getTags()
                 .map(tagName => tagName.toLowerCase())
                 .indexOf(tag.getName().toLowerCase()) !== -1);
@@ -119,7 +119,7 @@ export default class TagsService {
           }
 
           if (matchedFound) {
-            packageItem.getTags().forEach((tag) => {
+            packageItem.getTags().forEach(tag => {
               const localTag = tag.toLocaleLowerCase();
 
               if (!this.selectedTags.has(localTag)) {

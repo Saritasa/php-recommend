@@ -6,7 +6,6 @@
 
     <div class="section tag-cloud">
       <tag-cloud ref="cloud"
-                 :tags="tags"
                  @wordClick="onWordClick"
       />
     </div>
@@ -53,6 +52,7 @@
 </template>
 
 <script>
+import Utils from 'yamljs/lib/Utils';
 import YamlDataConverter from '../services/YamlDataConverter';
 import TagsService from '../services/TagsService';
 import TagCloud from './tag-cloud/TagCloud';
@@ -70,15 +70,12 @@ export default {
   },
   data() {
     return {
-      tagService: null,
+      tagService: new TagsService([]),
       keyword: null,
       selectedTags: [],
     };
   },
   computed: {
-    tags() {
-      return this.tagService.getTags();
-    },
     resources() {
       return this.tagService.getTechnologyStacks();
     },
@@ -94,16 +91,11 @@ export default {
     },
   },
   created() {
-    const yamlConverter = new YamlDataConverter();
-    let recommendations = [];
-    try {
-      recommendations = yamlConverter.parse(`${process.env.BASE_URL}list.yaml`);
-    } catch (e) {
-      console.log('could not load recommendations');
-    }
-
-    this.tagService = new TagsService(recommendations);
-    this.tagService.rescan();
+    Utils.getStringFromFile(`${process.env.BASE_URL}list.yaml`, content => {
+      const recommendations = YamlDataConverter.parse(content);
+      this.tagService = new TagsService(recommendations);
+      this.onClearSearch();
+    });
   },
   methods: {
     /**
@@ -134,7 +126,7 @@ export default {
      */
     rescan() {
       this.tagService.rescan();
-      this.$refs.cloud.reInit();
+      this.$refs.cloud.setTags(this.tagService.getTags());
     },
 
     /**
