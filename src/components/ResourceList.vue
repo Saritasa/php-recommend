@@ -1,17 +1,16 @@
 <template>
   <div v-if="items.length">
     <h3>{{ title }}</h3>
-    <div v-for="(resources, language) in itemsGroupedByLanguage"
-         :key="language"
-    >
-    <v-subheader v-if="language">{{ language }}</v-subheader>
-    <ul class="resources-list">
-      <resource
-        v-for="(resource, key) in resources"
-        :key="key"
-        :item="resource"
-      />
-    </ul>
+    <div v-for="(resources, language) in itemsGroupedByLanguage" :key="language">
+      <v-subheader v-if="language">{{ language }}</v-subheader>
+
+      <ul class="resources-list">
+        <resource
+          v-for="(resource, key) in resources"
+          :key="key"
+          :item="resource"
+        />
+      </ul>
     </div>
   </div>
 </template>

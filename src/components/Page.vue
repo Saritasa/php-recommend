@@ -3,13 +3,15 @@
     <v-layout align-center justify-center>
       <h1>Recommended stuff for PHP team</h1>
     </v-layout>
+
     <v-layout>
       <tag-cloud ref="cloud" @wordClick="addSelectedTag"/>
     </v-layout>
+
     <v-layout row align-center>
       <v-flex shrink xs3>
         <v-text-field clearable clear-icon="clear" type="text" @input="setSearchText"
-                      label="Search text or tag" >
+                      label="Search text or tag" :value="initialSearch">
           <v-icon slot="prepend" large>search</v-icon>
         </v-text-field>
       </v-flex>
@@ -21,6 +23,7 @@
         </v-chip>
       </v-flex>
     </v-layout>
+
     <v-layout>
       <v-flex v-if="matchedCount">{{ matchedCount }} results found.</v-flex>
       <v-flex v-else>
@@ -29,6 +32,7 @@
         </v-card>
       </v-flex>
     </v-layout>
+
     <v-layout :row="false" wrap>
       <v-flex>
         <resource-sections v-for="(stack, index) in filteredResults"
@@ -57,13 +61,21 @@ export default {
     ResourceSections,
     QuickLink,
   },
+  props: {
+    initialTags: { type: String },
+    initialSearch: { type: String },
+  },
   computed: {
     ...mapState(['selectedTags', 'matchedCount', 'filteredResults']),
   },
-  created() {
+  mounted() {
     Utils.getStringFromFile(`${process.env.BASE_URL}list.yaml`, content => {
-      const recommendations = YamlDataConverter.parse(content);
-      this.setTechStacks(recommendations);
+      const techStacks = YamlDataConverter.parse(content);
+      this.setTechStacks(techStacks);
+      this.setSearchText(this.initialSearch);
+      if (this.initialTags) {
+        this.initialTags.split(',').forEach(tag => this.addSelectedTag(tag));
+      }
     });
   },
   methods: mapMutations(['setTechStacks', 'setSearchText', 'addSelectedTag', 'removeSelectedTag']),

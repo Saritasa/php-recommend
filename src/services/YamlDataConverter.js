@@ -19,46 +19,47 @@ export default class YamlDataConverter {
    */
   static parse(dataString) {
     const data = Yaml.parse(dataString);
-    return YamlDataConverter.convertData(data);
+    return _.map(data, YamlDataConverter.parseTechnologyStack);
   }
 
   /**
    * Convert yaml parsed object into technology stacks collection.
    *
-   * @param {Object} data - Data to convert
+   * @param {Object} resourceGroups - Data to convert
+   * @param {string} stackName - Technology stack name
    *
-   * @return {Array<TechnologyStack>}
+   * @return TechnologyStack
    */
-  static convertData(data) {
-    const technologyStacks = [];
-
-    _.forEach(data, (resourcesGroups, technologyStackName) => {
-      const technologyStack = new TechnologyStack(technologyStackName);
-
-      _.forEach(resourcesGroups, (resourceGroup, resourceType) => {
-        _.forEach(resourceGroup, (resource, name) => {
-          let item = null;
-
-          switch (resourceType) {
-            case ResourceTypes.WEBSITE:
-              item = new Website(name, resource);
-              break;
-            case ResourceTypes.PACKAGE:
-              item = new Package(name, resource);
-              break;
-            case ResourceTypes.TUTORIAL:
-              item = new Resource(name, resource);
-              break;
-            default:
-              throw new Error(`Unknown resource type ${resourceType}`);
-          }
-
-          technologyStack.addResource(resourceType, item);
-        });
-      });
-      technologyStacks.push(technologyStack);
+  static parseTechnologyStack(resourceGroups, stackName) {
+    const technologyStack = new TechnologyStack(stackName);
+    _.forEach(resourceGroups, (resourceGroup, resourceType) => {
+      _.chain(resourceGroup)
+        .map((data, name) => YamlDataConverter.parseResource(data, name, resourceType))
+        .forEach(resource => technologyStack.addResource(resourceType, resource))
+        .value();
     });
+    return technologyStack;
+  }
 
-    return technologyStacks;
+  /**
+   * Convert yaml parsed object into resource object of appropriate class.
+   *
+   * @param {Object} data - Data to convert
+   * @param {string} resourceName - Name of website, article, package, etc.
+   * @param {string} resourceType - one of known resource types: Package, WebSite, Tutorial
+   *
+   * @return Resource
+   */
+  static parseResource(data, resourceName, resourceType) {
+    switch (resourceType) {
+      case ResourceTypes.WEBSITE:
+        return new Website(resourceName, data);
+      case ResourceTypes.PACKAGE:
+        return new Package(resourceName, data);
+      case ResourceTypes.TUTORIAL:
+        return new Resource(resourceName, data);
+      default:
+        throw new Error(`Unknown resource type ${resourceType}`);
+    }
   }
 }

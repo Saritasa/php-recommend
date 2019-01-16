@@ -6,6 +6,7 @@
     <template v-if="item.desc">
       - <span v-html="hlSearch(markdown(item.desc))" class="resource-description"/>
     </template>
+
     <v-tooltip bottom close-delay="600" v-if="item.explanation">
       <v-icon slot="activator" size="18" color="blue darken-2">help_outline</v-icon>
       <span v-html="hlSearch(markdown(item.explanation))"></span>
@@ -41,7 +42,7 @@ export default {
       }
       let result = value;
       this.searchText.split(/\W+/, 20).forEach(term => {
-        result = result.replace(new RegExp(`[^<=]${term}[^>]`, 'i'), found => `<b class="search-result">${found}</b>`);
+        result = result.replace(new RegExp(`[^<]${term}[^>]`, 'i'), found => `<b class="search-result">${found}</b>`);
       });
       return result;
     },

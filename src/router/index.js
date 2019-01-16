@@ -12,6 +12,7 @@ export default new Router({
       path: '/',
       name: 'Page',
       component: Page,
+      props: route => ({ initialSearch: route.query.q, initialTags: route.query.tags }),
     },
   ],
 });
