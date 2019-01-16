@@ -9,27 +9,13 @@ export default class Tag {
    */
   constructor(name) {
     this.name = name;
-    this.value = 1;
+    this.resultsCount = 1;
   }
 
   /**
-   * Increase weight of tag.
+   * Increase number of results, matching to tag
    */
-  increaseValue() {
-    this.value += 1;
-  }
-
-  /**
-   * Gets tag name.
-   */
-  getName() {
-    return this.name;
-  }
-
-  /**
-   * Gets tag weight.
-   */
-  getValue() {
-    return this.value;
+  increaseCount() {
+    this.resultsCount += 1;
   }
 }

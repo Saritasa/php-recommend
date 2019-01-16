@@ -2,13 +2,17 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import Vuex from 'vuex';
 import App from './App';
 import router from './router';
+import store from './store';
 
+Vue.use(Vuex);
 Vue.use(Vuetify);
 Vue.config.productionTip = false;
 
 new Vue({
   render: createElement => createElement(App),
+  store,
   router,
 }).$mount('#app');

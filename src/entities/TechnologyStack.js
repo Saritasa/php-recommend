@@ -17,42 +17,6 @@ export default class TechnologyStack {
   }
 
   /**
-   * Returns name.
-   *
-   * @return {string}
-   */
-  getName() {
-    return this.name;
-  }
-
-  /**
-   * Gets packages.
-   *
-   * @return { Resource[] }
-   */
-  getPackages() {
-    return this.packages;
-  }
-
-  /**
-   * Gets packages.
-   *
-   * @return { Resource[] }
-   */
-  getTutorials() {
-    return this.tutorials;
-  }
-
-  /**
-   * Gets packages.
-   *
-   * @return { Resource[] }
-   */
-  getWebsites() {
-    return this.websites;
-  }
-
-  /**
    * Gets packages.
    *
    * @return { Array<Resource> }
@@ -112,8 +76,8 @@ export default class TechnologyStack {
    * @return {boolean}
    */
   hasAnyItem() {
-    return this.getWebsites().length > 0
-      || this.getPackages().length > 0
-      || this.getTutorials().length > 0;
+    return this.websites.length > 0
+      || this.packages.length > 0
+      || this.tutorials.length > 0;
   }
 }

@@ -52,39 +52,36 @@ export default class TagsService {
    * Add tag to filter results.
    *
    * @param {Tag} tag
-   *
-   * @return TagsService
    */
   addTag(tag) {
-    this.selectedTags.set(tag.getName().toLowerCase(), tag);
-
-    return this;
+    this.selectedTags.set(tag.name.toLowerCase(), tag);
   }
 
   /**
    * Remove added tag.
    *
    * @param {string} tagName - Tag to remove
-   *
-   * @return TagsService
    */
   removeTag(tagName) {
     this.selectedTags.delete(tagName.toLowerCase());
-
-    return this;
   }
 
   /**
    * Set key word.
    *
    * @param {string|null} keyword - Key word to filter data.
-   *
-   * @return {TagsService}
    */
   setKeyWord(keyword) {
     this.keyword = keyword ? keyword.toLowerCase() : null;
+  }
 
-    return this;
+  /**
+   * Set new content of recommendations for technology stacks
+   *
+   * @param {Array<TechnologyStack>} technologyStacks - Technology stacks to find matches
+   */
+  setTechnologyStacks(technologyStacks) {
+    this.originalTechnologyStacks = technologyStacks;
   }
 
   /**
@@ -96,7 +93,7 @@ export default class TagsService {
     this.matchedCount = 0;
 
     this.originalTechnologyStacks.forEach(technologyStack => {
-      const matchedStack = new TechnologyStack(technologyStack.getName());
+      const matchedStack = new TechnologyStack(technologyStack.name);
 
       _.forEach(resourceTypes, type => {
         technologyStack.getResources(type).forEach(packageItem => {
@@ -104,27 +101,27 @@ export default class TagsService {
 
           if (this.selectedTags.size) {
             this.selectedTags.forEach(tag => {
-              matchedFound = matchedFound && (packageItem.getTags()
+              matchedFound = matchedFound && (packageItem.tags
                 .map(tagName => tagName.toLowerCase())
-                .indexOf(tag.getName().toLowerCase()) !== -1);
+                .indexOf(tag.name.toLowerCase()) !== -1);
             });
           }
 
           if (this.keyword) {
             matchedFound = matchedFound && (
-              (packageItem.getName() ? this.isContainsKeyword(packageItem.getName()) : false)
-              || (packageItem.getUrl() ? this.isContainsKeyword(packageItem.getUrl()) : false)
-              || (packageItem.getDesc() ? this.isContainsKeyword(packageItem.getDesc()) : false)
+              (packageItem.name ? this.isContainsKeyword(packageItem.name) : false)
+              || (packageItem.url ? this.isContainsKeyword(packageItem.url) : false)
+              || (packageItem.desc ? this.isContainsKeyword(packageItem.desc) : false)
             );
           }
 
           if (matchedFound) {
-            packageItem.getTags().forEach(tag => {
+            packageItem.tags.forEach(tag => {
               const localTag = tag.toLocaleLowerCase();
 
               if (!this.selectedTags.has(localTag)) {
                 if (this.tags.has(localTag)) {
-                  this.tags.get(localTag).increaseValue();
+                  this.tags.get(localTag).increaseCount();
                 } else {
                   this.tags.set(localTag, new Tag(tag));
                 }

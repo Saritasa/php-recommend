@@ -1,16 +1,17 @@
 <template>
-  <div class="resources-list" v-if="items.length">
+  <div v-if="items.length">
+    <h3>{{ title }}</h3>
     <div v-for="(resources, language) in itemsGroupedByLanguage"
          :key="language"
     >
-    <h4>
-      <i>{{ language }}</i>
-    </h4>
-    <resource
-      v-for="(resource, key) in resources"
-      :key="key"
-      :item="resource"
-    />
+    <v-subheader v-if="language">{{ language }}</v-subheader>
+    <ul class="resources-list">
+      <resource
+        v-for="(resource, key) in resources"
+        :key="key"
+        :item="resource"
+      />
+    </ul>
     </div>
   </div>
 </template>
@@ -41,8 +42,10 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
   .resources-list {
-    padding: 5pt;
+    padding-top: 5pt;
+    padding-bottom: 10pt;
+    font-size: larger;
   }
 </style>

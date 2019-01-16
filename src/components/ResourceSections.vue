@@ -28,7 +28,6 @@ export default {
 <style>
   .resource-section {
     padding: 10pt;
-    margin: 20px;
-    width: 800px;
+    margin: 20pt;
   }
 </style>

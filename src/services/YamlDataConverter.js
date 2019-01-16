@@ -1,8 +1,9 @@
 import Yaml from 'yamljs';
 import _ from 'lodash';
 import TechnologyStack from '../entities/TechnologyStack';
-import Resource from '../entities/Resource';
 import ResourceTypes from '../enums/resourceTypes';
+import Resource from '../entities/Resource';
+import Package from '../entities/Package';
 import Website from '../entities/Website';
 
 /**
@@ -43,7 +44,7 @@ export default class YamlDataConverter {
               item = new Website(name, resource);
               break;
             case ResourceTypes.PACKAGE:
-              item = new Resource(name, resource);
+              item = new Package(name, resource);
               break;
             case ResourceTypes.TUTORIAL:
               item = new Resource(name, resource);
