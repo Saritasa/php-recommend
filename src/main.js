@@ -6,8 +6,9 @@ import App from './App';
 import router from './router';
 
 Vue.use(Vuetify);
+Vue.config.productionTip = false;
 
 new Vue({
+  render: createElement => createElement(App),
   router,
-  render: h => h(App),
 }).$mount('#app');

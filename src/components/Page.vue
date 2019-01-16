@@ -7,7 +7,7 @@
       <tag-cloud ref="cloud" @wordClick="onWordClick"/>
     </v-layout>
     <v-layout row align-center>
-      <v-flex shrink xs4>
+      <v-flex shrink xs3>
         <v-text-field v-model="keyword" clearable clear-icon="clear" type="text"
                       label="Search text or tag" >
           <v-icon slot="prepend" large>search</v-icon>
