@@ -1,54 +1,44 @@
 <template>
-  <div class="page">
-    <div class="section title">
+  <v-container fluid>
+    <v-layout align-center justify-center>
       <h1>Recommended stuff for PHP team</h1>
-    </div>
-
-    <div class="section tag-cloud">
-      <tag-cloud ref="cloud"
-                 @wordClick="onWordClick"
-      />
-    </div>
-
-    <div class="section search-box">
-      <search-box v-model="keyword"
-                  @clearSearch="onClearSearch"
-      />
-      <div class="section breadcrumb">
-        <span v-for="(selectedTag, index) in selectedTags"
-              :key="index"
-              class="selected-tag"
+    </v-layout>
+    <v-layout>
+      <tag-cloud ref="cloud" @wordClick="onWordClick"/>
+    </v-layout>
+    <v-layout row align-center>
+      <v-flex shrink xs4>
+        <v-text-field v-model="keyword" clearable clear-icon="clear" type="text"
+                      label="Search text or tag" >
+          <v-icon slot="prepend" large>search</v-icon>
+        </v-text-field>
+      </v-flex>
+      <v-flex grow>
+        <v-chip v-for="(selectedTag, index) in selectedTags" close
+                :key="index"
+                @input="() => removeTag(index)"
         >
           {{ selectedTag }}
-          <span class="icon"
-                @click="removeTag(index)"
-          >
-            <v-icon small>close</v-icon>
-          </span>
-        </span>
-      </div>
-    </div>
-
-    <div class="result-count">
-      <span>{{ resultsCount }} results found.</span>
-    </div>
-    <div v-if="resources.length"
-         class="section resource"
-    >
-      <resource-sections
-        v-for="(stack, index) in resources"
-        :key="index"
-        :item="stack"
-      />
-    </div>
-    <div v-else>
-      No matched results found
-    </div>
-
-    <div class="section footer">
-      <quick-link/>
-    </div>
-  </div>
+        </v-chip>
+      </v-flex>
+    </v-layout>
+    <v-layout>
+      <v-flex v-if="resultsCount">{{ resultsCount }} results found.</v-flex>
+      <v-flex v-else>
+        <v-card class="elevation-20" color="#FFCC80">
+          <v-card-text>No matching results</v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    <v-layout :row="false" wrap>
+      <v-flex>
+        <resource-sections :tech-stack="stack" v-for="(stack, index) in resources" :key="index" />
+      </v-flex>
+    </v-layout>
+    <v-layout>
+      <quick-link class="section footer"/>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -56,15 +46,14 @@ import Utils from 'yamljs/lib/Utils';
 import YamlDataConverter from '../services/YamlDataConverter';
 import TagsService from '../services/TagsService';
 import TagCloud from './tag-cloud/TagCloud';
-import SearchBox from './search/SearchBox';
 import ResourceSections from './ResourceSections';
 import QuickLink from './footer/QuickLink';
 import Tag from '../entities/Tag';
+import 'vuetify/dist/vuetify.min.css';
 
 export default {
   components: {
     TagCloud,
-    SearchBox,
     ResourceSections,
     QuickLink,
   },
@@ -81,6 +70,9 @@ export default {
     },
     resultsCount() {
       return this.tagService.getMatchedCount();
+    },
+    tags() {
+      return this.tagService.getTags();
     },
   },
   watch: {
@@ -144,100 +136,9 @@ export default {
 </script>
 
 <style lang="scss">
-  .section.title {
-    text-align: center;
-  }
-  .section.search-box {
-    margin-bottom: 10px;
-    position: relative;
-    z-index: 1;
-  }
-  .section.breadcrumb {
-    padding: 0 10px 0 0;
-    display: inline-block;
-    .selected-tag {
-      position: relative;
-      margin-right: 12px;
-      padding: 4px 20px 4px 10px;
-      white-space: nowrap;
-      background-color: #27a927;
-      color: #fff;
-      line-height: 22px;
-      height: 22px;
-      display: inline-block;
-      &:before {
-        content:"";
-        position: absolute;
-        top: 0;
-        left: 100%;
-        width: 0;
-        height: 0;
-        border-top: 15px solid transparent;
-        border-bottom: 15px solid transparent;
-        border-left: 10px solid #27a927;
-      }
-      .icon {
-        position: absolute;
-        top: 3px;
-        right: -5px;
-        color: #000;
-        line-height: 30px;
-        cursor: pointer;
-      }
-    }
-  }
-  .section.resource {
-    .resource-wrapper {
-      padding: 10px;
-      margin-bottom: 5px;
-      &:nth-child(odd) {
-        background-color: #e6e3e3;
-      }
-      &:nth-child(even) {
-        background-color: #eaeaea;
-      }
-    }
-    .resources-list {
-      padding-bottom: 15px;
-    }
-    h1, h2, h3, h4 {
-      margin: 2px 0;
-    }
-    h1 {
-      padding-left: 2px;
-    }
-    h2 {
-      padding-left: 12px;
-    }
-    h3 {
-      padding-left: 22px;
-    }
-    h4 {
-      padding-left: 32px;
-    }
-    li {
-      padding-left: 42px;
-      line-height: 28px;
-      a {
-        text-decoration: none;
-      }
-      i {
-        font-size: 20px !important;
-      }
-    }
-    .highlighted-word {
-      color: #d87b25;
-      font-weight: bold;
-    }
-  }
-  .result-count {
-    background-color: #efeded;
-    padding: 10px;
-    font-weight: bold;
-  }
   .section.footer {
     border-top: 1px solid #cacaca;
-    border-bottom: 1px solid #cacaca;
     margin-top: 20px;
+    width: 100%;
   }
 </style>

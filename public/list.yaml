@@ -1,0 +1,299 @@
+PHP:
+  packages:
+    dingo/api:
+      description: Smarter way to build APIs
+      explain: Allows to build RESTful API in a more comfortable way, than [Laravel API Resources](https://laravel.com/docs/5.6/eloquent-resources)
+      url: https://github.com/dingo/api
+      tags: ['API', 'Laravel']
+    saritasa/common:
+      description: Framework-agnostic helpers and utilities
+      url: https://github.com/Saritasa/php-common
+      tags: ['Helper', 'Utility', 'Saritasa']
+    saritasa/laravel-tools:
+      description: Scaffolding (Code generation) tools
+      explain: More versatile way to generate models, than built-in Laravel command. Also allows to generate transformers, reporitories, etc.
+      url: https://github.com/Saritasa/php-laravel-tools
+      tags: ['Laravel', 'Scaffolding', 'Code generation', 'Saritasa']
+    saritasa/laravel-repositories:
+      description: Repository pattern on top of Eloquent
+      url: https://github.com/Saritasa/php-laravel-repositories
+      tags: ['Laravel', 'Eloquent', 'Patterns', 'Saritasa']
+    saritasa/laravel-controllers:
+      description: Reusable UI and API endpoints in Laravel
+      url: https://github.com/Saritasa/php-laravel-controllers
+      tags: ['Laravel', 'Saritasa']
+    saritasa/laravel-chat-api:
+      description: Chat API implementation on top of Laravel
+      url: https://github.com/Saritasa/php-laravel-chat-api
+      tags: ['Laravel', 'API', 'Chat', 'Saritasa']
+    saritasa/laravel-entity-services:
+      description: Generic CRUD operations, override what you need
+      url: https://github.com/Saritasa/php-laravel-entity-services
+      tags: ['Laravel', 'Saritasa']
+    saritasa/blade-directives:
+      description: Additional Blade Directives
+      url: https://github.com/Saritasa/php-blade-directives
+      tags: ['Laravel', 'Blade', 'Saritasa']
+    saritasa/eloquent-custom:
+      description: Power-ups for Eloquent
+      url: https://github.com/Saritasa/php-eloquent-custom
+      tags: ['Laravel', 'Eloquent', 'Saritasa']
+    saritasa/dingo-api-custom:
+      description: helper to use Dingo/API library
+      url: https://github.com/Saritasa/php-dingo-api-custom
+      tags: ['Laravel', 'API', 'Saritasa']
+    PHP_CodeSniffer:
+      description: Linter for PHP code - check, if code style matches desired rules
+      url: https://github.com/squizlabs/PHP_CodeSniffer
+      tags: ['Linter', 'Code Style']
+    barryvdh/laravel-cors:
+      description: Adds CORS headers support in your Laravel application
+      url: https://github.com/barryvdh/laravel-cors
+      tags: ['Laravel', 'CORS']
+    barryvdh/laravel-debugbar:
+      description: Laravel Debugbar (Integrates PHP Debug Bar)
+      url: https://github.com/barryvdh/laravel-debugbar
+      tags: ['Laravel', 'Debugging']
+    jenssegers/mongodb:
+      description: A MongoDB based Eloquent model and Query builder for Laravel (Moloquent)
+      url: https://github.com/jenssegers/laravel-mongodb
+      tags: ['Database', 'Eloquent']
+    robmorgan/phinx:
+      description: Simple PHP Database Migrations
+      explain: For projects, that don't use any framework-provided migrations. Not needed for Laravel/Eloquent or Symfony/Doctrine, as they already have similar functionality.
+      url: https://github.com/cakephp/phinx
+      tags: ['Database', 'Migrations']
+    phpoffice/phpspreadsheet:
+      description: A pure PHP library for reading and writing spreadsheet files
+      url: https://github.com/phpoffice/phpspreadsheet
+      tags: ['Office']
+    spatie/laravel-activitylog:
+      description: Log activity inside your Laravel app (see [docs](https://docs.spatie.be/laravel-activitylog))
+      url: https://github.com/spatie/laravel-activitylog
+      tags: ['Laravel', 'Logging']
+    vinkla/laravel-hashids:
+      description: A Hashids bridge for Laravel (generate short unique ids from integers)
+      url: https://github.com/vinkla/laravel-hashids
+      tags: ['Laravel']
+    rap2hpoutre/laravel-log-viewer:
+      description: Log Viewer for Laravel 5 (compatible with 4.2 too) and Lumen
+      url: https://github.com/rap2hpoutre/laravel-log-viewer
+      tags: ['Laravel', 'Logging']
+    arcanedev/log-viewer:
+      description: Provides a log viewer for Laravel 5
+      url: https://github.com/ARCANEDEV/LogViewer
+      tags: ['Laravel', 'Logging']
+    elasticquent/elasticquent:
+      description: Eloquent + ElasticSearch = Elasticquent
+      url: https://github.com/elasticquent/Elasticquent
+      tags: ['Laravel', 'ElasticSearch']
+
+  websites:
+    phpdoc.org:
+      description: PHP Code documentation
+      url: https://www.phpdoc.org
+      tags: ['Documentation']
+      language: English
+    phpprofi.ru:
+      description: Lots of useful articles. Mostly translations from English
+      language: Russian
+
+  tutorials:
+    'Lets build a forum with Laravel & TDD 🎞':
+      url: https://laracasts.com/series/lets-build-a-forum-with-laravel
+      language: English
+      tags: ['Laravel', 'TDD']
+    'ElasticSearch PHP SDK':
+      url: https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/index.html
+      language: English
+      tags: ['ElasticSearch']
+
+Frontend:
+  packages:
+    VueJS:
+      description: Easy to learn JS framework for SPA applications. Plays well with Laravel.
+      url: https://vuejs.org
+      tags: ['VueJS']
+    Vuetify:
+      description: Material design components for VueJS
+      url: 'https://vuetifyjs.com'
+      tags: ['VueJS', 'Material Design', 'Components']
+    VueWorldCloud:
+      description: 'Display interactive tags cloud ([demo](https://seregpie.github.io/VueWordCloud/))'
+      url: https://github.com/SeregPie/VueWordCloud
+      tags: ['VueJS', 'Components']
+    element-ui:
+      description: Vue.js 2.0 UI Toolkit for Web
+      url: https://element.eleme.io
+      tags: ['VueJS', 'Components']
+    'Bootstrap Vue':
+      description: Bootstrap 4 components for VueJS
+      url: https://bootstrap-vue.js.org
+      tags: ['VueJS', 'Components', 'Bootstrap']
+    'uiv':
+      description: Bootstrap 3 components implemented by Vue 2
+      url: https://uiv.wxsm.space
+      tags: ['VueJS', 'Components', 'Bootstrap']
+    'Vue Native':
+      description: Build cross-platform native mobile aplications with JavaScript
+      url: https://vue-native.io
+      tags: ['VueJS', 'Mobile', 'Cross-Platform']
+    'Vue ReactiveSearch':
+      description: 'Vue components to build search UI - pull data from ElasticSearch without custom backend ([demo](https://reactivesearch-vue-playground.netlify.com))'
+      url: https://opensource.appbase.io/reactivesearch/vue
+      tags: ['VueJS', 'Components', 'ElasticSearch']
+    'Searchkit':
+      description: 'React components to build UI for ElasticSearch backend ([demo](http://demo.searchkit.co))'
+      url: http://www.searchkit.co
+      tags: ['React', 'Components', 'ElasticSearch']
+  tutorials:
+    'Learn Vue2 Step-by-Step 🎞':
+      url: https://laracasts.com/series/learn-vue-2-step-by-step
+      language: English
+    'Объясняем современный JavaScript динозавру':
+      url: https://habr.com/company/mailru/blog/340922/
+      tags: ['Basics']
+      language: Russian
+    'Simple Rules for Designing Web & Mobile Forms':
+      url: https://subtract.design/entry/forms/
+      language: English
+      tags: ['Design', 'Usability']
+    'UX And HTML5: Let’s Help Users Fill In Your Mobile Form (Part 1)':
+      url: https://www.smashingmagazine.com/2018/08/ux-html5-mobile-form-part-1/
+      language: English
+      tags: ['Usability', 'HTML5', 'Basics']
+    'UX And HTML5: Let’s Help Users Fill In Your Mobile Form (Part 2)':
+      url: https://www.smashingmagazine.com/2018/08/ux-html5-mobile-form-part-2/
+      language: English
+      tags: ['Usability', 'HTML5', 'Basics']
+    'Несколько полезностей по работе с NPM':
+      url: https://habr.com/post/206678/
+      language: Russian
+      tags: ['NPM', 'Basics']
+    'Working with package.json':
+      url: https://docs.npmjs.com/getting-started/using-a-package.json
+      language: English
+      tags: ['NPM']
+    'HTML Responsive images':
+      url: https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
+      language: English
+      tags: ['HTML5']
+    'Cross-Origin Resource Sharing (CORS)':
+      url: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+      language: English
+      tags: ['HTTP', 'CORS']
+    'Equality comparisons and sameness':
+      url: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness
+      language: English
+      tags: ['Basics']
+    'Руководство по HTML5':
+      url: https://smarly.net/html5
+      language: Russian
+      tags: ['HTML5', 'Basics']
+    '33 Concepts Every JS Developer Should Know':
+      url: https://github.com/leonardomso/33-js-concepts
+      language: English
+    'Integrating React and Vue Components in One Application':
+      url: https://x-team.com/blog/react-vue-component-integration/
+      language: English
+      tags: ['React', 'VueJS', 'Components']
+  websites:
+    usejsdoc.org:
+      description: 'JavaScript code documentation'
+      tags: ['Documentation']
+      language: English
+    es6-features.org:
+      description: New features in EcmaScript6 (aka ES2015) - newer JavaScript standard
+      language: English
+      tags: ['Basics']
+SQL:
+  tutorials:
+    '14 вопросов об индексах в SQL Server':
+      url: https://habr.com/post/247373/
+      language: Russian
+      tags: ['SQL', 'Basics']
+
+Shared:
+  tutorials:
+    'GitFlow - A successful Git branching model':
+      url: https://nvie.com/posts/a-successful-git-branching-model/
+      language: English
+      tags: ['Git', 'GitFlow']
+    'Accessibility Cheatsheet':
+      url: https://moritzgiessmann.de/accessibility-cheatsheet/
+      description: Design for better UX
+      explain: Practical approaches to Universal Design for making your website/webapp accessible to everyone
+      language: English
+      tags: ['Design', 'Usability', 'Accessibility']
+    Dependency Injection in .NET:
+      url: https://smarly.net/dependency-injection-in-net
+      description: Best DI book ever
+      explain: Despite code samples are in .NET, can be recommended to developers of any technology stack.
+      language: Russian
+      tags: ['Code Design', 'Patterns']
+    'Pull Requests and Code Review':
+      url: https://medium.com/@pstepchenko/pull-requests-and-code-review-30abde0c98d3
+      language: Russian
+      tags: ['Code Review']
+    'Разделение функций на команды и запросы (CQS)':
+      url: https://bespoyasov.ru/blog/commands-and-queries/
+      language: Russian
+      tags: ['Code Design', 'Patterns']
+    'ElasticSearch - Official Docs':
+      url: https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html
+      language: English
+      tags: ['ElasticSearch']
+    'ElasticSearch - Search in Depth (The Definitive Guide, Official Docs)':
+      url: https://www.elastic.co/guide/en/elasticsearch/guide/current/search-in-depth.html
+      language: English
+      tags: ['ElasticSearch']
+      explain: If you want to understand, how ES works under the hood and how to make it fast
+    'Уроки по ElasticSearch':
+      url: https://codedzen.ru/category/uroki/elasticsearch/
+      language: Russian
+      tags: ['ElasticSearch']
+    'ElasticSearch — mapping и поиск без сюрпризов':
+      url: https://habr.com/company/smartprogress/blog/227531/
+      language: Russian
+      tags: ['ElasticSearch']
+    'ElasticSearch — агрегация данных':
+      url: https://habr.com/company/smartprogress/blog/227131/
+      language: Russian
+      tags: ['ElasticSearch']
+
+
+  websites:
+    sourcemaking.com:
+      description: Code Design patterns, antipatterns
+      tags: ['Code design', 'Patterns']
+      language: English
+    refactoring.guru:
+      description: Code Design patterns, antipatterns
+      tags: ['Code Design', 'Patterns']
+      url: https://refactoring.guru/ru
+      language: Russian
+    restapitutorial.ru:
+      description: RESTful API tutorial
+      tags: ['API', 'REST']
+      url: http://www.restapitutorial.ru
+      language: Russian
+    restapitutorial.com:
+      description: RESTful API tutorial
+      tags: ['API', 'REST']
+      language: English
+    Postman:
+      description: A tool to test API
+      url: https://www.getpostman.com/
+      language: English
+      tags: ['API']
+    semver.org:
+      description: Semantic Versioning
+      explain: When to increase MAJOR.MINOR.PATCH components of your product version
+    regex101.com:
+      description: Online Test tool for regular expressions
+      language: English
+      tags: ['Regular Expressions']
+    hashids.org:
+      description: Convert numbers like 347 into strings like “yr8”, or array of numbers like [27, 986] into “3kTMd”
+      Language: English
+      tags: ['Cross-Platform']

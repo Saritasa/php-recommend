@@ -2,6 +2,8 @@ import Yaml from 'yamljs';
 import _ from 'lodash';
 import TechnologyStack from '../entities/TechnologyStack';
 import Resource from '../entities/Resource';
+import ResourceTypes from '../enums/resourceTypes';
+import Website from '../entities/Website';
 
 /**
  * Service to parse and convert yaml into appropriate collection.
@@ -15,33 +17,8 @@ export default class YamlDataConverter {
    * @return {Array<TechnologyStack>}
    */
   static parse(dataString) {
-    const data = YamlDataConverter.prepareData(Yaml.parse(dataString));
-
+    const data = Yaml.parse(dataString);
     return YamlDataConverter.convertData(data);
-  }
-
-  /**
-   * Add url to websites if it absent.
-   *
-   * @param {Object} data - Data to prepare
-   *
-   * @return {Object}
-   */
-  static prepareData(data) {
-    const localData = data;
-
-    _.forEach(localData, (val, k) => {
-      _.forEach(val.websites, (item, key) => {
-        let url = item.url || key;
-
-        if (!_.startsWith(url, 'http')) {
-          url = `http://${url}`;
-        }
-        localData[k].websites[key].url = url;
-      });
-    });
-
-    return localData;
   }
 
   /**
@@ -57,25 +34,25 @@ export default class YamlDataConverter {
     _.forEach(data, (resourcesGroups, technologyStackName) => {
       const technologyStack = new TechnologyStack(technologyStackName);
 
-      _.forEach(resourcesGroups, (resourceGroup, type) => {
+      _.forEach(resourcesGroups, (resourceGroup, resourceType) => {
         _.forEach(resourceGroup, (resource, name) => {
-          const item = new Resource(name);
+          let item = null;
 
-          item.setDesc(resource.description);
-          item.setUrl(resource.url);
-          if (resource.language) {
-            item.setLanguage(resource.language);
+          switch (resourceType) {
+            case ResourceTypes.WEBSITE:
+              item = new Website(name, resource);
+              break;
+            case ResourceTypes.PACKAGE:
+              item = new Resource(name, resource);
+              break;
+            case ResourceTypes.TUTORIAL:
+              item = new Resource(name, resource);
+              break;
+            default:
+              throw new Error(`Unknown resource type ${resourceType}`);
           }
 
-          if (resource.explain) {
-            item.setExplanation(resource.explain);
-          }
-
-          if (resource.tags) {
-            resource.tags.forEach(tagWord => item.addTag(tagWord));
-          }
-
-          technologyStack.addResource(type, item);
+          technologyStack.addResource(resourceType, item);
         });
       });
       technologyStacks.push(technologyStack);

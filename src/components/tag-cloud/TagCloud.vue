@@ -66,15 +66,16 @@ export default {
 </script>
 
 <style>
-    .tags-cloud-container {
-        width: 100%;
-        height: 500px;
-    }
-    .empty-results {
-        top: 40%;
-        position: relative;
-        left: 40%;
-        font-size: 40px;
-        color: #25bfbf;
-    }
+  .tags-cloud-container {
+    width: 100%;
+    height: 500px;
+    padding-bottom: 50px;
+  }
+  .empty-results {
+    top: 40%;
+    position: relative;
+    left: 40%;
+    font-size: 40px;
+    color: #25bfbf;
+  }
 </style>

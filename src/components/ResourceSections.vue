@@ -1,43 +1,34 @@
 <template>
-  <div class="resource-wrapper">
-    <template v-if="item.getPackages().length">
-      <h2>{{ item.name }}</h2>
-      <h3>
-        Packages
-      </h3>
-      <package-list :packages="item.getPackages()"/>
-    </template>
-    <template v-if="item.getWebsites().length">
-      <h3>
-        Websites
-      </h3>
-      <website-list :items="item.getWebsites()"/>
-    </template>
-    <template v-if="item.getTutorials().length">
-      <h3>
-        Tutorials
-      </h3>
-      <tutorial-list :items="item.getTutorials()"/>
-    </template>
-  </div>
+  <v-card elevation="10" class="resource-section" color="#dfdfdf">
+    <v-card-title primary-title><h1>{{ techStack.name }}</h1></v-card-title>
+    <v-card-text>
+      <resource-list title="Packages" :items="techStack.packages"/>
+      <resource-list title="Websites" :items="techStack.websites"/>
+      <resource-list title="Tutorials" :items="techStack.tutorials"/>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
-import PackageList from './package/PackageList';
-import WebsiteList from './website/WebsiteList';
-import TutorialList from './tutorial/TutorialList';
+import ResourceList from './ResourceList';
 
 export default {
   components: {
-    PackageList,
-    WebsiteList,
-    TutorialList,
+    ResourceList,
   },
   props: {
-    item: {
+    techStack: {
       type: Object,
       required: true,
     },
   },
 };
 </script>
+
+<style>
+  .resource-section {
+    padding: 10pt;
+    margin: 20px;
+    width: 800px;
+  }
+</style>

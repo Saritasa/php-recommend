@@ -2,17 +2,10 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import VTooltip from 'v-tooltip';
 import App from './App';
 import router from './router';
 
-Vue.use(VTooltip);
-
-Vue.config.productionTip = false;
-
-Vue.use(Vuetify, {
-  iconfont: 'mdi', // 'md' || 'mdi' || 'fa' || 'fa4'
-});
+Vue.use(Vuetify);
 
 new Vue({
   router,
