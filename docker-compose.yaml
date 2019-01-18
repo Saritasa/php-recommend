@@ -5,6 +5,7 @@ services:
     image: nginx:alpine
     container_name: php-recommend
     volumes:
-    - ./docs:/usr/share/nginx/html:ro
+    - ./docs:/var/www/html/php-recommend/:ro
+    - ./nginx.conf:/etc/nginx/conf.d/default.conf
     labels:
       SERVICE_NAME: php-recommend
