@@ -3,7 +3,7 @@
     <template v-if="preparedTags.length">
       <vue-word-cloud
         :words="preparedTags"
-        :color="getColor"
+        :color="getRandomColor"
         :animation-overlap="4"
         :animation-duration="1500"
         font-family="Indie Flower"
@@ -28,16 +28,11 @@
 
 <script>
 import VueWordCloud from 'vuewordcloud';
+import { mapState } from 'vuex';
 
 export default {
   components: {
     VueWordCloud,
-  },
-  props: {
-    tags: {
-      type:     Map,
-      required: true,
-    },
   },
   data() {
     return {
@@ -46,55 +41,41 @@ export default {
         '#f97a7a', '#31a50d', '#d1b022', '#74482a', '#ffd077',
         '#3bc4c7', '#3a9eea', '#ff4e69', '#461e47',
       ],
-      preparedTags: [],
     };
   },
-  mounted() {
-    this.reInit();
+  computed: {
+    ...mapState(['filteredTags']),
+    /**
+     * Convert given tags map to format required by `vue word cloud` component.
+     */
+    preparedTags() {
+      const result = [];
+      this.filteredTags.forEach(tag => result.push([tag.name, tag.resultsCount]));
+      return result;
+    },
   },
   methods: {
     /**
      * Returns random color from collection.
      */
-    getColor() {
+    getRandomColor() {
       return this.colors[Math.floor(Math.random() * this.colors.length)];
-    },
-
-    /**
-     * ReInit component.
-     */
-    reInit() {
-      this.preparedTags = this.prepareTags(this.tags);
-    },
-
-    /**
-     * Convert given tags to needed form for `vue word cloud` component.
-     *
-     * @param { Map<string, Tag> } tags - Tags collection
-     *
-     * @return { Array }
-     */
-    prepareTags(tags) {
-      const preparedTags = [];
-
-      tags.forEach(tag => preparedTags.push([ tag.getName(), tag.getValue() ]));
-
-      return preparedTags;
     },
   },
 };
 </script>
 
 <style>
-    .tags-cloud-container {
-        width: 100%;
-        height: 500px;
-    }
-    .empty-results {
-        top: 40%;
-        position: relative;
-        left: 40%;
-        font-size: 40px;
-        color: #25bfbf;
-    }
+  .tags-cloud-container {
+    width: 100%;
+    height: 500px;
+    padding-bottom: 50px;
+  }
+  .empty-results {
+    top: 40%;
+    position: relative;
+    left: 40%;
+    font-size: 40px;
+    color: #25bfbf;
+  }
 </style>

@@ -1,7 +1,10 @@
 import Yaml from 'yamljs';
 import _ from 'lodash';
 import TechnologyStack from '../entities/TechnologyStack';
+import ResourceTypes from '../enums/resourceTypes';
 import Resource from '../entities/Resource';
+import Package from '../entities/Package';
+import Website from '../entities/Website';
 
 /**
  * Service to parse and convert yaml into appropriate collection.
@@ -10,77 +13,53 @@ export default class YamlDataConverter {
   /**
    * Parse and convert yaml into appropriate collection.
    *
-   * @param {string} filePath - Path to yaml file
+   * @param {string} dataString - Content of list.yaml file
    *
    * @return {Array<TechnologyStack>}
    */
-  parse(filePath) {
-    const data = this.prepareData(Yaml.load(filePath));
-
-    return this.convertData(data);
-  }
-
-  /**
-   * Add url to websites if it absent.
-   *
-   * @param {Object} data - Data to prepare
-   *
-   * @return {Object}
-   */
-  prepareData(data) {
-    const localData = data;
-
-    _.forEach(localData, (val, k) => {
-      _.forEach(val.websites, (item, key) => {
-        let url = item.url || key;
-
-        if (!_.startsWith(url, 'http')) {
-          url = `http://${url}`;
-        }
-        localData[k].websites[key].url = url;
-      });
-    });
-
-    return localData;
+  static parse(dataString) {
+    const data = Yaml.parse(dataString);
+    return _.map(data, YamlDataConverter.parseTechnologyStack);
   }
 
   /**
    * Convert yaml parsed object into technology stacks collection.
    *
-   * @param {Object} data - Data to convert
+   * @param {Object} resourceGroups - Data to convert
+   * @param {string} stackName - Technology stack name
    *
-   * @return {Array<TechnologyStack>}
+   * @return TechnologyStack
    */
-  convertData(data) {
-    const technologyStacks = [];
-
-    _.forEach(data, (resourcesGroups, technologyStackName) => {
-      const technologyStack = new TechnologyStack(technologyStackName);
-
-      _.forEach(resourcesGroups, (resourceGroup, type) => {
-        _.forEach(resourceGroup, (resource, name) => {
-          const item = new Resource(name);
-
-          item.setDesc(resource.description);
-          item.setUrl(resource.url);
-          if (resource.language) {
-            item.setLanguage(resource.language);
-          }
-
-          if (resource.explain) {
-            item.setExplanation(resource.explain);
-          }
-
-          if (resource.tags) {
-            resource.tags.forEach(tagWord => item.addTag(tagWord));
-          }
-
-          technologyStack.addResource(type, item);
-        });
-      });
-      technologyStacks.push(technologyStack);
+  static parseTechnologyStack(resourceGroups, stackName) {
+    const technologyStack = new TechnologyStack(stackName);
+    _.forEach(resourceGroups, (resourceGroup, resourceType) => {
+      _.chain(resourceGroup)
+        .map((data, name) => YamlDataConverter.parseResource(data, name, resourceType))
+        .forEach(resource => technologyStack.addResource(resourceType, resource))
+        .value();
     });
+    return technologyStack;
+  }
 
-    return technologyStacks;
+  /**
+   * Convert yaml parsed object into resource object of appropriate class.
+   *
+   * @param {Object} data - Data to convert
+   * @param {string} resourceName - Name of website, article, package, etc.
+   * @param {string} resourceType - one of known resource types: Package, WebSite, Tutorial
+   *
+   * @return Resource
+   */
+  static parseResource(data, resourceName, resourceType) {
+    switch (resourceType) {
+      case ResourceTypes.WEBSITE:
+        return new Website(resourceName, data);
+      case ResourceTypes.PACKAGE:
+        return new Package(resourceName, data);
+      case ResourceTypes.TUTORIAL:
+        return new Resource(resourceName, data);
+      default:
+        throw new Error(`Unknown resource type ${resourceType}`);
+    }
   }
 }
