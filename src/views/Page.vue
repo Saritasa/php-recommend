@@ -45,12 +45,12 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
-import Utils from 'yamljs/lib/Utils';
+import axios from 'axios';
 import YamlDataConverter from '../services/YamlDataConverter';
-import TagCloud from './TagCloud';
-import SearchBox from './SearchBox';
-import ResourceSections from './ResourceSections';
-import QuickLink from './QuickLink';
+import TagCloud from '../components/TagCloud';
+import SearchBox from '../components/SearchBox';
+import ResourceSections from '../components/ResourceSections';
+import QuickLink from '../components/QuickLink';
 import 'vuetify/dist/vuetify.min.css';
 
 export default {
@@ -68,8 +68,8 @@ export default {
     ...mapState(['selectedTags', 'matchedCount', 'filteredResults']),
   },
   mounted() {
-    Utils.getStringFromFile(`${process.env.BASE_URL}list.yaml`, content => {
-      const techStacks = YamlDataConverter.parse(content);
+    axios.get(`${process.env.BASE_URL}list.yaml`).then(content => {
+      const techStacks = YamlDataConverter.parse(content.data);
       this.setTechStacks(techStacks);
       this.setSearchText(this.initialSearch);
       if (this.initialTags) {
