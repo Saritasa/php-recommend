@@ -13,7 +13,7 @@ module.exports = {
       vue: 'never',
     }],
     'no-tabs': 0,
-    'arrow-parens': ['error', 'as-needed']
+    'arrow-parens': ['error', 'as-needed'],
   },
   parserOptions: {
     parser: 'babel-eslint',
