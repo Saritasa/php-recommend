@@ -149,6 +149,7 @@ Frontend:
   tutorials:
     'Learn Vue2 Step-by-Step 🎞':
       url: https://laracasts.com/series/learn-vue-2-step-by-step
+      tags: ['VueJS']
       language: English
     'Объясняем современный JavaScript динозавру':
       url: https://habr.com/company/mailru/blog/340922/
