@@ -110,7 +110,7 @@ PHP:
     'Discovering ElasticSearch at Laracon EU 2014 🎞':
       url: https://youtu.be/waTWeJeFp4A
       language: English
-      tags: ['ElasticSearch']
+      tags: ['ElasticSearch', 'Laravel']
 
 Frontend:
   packages:
