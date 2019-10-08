@@ -107,6 +107,10 @@ PHP:
       url: https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/index.html
       language: English
       tags: ['ElasticSearch']
+    'Discovering ElasticSearch at Laracon EU 2014 🎞':
+      url: https://youtu.be/waTWeJeFp4A
+      language: English
+      tags: ['ElasticSearch']
 
 Frontend:
   packages:
