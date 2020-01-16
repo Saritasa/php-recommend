@@ -150,6 +150,14 @@ Frontend:
       description: 'React components to build UI for ElasticSearch backend ([demo](http://demo.searchkit.co))'
       url: http://www.searchkit.co
       tags: ['React', 'Components', 'ElasticSearch']
+    'CASL Ability':
+      description: 'CASL is an isomorphic authorization JavaScript library which restricts what resources a given user is allowed to access'
+      url: https://github.com/stalniy/casl
+      tags: ['VueJS', 'React', 'ACL']
+    'Vue ACL':
+      description: 'Will help you to control the permission of access in your app for yours components and routes'
+      url: https://github.com/leonardovilarinho/vue-acl
+      tags: ['VueJS', 'ACL']
   tutorials:
     'Learn Vue2 Step-by-Step 🎞':
       url: https://laracasts.com/series/learn-vue-2-step-by-step
