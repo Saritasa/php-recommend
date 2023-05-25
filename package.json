@@ -8,21 +8,21 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^0.21.2",
-    "core-js": "^3.8.2",
+    "axios": "^0.21.4",
+    "core-js": "^3.30.2",
     "lodash": "^4.17.21",
-    "marked": "^4.0.10",
-    "v-tooltip": "^2.1.2",
-    "vue": "^2.6.12",
-    "vue-router": "^3.4.9",
+    "marked": "^4.3.0",
+    "v-tooltip": "^2.1.3",
+    "vue": "^2.7.14",
+    "vue-router": "^3.6.5",
     "vuetify": "^1.5.24",
     "vuewordcloud": "^18.7.12",
-    "vuex": "^3.6.0",
+    "vuex": "^3.6.2",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.9",
-    "@vue/cli-plugin-eslint": "^4.5.9",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
     "@vue/eslint-config-airbnb": "^4.0.1",
     "acron": "^1.0.5",
@@ -30,9 +30,9 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.3",
     "lint-staged": "^7.2.2",
-    "node-sass": "^7.0.0",
-    "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.12"
+    "node-sass": "^7.0.3",
+    "sass-loader": "^13.3.0",
+    "vue-template-compiler": "^2.7.14"
   },
   "eslintConfig": {
     "root": true,
